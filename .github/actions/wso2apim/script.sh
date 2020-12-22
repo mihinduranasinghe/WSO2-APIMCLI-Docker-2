@@ -40,7 +40,7 @@ echo "::end-group"
 echo "::group::Init API iproject with given API definition"
 # apictl import-api -f $API_DIR -e $DEV_ENV -k --preserve-provider --update --verbose
 # apimcli init SampleStore --oas petstore.json --definition api_template.yaml
-apimcli init $5 --oas $6 --definition $7
+apimcli init $3 --oas $4 --definition $5
 echo "::end-group"
 
 echo "::group::Push API project into the GIT repo from VM"
@@ -65,7 +65,7 @@ apimcli list apis -e wso2apicloud -k
 echo "::end-group"
 
 echo "::group::Testing With Postman Collection"
-newman run $9 --insecure
+newman run $7 --insecure
 echo "::end-group"
 
 echo "::group::Export API from Dev Tenant"
