@@ -1,0 +1,17 @@
+id:
+  providerName: admin
+  version: 1.0.0
+  apiName: SampleStore
+context:
+description: This is a sample server online store
+type: HTTP
+availableTiers:
+  - name: Unlimited
+  - name: Bronze
+status: published
+visibility: public
+transports: http,https
+# productionUrl: http://localhost:8080
+# sandboxUrl: http://localhost:8081
+productionUrl: https://api.cloud.wso2.com/
+sandboxUrl: https://api.cloud.wso2.com/
