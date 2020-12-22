@@ -3,13 +3,11 @@
 
     # $1 - usernameTargettedTenant
     # $2 - passwordTargettedTenant
-    ## $3 - usernameProdTenant
-    ## $4 - passwordProdTenant
-    # $5 - APIProjectName
-    # $6 - OASJsonFilePath
-    # $7 - APIDefinitionFilePath
-    # $8 - APIVersion
-    # $9 - PostmanCollectionTestFile
+    # $3 - APIProjectName
+    # $4 - OASJsonFilePath
+    # $5 - APIDefinitionFilePath
+    # $6 - APIVersion
+    # $7 - PostmanCollectionTestFile
 
 echo "::group::WSO2 APIMCLI Version"
     apimcli version
@@ -58,7 +56,7 @@ apimcli import-api -f $5 -e wso2apicloud --preserve-provider=false --update --ve
 # apimcli logout wso2apicloud 
 echo "::end-group"
 
-echo "::group::List APIS in a Dev Tenant"
+echo "::group::List APIS in targetted Tenant"
 # apimcli list apis -e <environment> -k
 # apimcli list apis --environment <environment> --insec# echo "::set-env name=HELLO::hello"ure
 apimcli list apis -e wso2apicloud -k
@@ -68,13 +66,30 @@ echo "::group::Testing With Postman Collection"
 newman run $7 --insecure
 echo "::end-group"
 
-echo "::group::Export API from Dev Tenant"
+echo "::group::Export API from current Tenant"
 # apimcli export-api -n <API-name> -v <version> -r <provider> -e <environment> -u <username> -p <password> -k
 # apimcli export-api --name <API-name> --version <version> --provider <provider> --environment <environment> --username <username> --password <password> --insecure
 # apimcli export-api -n TeamMasterAPI -v v1.0.0 -r mihindu@wso2.com@development -e wso2apicloud -k
 # apimcli export-api -n $5 -v $8 -r $1 -e wso2apicloud -k
 echo "::end-group"
 apimcli logout wso2apicloud 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 # apimcli login wso2apicloud -u $3 -p $4 -k
