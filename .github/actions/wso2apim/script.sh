@@ -1,6 +1,5 @@
 #!/bin/sh -l
 
-
     # $1 - usernameTargettedTenant
     # $2 - passwordTargettedTenant
     # $3 - APIProjectName
@@ -66,12 +65,12 @@ echo "::group::Testing With Postman Collection"
 newman run $7 --insecure
 echo "::end-group"
 
-echo "::group::Export API from current Tenant"
-# apimcli export-api -n <API-name> -v <version> -r <provider> -e <environment> -u <username> -p <password> -k
-# apimcli export-api --name <API-name> --version <version> --provider <provider> --environment <environment> --username <username> --password <password> --insecure
-# apimcli export-api -n TeamMasterAPI -v v1.0.0 -r mihindu@wso2.com@development -e wso2apicloud -k
-# apimcli export-api -n $5 -v $8 -r $1 -e wso2apicloud -k
-echo "::end-group"
+# echo "::group::Export API from current Tenant"
+# # apimcli export-api -n <API-name> -v <version> -r <provider> -e <environment> -u <username> -p <password> -k
+# # apimcli export-api --name <API-name> --version <version> --provider <provider> --environment <environment> --username <username> --password <password> --insecure
+# # apimcli export-api -n TeamMasterAPI -v v1.0.0 -r mihindu@wso2.com@development -e wso2apicloud -k
+# # apimcli export-api -n $5 -v $8 -r $1 -e wso2apicloud -k
+# echo "::end-group"
 apimcli logout wso2apicloud 
 
 
