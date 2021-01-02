@@ -29,7 +29,7 @@ inputs:
 
   PostmanCollectionTestFile:
     description: "API Version"
-    required: true
+    required: false
 
 runs:
   using: "docker"
