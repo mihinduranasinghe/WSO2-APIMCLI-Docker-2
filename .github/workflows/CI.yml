@@ -63,23 +63,23 @@ jobs:
       #     # PostmanCollectionTestFile: "./SampleStore/2.0.0/Meta-information/sample_store.postman_collection.json"
 
       #------------------------------------------------------------------------------------------------------------------------------
-      # - name: WSO2 APIMCloud CICD v1 - petstore
-      #   if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-      #   uses: mihinduranasinghe/WSO2-APIManager-Cloud-CICD-Beta@v1.0.0
-      #   with:
-      #     usernameTargettedTenant: "mihindu@wso2.com@development"
-      #     passwordTargettedTenant: ${{secrets.PASSWORD}}
-      #     APIProjectName: "SampleStore"
-      #     APIVersion: "1.0.0"
+      - name: WSO2 APIMCloud CICD v1 - petstore
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        uses: mihinduranasinghe/WSO2-APIManager-Cloud-CICD-Beta@v1.0.0
+        with:
+          usernameTargettedTenant: "mihindu@wso2.com@development"
+          passwordTargettedTenant: ${{secrets.PASSWORD}}
+          APIProjectName: "SampleStore"
+          APIVersion: "1.0.0"
 
-      # - name: WSO2 APIMCloud CICD v2 - petstore
-      #   if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-      #   uses: mihinduranasinghe/WSO2-APIManager-Cloud-CICD-Beta@v1.0.0
-      #   with:
-      #     usernameTargettedTenant: "mihindu@wso2.com@development"
-      #     passwordTargettedTenant: ${{secrets.PASSWORD}}
-      #     APIProjectName: "SampleStore"
-      #     APIVersion: "2.0.0"
+      - name: WSO2 APIMCloud CICD v2 - petstore
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        uses: mihinduranasinghe/WSO2-APIManager-Cloud-CICD-Beta@v1.0.0
+        with:
+          usernameTargettedTenant: "mihindu@wso2.com@development"
+          passwordTargettedTenant: ${{secrets.PASSWORD}}
+          APIProjectName: "SampleStore"
+          APIVersion: "2.0.0"
 
       # - name: APIM Cloud CICD
       #   uses: mihinduranasinghe/WSO2-APIManager-Cloud-CICD@v1.1.0
