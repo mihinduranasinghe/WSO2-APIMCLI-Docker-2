@@ -18,23 +18,23 @@ jobs:
           usernameDevTenant: "mihindu@wso2.com@development"
           passwordDevTenant: ${{secrets.PASSWORD}}
           APIProjectName: "SampleStore"
-          OASJsonFilePath: "petstore.json"
-          APIDefinitionFilePath: "api_template.yaml"
+          OASJsonFilePath: "./SampleStore/1.0.0/Meta-information/swagger.json"
+          APIDefinitionFilePath: "./SampleStore/1.0.0/Meta-information/api.yaml"
           APIVersion: "1.0.0"
-          PostmanCollectionTestFile: "sample_store.postman_collection.json"
+          PostmanCollectionTestFile: "./SampleStore/1.0.0/Meta-information/sample_store.postman_collection.json"
 
       - name: Deploying to production tenant
         if: github.event_name == 'push' && github.ref == 'refs/heads/production'
         uses: ./.github/actions/wso2apim/
         id: apim2
         with:
-          usernameDevTenant: "mihindu@wso2.com@production"
+          usernameDevTenant: "mihindu@wso2.com@development"
           passwordDevTenant: ${{secrets.PASSWORD}}
           APIProjectName: "SampleStore"
-          OASJsonFilePath: "petstore.json"
-          APIDefinitionFilePath: "api_template.yaml"
+          OASJsonFilePath: "./SampleStore/1.0.0/Meta-information/swagger.json"
+          APIDefinitionFilePath: "./SampleStore/1.0.0/Meta-information/api.yaml"
           APIVersion: "1.0.0"
-          PostmanCollectionTestFile: "sample_store.postman_collection.json"
+          PostmanCollectionTestFile: "./SampleStore/1.0.0/Meta-information/sample_store.postman_collection.json"
 
       # - name: APIM Cloud CICD
       #   uses: mihinduranasinghe/WSO2-APIManager-Cloud-CICD@v1.1.0
