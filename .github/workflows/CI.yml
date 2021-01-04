@@ -10,57 +10,57 @@ jobs:
       - name: checkout files to vm
         uses: actions/checkout@v2.3.4
 
-      # - name: SampleStore v1.0.0 deploying to development tenant
-      #   if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-      #   uses: ./.github/actions/wso2apim/
-      #   id: apim1
-      #   with:
-      #     usernameDevTenant: "mihindu@wso2.com@development"
-      #     passwordDevTenant: ${{secrets.PASSWORD}}
-      #     APIProjectName: "SampleStore"
-      #     # OASJsonFilePath: "./SampleStore/1.0.0/Meta-information/swagger.yaml"
-      #     # APIDefinitionFilePath: "./SampleStore/1.0.0/Meta-information/api.yaml"
-      #     APIVersion: "1.0.0"
-      #     PostmanCollectionTestFile: "./SampleStore/1.0.0/Meta-information/sample_store.postman_collection.json"
+      - name: SampleStore v1.0.0 deploying to development tenant
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        uses: ./.github/actions/wso2apim/
+        id: apim1
+        with:
+          usernameDevTenant: "mihindu@wso2.com@development"
+          passwordDevTenant: ${{secrets.PASSWORD}}
+          APIProjectName: "SampleStore"
+          # OASJsonFilePath: "./SampleStore/1.0.0/Meta-information/swagger.yaml"
+          # APIDefinitionFilePath: "./SampleStore/1.0.0/Meta-information/api.yaml"
+          APIVersion: "1.0.0"
+          PostmanCollectionTestFile: "./SampleStore/1.0.0/Meta-information/sample_store.postman_collection.json"
 
-      # - name: SampleStore v2.0.0 deploying to development tenant
-      #   if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-      #   uses: ./.github/actions/wso2apim/
-      #   id: apim2
-      #   with:
-      #     usernameDevTenant: "mihindu@wso2.com@development"
-      #     passwordDevTenant: ${{secrets.PASSWORD}}
-      #     APIProjectName: "SampleStore"
-      #     # OASJsonFilePath: "./SampleStore/2.0.0/Meta-information/swagger.yaml"
-      #     # APIDefinitionFilePath: "./SampleStore/2.0.0/Meta-information/api.yaml"
-      #     APIVersion: "2.0.0"
-      #     PostmanCollectionTestFile: "./SampleStore/2.0.0/Meta-information/sample_store.postman_collection.json"
+      - name: SampleStore v2.0.0 deploying to development tenant
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        uses: ./.github/actions/wso2apim/
+        id: apim2
+        with:
+          usernameDevTenant: "mihindu@wso2.com@development"
+          passwordDevTenant: ${{secrets.PASSWORD}}
+          APIProjectName: "SampleStore"
+          # OASJsonFilePath: "./SampleStore/2.0.0/Meta-information/swagger.yaml"
+          # APIDefinitionFilePath: "./SampleStore/2.0.0/Meta-information/api.yaml"
+          APIVersion: "2.0.0"
+          PostmanCollectionTestFile: "./SampleStore/2.0.0/Meta-information/sample_store.postman_collection.json"
 
-      # - name: SampleStore v1.0.0 deploying to production tenant
-      #   if: github.event_name == 'push' && github.ref == 'refs/heads/production'
-      #   uses: ./.github/actions/wso2apim/
-      #   id: apim3
-      #   with:
-      #     usernameDevTenant: "mihindu@wso2.com@development"
-      #     passwordDevTenant: ${{secrets.PASSWORD}}
-      #     APIProjectName: "SampleStore"
-      #     # OASJsonFilePath: "./SampleStore/1.0.0/Meta-information/swagger.yaml"
-      #     # APIDefinitionFilePath: "./SampleStore/1.0.0/Meta-information/api.yaml"
-      #     APIVersion: "1.0.0"
-      #     # PostmanCollectionTestFile: "./SampleStore/1.0.0/Meta-information/sample_store.postman_collection.json"
+      - name: SampleStore v1.0.0 deploying to production tenant
+        if: github.event_name == 'push' && github.ref == 'refs/heads/production'
+        uses: ./.github/actions/wso2apim/
+        id: apim3
+        with:
+          usernameDevTenant: "mihindu@wso2.com@development"
+          passwordDevTenant: ${{secrets.PASSWORD}}
+          APIProjectName: "SampleStore"
+          # OASJsonFilePath: "./SampleStore/1.0.0/Meta-information/swagger.yaml"
+          # APIDefinitionFilePath: "./SampleStore/1.0.0/Meta-information/api.yaml"
+          APIVersion: "1.0.0"
+          # PostmanCollectionTestFile: "./SampleStore/1.0.0/Meta-information/sample_store.postman_collection.json"
 
-      # - name: SampleStore v2.0.0 deploying to production tenant
-      #   if: github.event_name == 'push' && github.ref == 'refs/heads/production'
-      #   uses: ./.github/actions/wso2apim/
-      #   id: apim4
-      #   with:
-      #     usernameDevTenant: "mihindu@wso2.com@development"
-      #     passwordDevTenant: ${{secrets.PASSWORD}}
-      #     APIProjectName: "SampleStore"
-      #     # OASJsonFilePath: "./SampleStore/2.0.0/Meta-information/swagger.yaml"
-      #     # APIDefinitionFilePath: "./SampleStore/2.0.0/Meta-information/api.yaml"
-      #     APIVersion: "2.0.0"
-      #     # PostmanCollectionTestFile: "./SampleStore/2.0.0/Meta-information/sample_store.postman_collection.json"
+      - name: SampleStore v2.0.0 deploying to production tenant
+        if: github.event_name == 'push' && github.ref == 'refs/heads/production'
+        uses: ./.github/actions/wso2apim/
+        id: apim4
+        with:
+          usernameDevTenant: "mihindu@wso2.com@development"
+          passwordDevTenant: ${{secrets.PASSWORD}}
+          APIProjectName: "SampleStore"
+          # OASJsonFilePath: "./SampleStore/2.0.0/Meta-information/swagger.yaml"
+          # APIDefinitionFilePath: "./SampleStore/2.0.0/Meta-information/api.yaml"
+          APIVersion: "2.0.0"
+          # PostmanCollectionTestFile: "./SampleStore/2.0.0/Meta-information/sample_store.postman_collection.json"
 
       # - name: APIM Cloud CICD
       #   uses: mihinduranasinghe/WSO2-APIManager-Cloud-CICD@v1.1.0
