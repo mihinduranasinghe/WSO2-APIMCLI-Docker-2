@@ -41,6 +41,7 @@ echo "::group::Init API iproject with given API definition"
 # apimcli init SampleStore --oas petstore.json --definition api_template.yaml
 
 apimcli init ./$3/$4
+ls ./$3/$4
 # apimcli init ./$3/$6 --oas $
 # apimcli init -f ./$3/$6 --oas $ --definition $
 echo "::end-group"
