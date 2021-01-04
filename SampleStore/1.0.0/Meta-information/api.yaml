@@ -1,13 +1,18 @@
 id:
   providerName: admin
-  apiName: ""
+  apiName: SampleStore
   version: 1.0.0
+description: This is a sample server online store
 type: HTTP
-context: ""
+context: /SampleStore/1.0.0
+contextTemplate: /SampleStore/{version}
 availableTiers:
-- name: Unlimited
-status: CREATED
+  - name: Unlimited
+  - name: Bronze
+status: published
 visibility: public
 transports: http,https
-productionUrl: http://localhost:8080
-sandboxUrl: http://localhost:8081
+# productionUrl: http://localhost:8080
+# sandboxUrl: http://localhost:8081
+productionUrl: https://api.cloud.wso2.com/
+sandboxUrl: https://api.cloud.wso2.com/
