@@ -54,9 +54,9 @@ echo "::group::Init API iproject with given API definition"
 #    Statement(s) to be executed if no expression is true
 # fi
 
-# apimcli init ./$3/$6
+apimcli init ./$3/$6
 # apimcli init ./$3/$6 --oas $4
-apimcli init -f ./$3/$6 --oas $4 --definition $5
+# apimcli init -f ./$3/$6 --oas $4 --definition $5
 echo "::end-group"
 
 echo "::group::Push API project into the GIT repo from VM"
