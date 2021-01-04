@@ -8,7 +8,7 @@
     # $6 - APIVersion
     # $7 - PostmanCollectionTestFile
 
-usernameTargettedTenant = $1
+user = $1
 
 echo "::group::WSO2 APIMCLI Version"
     apimcli version
@@ -20,7 +20,7 @@ echo "::end-group"
 
 echo "::group::WSO2 APIMCloud Tenants"
     echo Targetted Tenant  - $1
-    echo Targetted Tenant  - $usernameTargettedTenant
+    echo Targetted Tenant  - ${user}
 
 echo "::end-group"
 
@@ -56,7 +56,7 @@ echo "::group::Init API iproject with given API definition"
 
 # apimcli init ./$3/$6
 # apimcli init ./$3/$6 --oas $4
-apimcli init ./$3/$6 --oas $4 --definition $5
+apimcli init -f ./$3/$6 --oas $4 --definition $5
 echo "::end-group"
 
 echo "::group::Push API project into the GIT repo from VM"
