@@ -26,7 +26,7 @@ jobs:
       - name: Deploying to production tenant
         if: github.event_name == 'push' && github.ref == 'refs/heads/production'
         uses: ./.github/actions/wso2apim/
-        id: apim
+        id: apim2
         with:
           usernameDevTenant: "mihindu@wso2.com@production"
           passwordDevTenant: ${{secrets.PASSWORD}}
