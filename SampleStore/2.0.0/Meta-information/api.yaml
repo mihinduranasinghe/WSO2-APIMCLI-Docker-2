@@ -7,8 +7,8 @@ type: HTTP
 context: /SampleStore/2.0.0
 contextTemplate: /SampleStore/{version}
 availableTiers:
-  - name: Unlimited
-  - name: Bronze
+- name: Unlimited
+- name: Bronze
 status: published
 visibility: public
 transports: http,https
