@@ -50,8 +50,8 @@ git config --global user.email "my-bot@bot.com"
 git config --global user.name "my-bot"
 #This shell script will find all empty directories and sub-directories in a project folder and creates a .gitkeep file, so that the empty directory 
 #can be added to the git index. 
-find * -type d -empty -exec touch {}/.gitkeep \
-# find ./$3/$4/ -type d ! -path "*.git*" -empty -exec touch '{}'/.gitkeep \;
+# find * -type d -empty -exec touch {}/.gitkeep \;
+find $PATH_TO_REPOSITORY -type d ! -path "*.git*" -empty -exec cp .gitignore '{}'/ \;
 git add . 
 git commit -m "API project initialized"
 git push
