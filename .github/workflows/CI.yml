@@ -31,7 +31,7 @@ jobs:
           usernameDevTenant: "mihindu@wso2.com@development"
           passwordDevTenant: ${{secrets.PASSWORD}}
           APIProjectName: "SampleStore"
-          OASJsonFilePath: "./SampleStore/1.0.0/Meta-information/swagger.yaml"
+          OASJsonFilePath: "./SampleStore/2.0.0/Meta-information/swagger.yaml"
           APIDefinitionFilePath: "./SampleStore/2.0.0/Meta-information/api.yaml"
           APIVersion: "2.0.0"
           PostmanCollectionTestFile: "./SampleStore/2.0.0/Meta-information/sample_store.postman_collection.json"
