@@ -21,7 +21,7 @@ jobs:
           #OASJsonFilePath: "./SampleStore/1.0.0/Meta-information/swagger.yaml"
           #APIDefinitionFilePath: "./SampleStore/1.0.0/Meta-information/api.yaml"
           APIVersion: "1.0.0"
-          PostmanCollectionTestFile: "./SampleStore/1.0.0/Meta-information/sample_store.postman_collection.json"
+          # PostmanCollectionTestFile: "./SampleStore/1.0.0/Meta-information/sample_store.postman_collection.json"
 
       - name: SampleStore v2.0.0 deploying to development tenant
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
@@ -34,7 +34,7 @@ jobs:
           #OASJsonFilePath: "./SampleStore/2.0.0/Meta-information/swagger.yaml"
           #APIDefinitionFilePath: "./SampleStore/2.0.0/Meta-information/api.yaml"
           APIVersion: "2.0.0"
-          PostmanCollectionTestFile: "./SampleStore/2.0.0/Meta-information/sample_store.postman_collection.json"
+          # PostmanCollectionTestFile: "./SampleStore/2.0.0/Meta-information/sample_store.postman_collection.json"
 
       - name: SampleStore v1.0.0 deploying to production tenant
         if: github.event_name == 'push' && github.ref == 'refs/heads/production'
@@ -47,7 +47,7 @@ jobs:
           OASJsonFilePath: "./SampleStore/1.0.0/Meta-information/swagger.yaml"
           APIDefinitionFilePath: "./SampleStore/1.0.0/Meta-information/api.yaml"
           APIVersion: "1.0.0"
-          PostmanCollectionTestFile: "./SampleStore/1.0.0/Meta-information/sample_store.postman_collection.json"
+          # PostmanCollectionTestFile: "./SampleStore/1.0.0/Meta-information/sample_store.postman_collection.json"
 
       - name: SampleStore v2.0.0 deploying to production tenant
         if: github.event_name == 'push' && github.ref == 'refs/heads/production'
@@ -60,7 +60,7 @@ jobs:
           OASJsonFilePath: "./SampleStore/2.0.0/Meta-information/swagger.yaml"
           APIDefinitionFilePath: "./SampleStore/2.0.0/Meta-information/api.yaml"
           APIVersion: "2.0.0"
-          PostmanCollectionTestFile: "./SampleStore/2.0.0/Meta-information/sample_store.postman_collection.json"
+          # PostmanCollectionTestFile: "./SampleStore/2.0.0/Meta-information/sample_store.postman_collection.json"
 
       # - name: APIM Cloud CICD
       #   uses: mihinduranasinghe/WSO2-APIManager-Cloud-CICD@v1.1.0

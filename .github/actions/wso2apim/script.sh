@@ -80,7 +80,7 @@ apimcli list apis -e wso2apicloud -k
 echo "::end-group"
 
 echo "::group::Testing With Postman Collection"
-newman run $7 --insecure
+# newman run $7 --insecure
 echo "::end-group"
 
 # echo "::group::Export API from current Tenant"
