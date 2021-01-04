@@ -13,7 +13,7 @@ jobs:
       - name: SampleStore v1.0.0 deploying to development tenant
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         uses: ./.github/actions/wso2apim/
-        id: apim
+        id: apim1
         with:
           usernameDevTenant: "mihindu@wso2.com@development"
           passwordDevTenant: ${{secrets.PASSWORD}}
@@ -26,7 +26,7 @@ jobs:
       - name: SampleStore v2.0.0 deploying to development tenant
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         uses: ./.github/actions/wso2apim/
-        id: apim
+        id: apim2
         with:
           usernameDevTenant: "mihindu@wso2.com@development"
           passwordDevTenant: ${{secrets.PASSWORD}}
@@ -39,7 +39,7 @@ jobs:
       - name: SampleStore v1.0.0 deploying to production tenant
         if: github.event_name == 'push' && github.ref == 'refs/heads/production'
         uses: ./.github/actions/wso2apim/
-        id: apim2
+        id: apim3
         with:
           usernameDevTenant: "mihindu@wso2.com@development"
           passwordDevTenant: ${{secrets.PASSWORD}}
@@ -52,7 +52,7 @@ jobs:
       - name: SampleStore v2.0.0 deploying to production tenant
         if: github.event_name == 'push' && github.ref == 'refs/heads/production'
         uses: ./.github/actions/wso2apim/
-        id: apim2
+        id: apim4
         with:
           usernameDevTenant: "mihindu@wso2.com@development"
           passwordDevTenant: ${{secrets.PASSWORD}}
