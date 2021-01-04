@@ -8,6 +8,8 @@
     # $6 - APIVersion
     # $7 - PostmanCollectionTestFile
 
+usernameTargettedTenant = $1
+
 echo "::group::WSO2 APIMCLI Version"
     apimcli version
 echo "::end-group"
@@ -18,7 +20,8 @@ echo "::end-group"
 
 echo "::group::WSO2 APIMCloud Tenants"
     echo Targetted Tenant  - $1
-    # echo Prod tenant - $3
+    echo Targetted Tenant  - usernameTargettedTenant
+
 echo "::end-group"
 
 echo "::group::Add environment wso2apicloud"
@@ -37,7 +40,23 @@ echo "::end-group"
 echo "::group::Init API iproject with given API definition"
 # apictl import-api -f $API_DIR -e $DEV_ENV -k --preserve-provider --update --verbose
 # apimcli init SampleStore --oas petstore.json --definition api_template.yaml
-apimcli init $3 --oas $4 --definition $5
+# if [ $a == $b ]
+# if [ expression 1 ]
+# then
+#    Statement(s) to be executed if expression 1 is true
+# elif [ expression 2 ]
+# then
+#    Statement(s) to be executed if expression 2 is true
+# elif [ expression 3 ]
+# then
+#    Statement(s) to be executed if expression 3 is true
+# else
+#    Statement(s) to be executed if no expression is true
+# fi
+
+# apimcli init ./$3/$6
+# apimcli init ./$3/$6 --oas $4
+apimcli init ./$3/$6 --oas $4 --definition $5
 echo "::end-group"
 
 echo "::group::Push API project into the GIT repo from VM"
@@ -48,10 +67,9 @@ git commit -m "API project initialized"
 git push
 echo "::end-group"
 
-
 apimcli login wso2apicloud -u $1 -p $2 -k
 echo "::group::Import API project to targetted Tenant"
-apimcli import-api -f $5 -e wso2apicloud --preserve-provider=false --update --verbose -k
+apimcli import-api -f ./$3/$6 -e wso2apicloud --preserve-provider=false --update --verbose -k
 # apimcli logout wso2apicloud 
 echo "::end-group"
 
