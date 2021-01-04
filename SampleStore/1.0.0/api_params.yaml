@@ -1,0 +1,5 @@
+environments:
+  - name: wso2apicloud
+    endpoints:
+      production:
+      sandbox:
