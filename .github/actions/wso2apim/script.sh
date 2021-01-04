@@ -20,7 +20,7 @@ echo "::end-group"
 
 echo "::group::WSO2 APIMCloud Tenants"
     echo Targetted Tenant  - $1
-    echo Targetted Tenant  - usernameTargettedTenant
+    echo Targetted Tenant  - $usernameTargettedTenant
 
 echo "::end-group"
 
