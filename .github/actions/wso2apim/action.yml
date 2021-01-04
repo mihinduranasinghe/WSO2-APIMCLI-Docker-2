@@ -15,20 +15,12 @@ inputs:
     description: "API Project Name"
     required: true
 
-  OASJsonFilePath:
-    description: "OAS Json File Path to create API"
-    required: true
-
-  APIDefinitionFilePath:
-    description: "API Definition .yml File Path to create API"
-    required: true
-
   APIVersion:
     description: "API Version"
     required: true
 
   PostmanCollectionTestFile:
-    description: "API Version"
+    description: "Postman collection"
     required: false
 
 runs:
@@ -39,8 +31,6 @@ runs:
     - ${{inputs.usernameDevTenant}}
     - ${{inputs.passwordDevTenant}}
     - ${{inputs.APIProjectName}}
-    - ${{inputs.OASJsonFilePath}}
-    - ${{inputs.APIDefinitionFilePath}}
     - ${{inputs.APIVersion}}
     - ${{inputs.PostmanCollectionTestFile}}
 
