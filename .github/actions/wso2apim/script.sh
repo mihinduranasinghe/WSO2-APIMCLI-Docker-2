@@ -48,6 +48,9 @@ echo "::end-group"
 echo "::group::Push API project into the GIT repo from VM"
 git config --global user.email "my-bot@bot.com"
 git config --global user.name "my-bot"
+#This shell script will find all empty directories and sub-directories in a project folder and creates a .gitkeep file, so that the empty directory 
+#can be added to the git index. 
+find * -type d -empty -exec touch {}/.gitkeep \;
 git add . 
 git commit -m "API project initialized"
 git push
