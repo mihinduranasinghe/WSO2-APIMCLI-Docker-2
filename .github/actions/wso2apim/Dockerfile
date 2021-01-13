@@ -12,7 +12,8 @@ RUN npm install -y -g newman@3 --unsafe-perm
 # FROM openjdk:jre-slim
 # ADD https://github.com/mihinduranasinghe/WSO2-APIMCLI/ /usr/local/bin/apimcli
 
-COPY apimcli /usr/local/bin/apimcli
+# COPY apimcli /usr/local/bin/apimcli
+COPY apimcli2.0.12/apimcli /usr/local/bin/apimcli
 RUN chmod +x /usr/local/bin/apimcli
 
 WORKDIR /usr/src/app
