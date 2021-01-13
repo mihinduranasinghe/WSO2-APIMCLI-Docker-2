@@ -12,9 +12,9 @@ availableTiers:
 status: published
 visibility: public
 transports: http,https
-inSequence: json_validator
-outSequence: apply_accept_header
-faultSequence: debug_out_flow
+inSequence: in_seq
+outSequence: out_seq
+faultSequence: fault_seq
 advertiseOnly: false
 corsConfiguration: { corsConfigurationEnabled: true }
 
