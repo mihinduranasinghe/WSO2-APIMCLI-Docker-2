@@ -12,6 +12,12 @@ availableTiers:
 status: published
 visibility: public
 transports: http,https
+inSequence: "json_validator"
+outSequence: "debug_json_fault"
+faultSequence: "debug_out_flow"
+advertiseOnly: false
+corsConfiguration: { corsConfigurationEnabled: true }
+
 # productionUrl: http://localhost:8080
 # sandboxUrl: http://localhost:8081
 productionUrl: https://api.cloud.wso2.com/

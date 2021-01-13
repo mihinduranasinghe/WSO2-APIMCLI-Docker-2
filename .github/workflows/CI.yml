@@ -68,7 +68,7 @@ jobs:
         uses: mihinduranasinghe/WSO2-APIManager-Cloud-CICD-Beta@v1.0.0
         with:
           usernameTargettedTenant: "mihindu@wso2.com@development"
-          passwordTargettedTenant: ${{secrets.PASSWORD}}
+          passwordTargettedTenant: ${{secrets.DEV_TENANT_PASSWORD}}
           APIProjectName: "SampleStore"
           APIVersion: "1.0.0"
 
