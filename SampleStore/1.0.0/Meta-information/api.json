@@ -1,0 +1,104 @@
+{
+  "id": {
+    "providerName": "admin",
+    "apiName": "SampleStore",
+    "version": "1.0.0"
+  },
+  "uuid": "b67c122e-93e1-4b69-acd1-b2d8459185c0",
+  "type": "HTTP",
+  "context": "/SampleStore/team/1.0.0",
+  "contextTemplate": "/SampleStore/{version}",
+  "tags": [],
+  "documents": [],
+  "lastUpdated": "Jan 14, 2021 1:28:03 AM",
+  "availableTiers": [
+    {
+      "name": "Gold",
+      "displayName": "Gold",
+      "description": "Allows 5000 requests per minute",
+      "requestsPerMin": 5000,
+      "requestCount": 5000,
+      "unitTime": 1,
+      "timeUnit": "min",
+      "tierPlan": "FREE",
+      "stopOnQuotaReached": true
+    },
+    {
+      "name": "Unlimited",
+      "displayName": "Unlimited",
+      "description": "Allows unlimited requests",
+      "requestsPerMin": 2147483647,
+      "requestCount": 2147483647,
+      "unitTime": 0,
+      "timeUnit": "ms",
+      "tierPlan": "FREE",
+      "stopOnQuotaReached": true
+    }
+  ],
+  "availableSubscriptionLevelPolicies": [],
+  "uriTemplates": [
+    {
+      "uriTemplate": "/*",
+      "httpVerb": "PATCH",
+      "authType": "Any",
+      "httpVerbs": ["PATCH", "POST", "GET", "DELETE", "PUT"],
+      "authTypes": ["Any", "Any", "Any", "Any", "Any"],
+      "throttlingConditions": [],
+      "throttlingTier": "Unlimited",
+      "throttlingTiers": [
+        "Unlimited",
+        "Unlimited",
+        "Unlimited",
+        "Unlimited",
+        "Unlimited"
+      ],
+      "mediationScript": "null",
+      "scopes": [null, null, null, null, null],
+      "mediationScripts": {}
+    }
+  ],
+  "apiHeaderChanged": false,
+  "apiResourcePatternsChanged": false,
+  "status": "CREATED",
+  "visibility": "public",
+  "endpointSecured": false,
+  "endpointAuthDigest": false,
+  "transports": "http,https",
+  "inSequence": "in_seq",
+  "outSequence": "out_seq",
+  "faultSequence": "fault_seq",
+  "advertiseOnly": false,
+  "corsConfiguration": {
+    "corsConfigurationEnabled": true,
+    "accessControlAllowOrigins": ["*"],
+    "accessControlAllowCredentials": false,
+    "accessControlAllowHeaders": [
+      "authorization",
+      "Access-Control-Allow-Origin",
+      "Content-Type",
+      "SOAPAction"
+    ],
+    "accessControlAllowMethods": [
+      "GET",
+      "PUT",
+      "POST",
+      "DELETE",
+      "PATCH",
+      "OPTIONS"
+    ]
+  },
+  "endpointConfig": "{\"production_endpoints\":{\"url\":\"https://api.cloud.wso2.com\",\"config\":null,\"template_not_supported\":false},\"sandbox_endpoints\":{\"url\":\"https://api.cloud.wso2.com\",\"config\":null,\"template_not_supported\":false},\"endpoint_type\":\"http\"}",
+  "responseCache": "Disabled",
+  "cacheTimeout": 300,
+  "implementation": "ENDPOINT",
+  "scopes": [],
+  "isDefaultVersion": false,
+  "isPublishedDefaultVersion": false,
+  "environments": ["Production and Sandbox"],
+  "createdTime": "1610567343427",
+  "additionalProperties": {},
+  "environmentList": ["SANDBOX", "PRODUCTION"],
+  "accessControl": "all",
+  "rating": 0.0,
+  "isLatest": false
+}
