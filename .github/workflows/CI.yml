@@ -1,7 +1,7 @@
 name: custom actions
 on:
   push:
-    branches: [main]
+    branches: [main, prod]
 
 jobs:
   testing-actions:
