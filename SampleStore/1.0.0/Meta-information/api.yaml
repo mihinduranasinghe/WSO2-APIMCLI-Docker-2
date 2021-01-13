@@ -13,7 +13,7 @@ status: published
 visibility: public
 transports: http,https
 inSequence: json_validator
-outSequence: debug_json_fault
+outSequence: apply_accept_header
 faultSequence: debug_out_flow
 advertiseOnly: false
 corsConfiguration: { corsConfigurationEnabled: true }
