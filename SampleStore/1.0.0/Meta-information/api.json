@@ -72,11 +72,11 @@
   "endpointSecured": false,
   "endpointAuthDigest": false,
   "transports": "http,https",
-  "advertiseOnly": false,
-  "subscriptionAvailability": "current_tenant",
   "inSequence": "in_seq",
   "outSequence": "out_seq",
   "faultSequence": "fault_seq",
+  "advertiseOnly": false,
+  "subscriptionAvailability": "current_tenant",
   "corsConfiguration": {
     "corsConfigurationEnabled": true,
     "accessControlAllowOrigins": ["*"],
