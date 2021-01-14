@@ -42,26 +42,46 @@
       "uriTemplate": "/products/{productId}",
       "httpVerb": "GET",
       "authType": "Any",
-      "httpVerbs": ["GET"],
-      "authTypes": ["Any"],
+      "httpVerbs": [
+        "GET"
+      ],
+      "authTypes": [
+        "Any"
+      ],
       "throttlingConditions": [],
       "throttlingTier": "Unlimited",
-      "throttlingTiers": ["Unlimited"],
+      "throttlingTiers": [
+        "Unlimited"
+      ],
       "mediationScript": "null",
-      "scopes": [null],
+      "scopes": [
+        null
+      ],
       "mediationScripts": {}
     },
     {
       "uriTemplate": "/products",
       "httpVerb": "POST",
       "authType": "Any",
-      "httpVerbs": ["POST", "GET"],
-      "authTypes": ["Any", "Any"],
+      "httpVerbs": [
+        "POST",
+        "GET"
+      ],
+      "authTypes": [
+        "Any",
+        "Any"
+      ],
       "throttlingConditions": [],
       "throttlingTier": "Unlimited",
-      "throttlingTiers": ["Unlimited", "Unlimited"],
+      "throttlingTiers": [
+        "Unlimited",
+        "Unlimited"
+      ],
       "mediationScript": "null",
-      "scopes": [null, null],
+      "scopes": [
+        null,
+        null
+      ],
       "mediationScripts": {}
     }
   ],
@@ -79,7 +99,9 @@
   "subscriptionAvailability": "current_tenant",
   "corsConfiguration": {
     "corsConfigurationEnabled": true,
-    "accessControlAllowOrigins": ["*"],
+    "accessControlAllowOrigins": [
+      "*"
+    ],
     "accessControlAllowCredentials": true,
     "accessControlAllowHeaders": [
       "authorization",
@@ -106,7 +128,10 @@
   "environments": [],
   "createdTime": "1610602965000",
   "additionalProperties": {},
-  "environmentList": ["SANDBOX", "PRODUCTION"],
+  "environmentList": [
+    "SANDBOX",
+    "PRODUCTION"
+  ],
   "apiSecurity": "oauth2",
   "accessControl": "all",
   "rating": 0.0,
