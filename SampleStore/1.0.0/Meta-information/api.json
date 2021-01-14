@@ -1,16 +1,17 @@
 {
   "id": {
-    "providerName": "admin",
+    "providerName": "mihindu-AT-wso2.com-AT-development",
     "apiName": "SampleStore",
     "version": "1.0.0"
   },
-  "uuid": "b67c122e-93e1-4b69-acd1-b2d8459185c0",
+  "uuid": "112af727-675e-4776-8b9c-eef21925f9d8",
+  "description": "This is a sample server online store",
   "type": "HTTP",
-  "context": "/SampleStore/team/1.0.0",
-  "contextTemplate": "/SampleStore/{version}",
+  "context": "/t/development/SampleStore/team/1.0.0",
+  "contextTemplate": "/t/development/SampleStore/{version}",
   "tags": [],
   "documents": [],
-  "lastUpdated": "Jan 14, 2021 1:28:03 AM",
+  "lastUpdated": "Jan 13, 2021 9:44:42 PM",
   "availableTiers": [
     {
       "name": "Gold",
@@ -38,40 +39,48 @@
   "availableSubscriptionLevelPolicies": [],
   "uriTemplates": [
     {
-      "uriTemplate": "/*",
-      "httpVerb": "PATCH",
+      "uriTemplate": "/products/{productId}",
+      "httpVerb": "GET",
       "authType": "Any",
-      "httpVerbs": ["PATCH", "POST", "GET", "DELETE", "PUT"],
-      "authTypes": ["Any", "Any", "Any", "Any", "Any"],
+      "httpVerbs": ["GET"],
+      "authTypes": ["Any"],
       "throttlingConditions": [],
       "throttlingTier": "Unlimited",
-      "throttlingTiers": [
-        "Unlimited",
-        "Unlimited",
-        "Unlimited",
-        "Unlimited",
-        "Unlimited"
-      ],
+      "throttlingTiers": ["Unlimited"],
       "mediationScript": "null",
-      "scopes": [null, null, null, null, null],
+      "scopes": [null],
+      "mediationScripts": {}
+    },
+    {
+      "uriTemplate": "/products",
+      "httpVerb": "POST",
+      "authType": "Any",
+      "httpVerbs": ["POST", "GET"],
+      "authTypes": ["Any", "Any"],
+      "throttlingConditions": [],
+      "throttlingTier": "Unlimited",
+      "throttlingTiers": ["Unlimited", "Unlimited"],
+      "mediationScript": "null",
+      "scopes": [null, null],
       "mediationScripts": {}
     }
   ],
   "apiHeaderChanged": false,
   "apiResourcePatternsChanged": false,
-  "status": "CREATED",
+  "status": "PUBLISHED",
   "visibility": "public",
   "endpointSecured": false,
   "endpointAuthDigest": false,
   "transports": "http,https",
+  "advertiseOnly": false,
+  "subscriptionAvailability": "current_tenant",
   "inSequence": "in_seq",
   "outSequence": "out_seq",
   "faultSequence": "fault_seq",
-  "advertiseOnly": false,
   "corsConfiguration": {
     "corsConfigurationEnabled": true,
     "accessControlAllowOrigins": ["*"],
-    "accessControlAllowCredentials": false,
+    "accessControlAllowCredentials": true,
     "accessControlAllowHeaders": [
       "authorization",
       "Access-Control-Allow-Origin",
@@ -87,18 +96,19 @@
       "OPTIONS"
     ]
   },
-  "endpointConfig": "{\"production_endpoints\":{\"url\":\"https://api.cloud.wso2.com\",\"config\":null,\"template_not_supported\":false},\"sandbox_endpoints\":{\"url\":\"https://api.cloud.wso2.com\",\"config\":null,\"template_not_supported\":false},\"endpoint_type\":\"http\"}",
+  "endpointConfig": "{\"production_endpoints\":{\"config\":null,\"template_not_supported\":false,\"url\":\"https://api.cloud.wso2.com\"},\"sandbox_endpoints\":{\"config\":null,\"template_not_supported\":false,\"url\":\"https://api.cloud.wso2.com\"},\"endpoint_type\":\"http\"}",
   "responseCache": "Disabled",
   "cacheTimeout": 300,
   "implementation": "ENDPOINT",
   "scopes": [],
   "isDefaultVersion": false,
   "isPublishedDefaultVersion": false,
-  "environments": ["Production and Sandbox"],
-  "createdTime": "1610567343427",
+  "environments": [],
+  "createdTime": "1610602965000",
   "additionalProperties": {},
   "environmentList": ["SANDBOX", "PRODUCTION"],
+  "apiSecurity": "oauth2",
   "accessControl": "all",
   "rating": 0.0,
-  "isLatest": false
+  "isLatest": true
 }
