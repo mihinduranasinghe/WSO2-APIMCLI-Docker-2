@@ -42,7 +42,7 @@ apimcli init ./$3/$4
 mkdir ./$3/$4/Sequences/fault-sequence/Custom
 mkdir ./$3/$4/Sequences/in-sequence/Custom
 mkdir ./$3/$4/Sequences/out-sequence/Custom
-mkdir ./$3/$4/Docs/docs.json
+# mkdir ./$3/$4/Docs/docs.json
 ls ./$3/$4
 echo "::end-group"
 
