@@ -16,7 +16,7 @@ echo "::group::WSO2 APIMCLI Help"
 echo "::end-group"
 
 echo "::group::WSO2 APIMCloud Tenants"
-    echo Targetted Tenant  - $1
+    echo Targeted Tenant  - $1
 echo "::end-group"
 
 echo "::group::Add environment wso2apicloud"
@@ -32,14 +32,17 @@ apimcli add-env -n wso2apicloud \
 apimcli list envs          
 echo "::end-group"
 
-echo "::group::Init API iproject with given API definition"
 # apictl import-api -f $API_DIR -e $DEV_ENV -k --preserve-provider --update --verbose
 # apimcli init SampleStore --oas petstore.json --definition api_template.yaml
-
-apimcli init ./$3/$4
-ls ./$3/$4
 # apimcli init ./$3/$6 --oas $
 # apimcli init -f ./$3/$6 --oas $ --definition $
+
+echo "::group::Init API iproject with given API definition"
+apimcli init ./$3/$4 
+ls ./$3/$4
+mkdir ./Sequences/fault-sequence/Custom
+mkdir ./Sequences/in-sequence/Custom
+mkdir ./Sequences/out-sequence/Custom
 echo "::end-group"
 
 echo "::group::Push API project into the GIT repo from VM"
@@ -60,6 +63,8 @@ echo "::group::Testing With Postman Collection"
 if [ $5 ]
 then
 newman run $5 --insecure 
+else
+echo "You have not given a postmanfile to run."
 fi
 echo "::end-group"
 
