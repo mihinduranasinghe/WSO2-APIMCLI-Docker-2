@@ -6,12 +6,12 @@
     # $4 - APIVersion
     # $5 - PostmanCollectionTestFile
 
-
-user = $1
+echo "::group::Testing conditional script"
 if [ $5 ]
 then
    echo "Yes"
 fi
+echo "::end-group"
 
 echo "::group::WSO2 APIMCLI Version"
     apimcli version
@@ -23,8 +23,6 @@ echo "::end-group"
 
 echo "::group::WSO2 APIMCloud Tenants"
     echo Targetted Tenant  - $1
-    echo Targetted Tenant  - ${user}
-
 echo "::end-group"
 
 echo "::group::Add environment wso2apicloud"
