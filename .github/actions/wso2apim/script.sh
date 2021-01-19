@@ -6,12 +6,6 @@
     # $4 - APIVersion
     # $5 - PostmanCollectionTestFile
 
-echo "::group::Testing conditional script"
-if [ $5 ]
-then
-   echo "Yes"
-fi
-echo "::end-group"
 
 echo "::group::WSO2 APIMCLI Version"
     apimcli version
@@ -75,7 +69,10 @@ apimcli list apis -e wso2apicloud -k
 echo "::end-group"
 
 echo "::group::Testing With Postman Collection"
-newman run $5 --insecure
+if [ $5 ]
+then
+newman run $5 --insecure 
+fi
 echo "::end-group"
 
 # echo "::group::Export API from current Tenant"
