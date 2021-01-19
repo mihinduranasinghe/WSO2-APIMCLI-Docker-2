@@ -8,6 +8,10 @@
 
 
 user = $1
+if [ $5 ]
+then
+   echo "Yes"
+fi
 
 echo "::group::WSO2 APIMCLI Version"
     apimcli version
