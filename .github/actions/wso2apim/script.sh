@@ -56,8 +56,15 @@ git commit -m "API project initialized"
 git push
 echo "::end-group"
 
-apimcli login wso2apicloud -u $1 -p $2 -k
+echo "::group::Testing With Postman Collection"
+if [ $5 ]
+then
+newman run $5 --insecure 
+fi
+echo "::end-group"
+
 echo "::group::Import API project to targetted Tenant"
+apimcli login wso2apicloud -u $1 -p $2 -k
 apimcli import-api -f ./$3/$4 -e wso2apicloud --preserve-provider=false --update --verbose -k
 # apimcli logout wso2apicloud 
 echo "::end-group"
@@ -68,12 +75,7 @@ echo "::group::List APIS in targetted Tenant"
 apimcli list apis -e wso2apicloud -k
 echo "::end-group"
 
-echo "::group::Testing With Postman Collection"
-if [ $5 ]
-then
-newman run $5 --insecure 
-fi
-echo "::end-group"
+
 
 # echo "::group::Export API from current Tenant"
 # # apimcli export-api -n <API-name> -v <version> -r <provider> -e <environment> -u <username> -p <password> -k
