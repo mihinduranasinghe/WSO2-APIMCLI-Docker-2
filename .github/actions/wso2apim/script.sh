@@ -39,10 +39,11 @@ echo "::end-group"
 
 echo "::group::Init API iproject with given API definition"
 apimcli init ./$3/$4 
+mkdir ./$3/$4/Sequences/fault-sequence/Custom
+mkdir ./$3/$4/Sequences/in-sequence/Custom
+mkdir ./$3/$4/Sequences/out-sequence/Custom
+
 ls ./$3/$4
-mkdir ./Sequences/fault-sequence/Custom
-mkdir ./Sequences/in-sequence/Custom
-mkdir ./Sequences/out-sequence/Custom
 echo "::end-group"
 
 echo "::group::Push API project into the GIT repo from VM"
