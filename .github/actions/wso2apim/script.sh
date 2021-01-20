@@ -6,7 +6,6 @@
     # $4 - APIVersion
     # $5 - PostmanCollectionTestFile
 
-
 echo "::group::WSO2 APIMCLI Version"
     apimcli version
 echo "::end-group"
@@ -42,6 +41,7 @@ apimcli init ./$3/$4
 mkdir ./$3/$4/Sequences/fault-sequence/Custom
 mkdir ./$3/$4/Sequences/in-sequence/Custom
 mkdir ./$3/$4/Sequences/out-sequence/Custom
+mkdir ./$3/$4/Testing
 touch ./$3/$4/Docs/docs.json
 ls ./$3/$4
 echo "::end-group"
@@ -60,7 +60,7 @@ echo "::end-group"
 echo "::group::Testing With Postman Collection"
 if [ $5 ]
 then
-newman run $5 --insecure 
+newman run ./$3/$4/Testing/$5 --insecure 
 else
 echo "You have not given a postmanfile to run."
 fi
@@ -78,6 +78,7 @@ echo "::group::List APIS in targetted Tenant"
 apimcli list apis -e wso2apicloud -k
 echo "::end-group"
 
+apimcli logout wso2apicloud 
 
 
 # echo "::group::Export API from current Tenant"
@@ -85,7 +86,6 @@ echo "::end-group"
 # # apimcli export-api --name <API-name> --version <version> --provider <provider> --environment <environment> --username <username> --password <password> --insecure
 # # apimcli export-api -n TeamMasterAPI -v v1.0.0 -r mihindu@wso2.com@development -e wso2apicloud -k
 # echo "::end-group"
-apimcli logout wso2apicloud 
 
 
 
