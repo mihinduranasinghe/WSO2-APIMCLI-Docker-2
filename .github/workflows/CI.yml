@@ -36,7 +36,17 @@ jobs:
           # OASJsonFilePath: "./SampleStore/2.0.0/Meta-information/swagger.yaml"
           # APIDefinitionFilePath: "./SampleStore/2.0.0/Meta-information/api.yaml"
           APIVersion: "2.0.0"
-          # PostmanCollectionTestFile: "./SampleStore/2.0.0/Meta-information/sample_store.postman_collection.json"
+
+      # Reusable code chunk - Copy this below code chunk and use with your requirement.
+      - name: SampleStore v2.0.0 deploying to development tenant
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        uses: mihinduranasinghe/WSO2-APIManager-Cloud-CICD-Beta@v2.0.0
+        with:
+          usernameDevTenant: "mihindu@wso2.com@development"
+          passwordDevTenant: ${{secrets.PASSWORD}}
+          APIProjectName: "SampleStore"
+          APIVersion: "2.0.0"
+          # PostmanCollectionTestFile: "sample_store.postman_collection.json"
 
       # - name: SampleStore v1.0.0 deploying to production tenant
       #   if: github.event_name == 'push' && github.ref == 'refs/heads/production'
