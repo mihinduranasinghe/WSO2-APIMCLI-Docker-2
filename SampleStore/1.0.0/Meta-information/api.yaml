@@ -9,7 +9,7 @@ contextTemplate: /SampleStore/{version}
 availableTiers:
   - name: Unlimited
   - name: Bronze
-status: created
+status: published
 visibility: public
 # Mediation Sequence
 transports: http,https
