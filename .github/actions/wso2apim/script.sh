@@ -88,14 +88,23 @@ base64key=`echo -n "$1:$2" | base64`
 response=`curl -i --location -g --request POST --verbose 'https://gateway.api.cloud.wso2.com/client-registration/register' \
 --header "Authorization: Basic $base64key" \
 --header "Content-Type: application/json" \
---data-raw "{
-    'callbackUrl': 'www.google.lk',
-    'clientName': 'rest_api_publisher-new',
-    'tokenScope': 'Production',
-    'owner': '$1',
-    'grantType': 'password refresh_token',
-    'saasApp': true
-}"`
+# --data-raw "{
+#     'callbackUrl': 'www.google.lk',
+#     'clientName': 'rest_api_publisher-new',
+#     'tokenScope': 'Production',
+#     'owner': '$1',
+#     'grantType': 'password refresh_token',
+#     'saasApp': true
+# }"`
+
+--data-raw '{
+    "callbackUrl": "www.google.lk",
+    "clientName": "rest_api_publisher-new",
+    "tokenScope": "Production",
+    "owner": "mihindu@wso2.com@development",
+    "grantType": "password refresh_token",
+    "saasApp": true
+}'`
 echo $response
 echo "::end-group"
 
