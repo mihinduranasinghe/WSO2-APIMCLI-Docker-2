@@ -99,9 +99,9 @@ response_client_registration=`curl -i --location -g --request POST --verbose 'ht
     "saasApp": true
 }'`
 
-ClientId = `jq ".clientId" $response_client_registration`
+echo jq ".clientId" $response_client_registration
 echo $response_client_registration
-echo $ClientId
+# echo $ClientId
 echo "::end-group"
 
 
