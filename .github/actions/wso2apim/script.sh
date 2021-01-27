@@ -78,7 +78,10 @@ echo "::group::List APIS in targetted Tenant"
 apimcli list apis -e wso2apicloud -k
 echo "::end-group"
 
+
 #-------------------------------
+# Invoking and testing automation
+
 echo "::group::Client Registration"
 # curl -X POST -H "Authorization: Basic base64encode(<email_username@Org_key>:<password>)" -H "Content-Type: application/json" -d @payload.json https://gateway.api.cloud.wso2.com/client-registration/register
 # curl -X POST -H "Authorization: Basic base64encode($1:$2)" -H "Content-Type: application/json" -d @payload.json https://gateway.api.cloud.wso2.com/client-registration/register
@@ -103,9 +106,9 @@ echo "::end-group"
 echo "::group::Client Access Token Generate"
 # curl -k -d "grant_type=password&username=email_username@Org_key&password=admin&scope=apim:subscribe" -H "Authorization: Basic SGZFbDFqSlBkZzV0YnRyeGhBd3liTjA1UUdvYTpsNmMwYW9MY1dSM2Z3ZXpIaGM3WG9HT2h0NUFh" https://gateway.api.cloud.wso2.com/token
 # Authorization: Basic  username@wso2.com@organizationname:password
-response_client_access_token_generate = curl -k --verbose https://gateway.api.cloud.wso2.com/token \
+response_client_access_token_generate = `curl -k --verbose https://gateway.api.cloud.wso2.com/token \
 -d "grant_type=password&username=$1&password=$2&scope=apim:subscribe" \
--H "Authorization: Basic $base64key" 
+-H "Authorization: Basic $base64key"`
 
 echo $response_client_access_token_generate
 echo "::end-group"
