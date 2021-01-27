@@ -97,11 +97,11 @@ response_client_registration=`curl -i --location -g --request POST --verbose 'ht
     "owner": "'$1'",
     "grantType": "password refresh_token",
     "saasApp": true
-}'`
+}' | jq --raw-output '.clientId'`
 
-ClientId = $response_client_registration | jq --raw-output '.clientId'
+# ClientId = $response_client_registration | jq --raw-output '.clientId'
 # jq '.clientId' $response_client_registration
-echo $response_client_registration
+# echo $response_client_registration
 echo $ClientId
 echo "::end-group"
 
