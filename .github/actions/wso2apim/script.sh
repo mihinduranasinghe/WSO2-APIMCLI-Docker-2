@@ -81,7 +81,18 @@ echo "::end-group"
 #-------------------------------
 echo "::group::Client Registration"
 # curl -X POST -H "Authorization: Basic base64encode(<email_username@Org_key>:<password>)" -H "Content-Type: application/json" -d @payload.json https://gateway.api.cloud.wso2.com/client-registration/register
-curl -X POST -H "Authorization: Basic base64encode($1:$2)" -H "Content-Type: application/json" -d @payload.json https://gateway.api.cloud.wso2.com/client-registration/register
+# curl -X POST -H "Authorization: Basic base64encode($1:$2)" -H "Content-Type: application/json" -d @payload.json https://gateway.api.cloud.wso2.com/client-registration/register
+curl --location -g --request POST 'https://gateway.api.cloud.wso2.com/client-registration/register' \
+--header 'Content-Type: application/json' \
+--header 'Authorization: Basic e3t1c2VybmFtZX19Ont7cGFzc3dvcmR9fQ==' \
+--data-raw '{
+    "callbackUrl": "www.google.lk",
+    "clientName": "rest_api_publisher-new",
+    "tokenScope": "Production",
+    "owner": {{$1}},
+    "grantType": "password refresh_token",
+    "saasApp": true
+}'
 echo "::end-group"
 
 # echo "::group::Client Access Token Generate"
@@ -105,6 +116,36 @@ echo "::end-group"
 # newman run $5 --insecure
 # echo "::end-group"
 #-------------------------------
+
+-------------Malith
+
+# Client Registration
+
+# curl --location -g --request POST 'https://{{url}}/client-registration/register' \
+# --header 'Content-Type: application/json' \
+# --header 'Authorization: Basic e3t1c2VybmFtZX19Ont7cGFzc3dvcmR9fQ==' \
+# --data-raw '{
+#     "callbackUrl": "www.google.lk",
+#     "clientName": "rest_api_publisher-new",
+#     "tokenScope": "Production",
+#     "owner": {{applicationowner}},
+#     "grantType": "password refresh_token",
+#     "saasApp": true
+# }'
+
+
+
+# Client Access Token
+
+# curl --location -g --request POST 'https://{{url}}/token' \
+# --header 'Content-Type: application/x-www-form-urlencoded' \
+# --header 'Authorization: Basic e3tyZXN0LWNsaWVudC1pZH19Ont7cmVzdC1jbGllbnQtc2VjcmV0fX0=' \
+# --data-urlencode 'grant_type=password' \
+# --data-urlencode 'username={{username}}' \
+# --data-urlencode 'password={{password}}' \
+# --data-urlencode 'scope=apim:api_view'
+
+#---------------------------------------
 
 apimcli logout wso2apicloud 
 
