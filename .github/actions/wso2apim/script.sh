@@ -125,7 +125,7 @@ response_client_access_token_generate=`curl -s --location -g --request POST 'htt
 --header "Content-Type: application/x-www-form-urlencoded" \
 --header "Authorization: Basic $base64key2" \
 --data-urlencode 'grant_type=password' \
---data-urlencode 'username=mihindu@wso2.com@development' \
+--data-urlencode 'username="'$1'"' \
 --data-urlencode 'password="'$2'"' \
 --data-urlencode 'scope=apim:subscribe'`
 
