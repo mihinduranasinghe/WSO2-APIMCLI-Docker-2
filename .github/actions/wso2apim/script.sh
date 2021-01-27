@@ -106,9 +106,16 @@ echo "::end-group"
 echo "::group::Client Access Token Generate"
 # curl -k -d "grant_type=password&username=email_username@Org_key&password=admin&scope=apim:subscribe" -H "Authorization: Basic SGZFbDFqSlBkZzV0YnRyeGhBd3liTjA1UUdvYTpsNmMwYW9MY1dSM2Z3ZXpIaGM3WG9HT2h0NUFh" https://gateway.api.cloud.wso2.com/token
 # Authorization: Basic  username@wso2.com@organizationname:password
-response_client_access_token_generate=`curl -k --verbose https://gateway.api.cloud.wso2.com/token \
--d "grant_type=password&username=$1&password=$2&scope=apim:subscribe" \
--H "Authorization: Basic $base64key"`
+# response_client_access_token_generate=`curl -k --verbose https://gateway.api.cloud.wso2.com/token \
+# -d "grant_type=password&username=$1&password=$2&scope=apim:subscribe" \
+# -H "Authorization: Basic $base64key"`
+response_client_access_token_generate=`curl --location -g --request POST --verbose 'https://gateway.api.cloud.wso2.com/token' \
+--header "Content-Type: application/x-www-form-urlencoded" \
+--header "Authorization: Basic $base64key" \
+--data-urlencode 'grant_type=password' \
+--data-urlencode 'username="'$1'"' \
+--data-urlencode 'password="'$2'"' \
+--data-urlencode 'scope=apim:subscribe'`
 
 echo $response_client_access_token_generate
 echo "::end-group"
