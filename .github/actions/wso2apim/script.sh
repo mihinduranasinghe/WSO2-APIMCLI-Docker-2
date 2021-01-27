@@ -82,9 +82,9 @@ echo "::end-group"
 echo "::group::Client Registration"
 # curl -X POST -H "Authorization: Basic base64encode(<email_username@Org_key>:<password>)" -H "Content-Type: application/json" -d @payload.json https://gateway.api.cloud.wso2.com/client-registration/register
 # curl -X POST -H "Authorization: Basic base64encode($1:$2)" -H "Content-Type: application/json" -d @payload.json https://gateway.api.cloud.wso2.com/client-registration/register
-curl --location -g --request POST 'https://gateway.api.cloud.wso2.com/client-registration/register' \
+curl --verbose --location -g --request POST 'https://gateway.api.cloud.wso2.com/client-registration/register' \
+--header "Authorization: Basic base64encode($1:$2)" \
 --header 'Content-Type: application/json' \
---header 'Authorization: Basic e3t1c2VybmFtZX19Ont7cGFzc3dvcmR9fQ==' \
 --data-raw '{
     "callbackUrl": "www.google.lk",
     "clientName": "rest_api_publisher-new",
