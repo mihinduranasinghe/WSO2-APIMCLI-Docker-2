@@ -137,7 +137,7 @@ rest_access_token=`curl -s --location -g --request POST 'https://gateway.api.clo
 --data-urlencode "grant_type=password" \
 --data-urlencode "username=$1" \
 --data-urlencode "password=$2" \
---data-urlencode "scope=apim:api_view" | jq --raw-output '.access_token'`
+--data-urlencode "scope=apim:subscribe" | jq --raw-output '.access_token'`
 
 echo $rest_access_token_scope_view
 echo $rest_access_token
