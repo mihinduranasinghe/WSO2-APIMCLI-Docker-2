@@ -87,7 +87,7 @@ echo "::group::Client Registration"
 # curl -X POST -H "Authorization: Basic base64encode($1:$2)" -H "Content-Type: application/json" -d @payload.json https://gateway.api.cloud.wso2.com/client-registration/register
 base64key=`echo -n "$1:$2" | base64`
 
-response_client_registration=`curl -s --location -g --request POST --verbose 'https://gateway.api.cloud.wso2.com/client-registration/register' \
+response_clientId=`curl -s --location -g --request POST --verbose 'https://gateway.api.cloud.wso2.com/client-registration/register' \
 --header "Authorization: Basic $base64key" \
 --header "Content-Type: application/json" \
 --data-raw '{
@@ -97,31 +97,25 @@ response_client_registration=`curl -s --location -g --request POST --verbose 'ht
     "owner": "'$1'",
     "grantType": "password refresh_token",
     "saasApp": true
-}'`
+}' | jq --raw-output '.clientId'`
 
-ClientId = `$response_client_registration | jq --raw-output '.clientId'`
-# jq '.clientId' $response_client_registration
-echo $response_client_registration
-echo $ClientId
+echo $response_clientId
 echo "::end-group"
 
 
 echo "::group::Client Access Token Generate"
 # curl -k -d "grant_type=password&username=email_username@Org_key&password=admin&scope=apim:subscribe" -H "Authorization: Basic SGZFbDFqSlBkZzV0YnRyeGhBd3liTjA1UUdvYTpsNmMwYW9MY1dSM2Z3ZXpIaGM3WG9HT2h0NUFh" https://gateway.api.cloud.wso2.com/token
 # Authorization: Basic  username@wso2.com@organizationname:password
-# response_client_access_token_generate=`curl -k --verbose https://gateway.api.cloud.wso2.com/token \
-# -d "grant_type=password&username=$1&password=$2&scope=apim:subscribe" \
-# -H "Authorization: Basic $base64key"`
 
-# response_client_access_token_generate=`curl --location -g --request POST --verbose 'https://gateway.api.cloud.wso2.com/token' \
-# --header "Content-Type: application/x-www-form-urlencoded" \
-# --header "Authorization: Basic $base64key" \
-# --data-urlencode 'grant_type=password' \
-# --data-urlencode 'username="'$1'"' \
-# --data-urlencode 'password="'$2'"' \
-# --data-urlencode 'scope=apim:subscribe'`
+response_client_access_token_generate=`curl --location -g --request POST --verbose 'https://gateway.api.cloud.wso2.com/token' \
+--header "Content-Type: application/x-www-form-urlencoded" \
+--header "Authorization: Basic $base64key" \
+--data-urlencode 'grant_type=password' \
+--data-urlencode 'username="'$response_clientId'"' \
+--data-urlencode 'password="'$2'"' \
+--data-urlencode 'scope=apim:subscribe'`
 
-# echo $response_client_access_token_generate
+echo $response_client_access_token_generate
 echo "::end-group"
 
 # echo "::group::Generate Key for Application"
