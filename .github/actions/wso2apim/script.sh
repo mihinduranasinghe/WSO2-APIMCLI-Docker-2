@@ -147,7 +147,7 @@ application_id=`curl -s --location -g --request POST 'https://gateway.api.cloud.
     "name": "TestAutomationApp",
     "callbackUrl": "http://my.server.com/callback"
 }'`
-
+echo $application_id
 echo "::end-group"
 
 echo "::group::Add a new subscription"
