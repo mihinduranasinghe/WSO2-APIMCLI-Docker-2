@@ -87,7 +87,7 @@ echo "::group::Client Registration"
 # curl -X POST -H "Authorization: Basic base64encode($1:$2)" -H "Content-Type: application/json" -d @payload.json https://gateway.api.cloud.wso2.com/client-registration/register
 base64key=`echo -n "$1:$2" | base64`
 
-response_clientId=`curl -s --location -g --request POST --verbose 'https://gateway.api.cloud.wso2.com/client-registration/register' \
+response_clientId=`curl -s --location -g --request POST 'https://gateway.api.cloud.wso2.com/client-registration/register' \
 --header "Authorization: Basic $base64key" \
 --header "Content-Type: application/json" \
 --data-raw '{
@@ -109,7 +109,7 @@ echo "::group::Client Access Token Generate"
 
 response_client_access_token_generate=`curl -s --location -g --request POST --verbose 'https://gateway.api.cloud.wso2.com/token' \
 --header "Content-Type: application/x-www-form-urlencoded" \
---header "Authorization: Basic $response_clientId" \
+--header "Authorization: Basic $base64key" \
 --data-urlencode 'grant_type=password' \
 --data-urlencode 'username="'$1'"' \
 --data-urlencode 'password="'$2'"' \
