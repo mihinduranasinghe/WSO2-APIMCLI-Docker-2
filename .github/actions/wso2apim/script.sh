@@ -121,7 +121,7 @@ echo "::group::Client Access Token Generate"
 # curl -k -d "grant_type=password&username=email_username@Org_key&password=admin&scope=apim:subscribe" -H "Authorization: Basic SGZFbDFqSlBkZzV0YnRyeGhBd3liTjA1UUdvYTpsNmMwYW9MY1dSM2Z3ZXpIaGM3WG9HT2h0NUFh" https://gateway.api.cloud.wso2.com/token
 # base64key2 = Authorization: <Basic rest-client-id:rest-client-secret>base64
 
-response_client_access_token_generate=`curl -s --location -g --request --verbose POST 'https://gateway.api.cloud.wso2.com/token' \
+response_client_access_token_generate=`curl -s --location -g --request POST 'https://gateway.api.cloud.wso2.com/token' \
 --header "Content-Type: application/x-www-form-urlencoded" \
 --header "Authorization: Basic $base64key2" \
 --data-urlencode "grant_type=password" \
