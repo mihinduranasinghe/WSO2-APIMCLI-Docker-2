@@ -121,7 +121,7 @@ echo "::group::Client Access Token Generate"
 # curl -k -d "grant_type=password&username=email_username@Org_key&password=admin&scope=apim:subscribe" -H "Authorization: Basic SGZFbDFqSlBkZzV0YnRyeGhBd3liTjA1UUdvYTpsNmMwYW9MY1dSM2Z3ZXpIaGM3WG9HT2h0NUFh" https://gateway.api.cloud.wso2.com/token
 # base64key2 = Authorization: Basic <rest-client-id:rest-client-secret>base64
 
-rest_access_token=`curl -i --location -g --request POST 'https://gateway.api.cloud.wso2.com/token' \
+rest_access_token=`curl -s --location -g --request POST 'https://gateway.api.cloud.wso2.com/token' \
 --header "Content-Type: application/x-www-form-urlencoded" \
 --header "Authorization: Basic $base64key2" \
 --data-urlencode "grant_type=password" \
@@ -145,12 +145,12 @@ application_id=`curl -s --location -g --request POST 'https://gateway.api.cloud.
     "description": "Automatic generated app for automated testing purpose",
     "name": "TestAutomationApp",
     "callbackUrl": "http://my.server.com/callback"
-}' | jq '.'`
+}'`
 
 echo $application_id
 echo "::end-group"
 
-echo "::group::Add new subscription"
+echo "::group::Add a new subscription"
 # curl -k -H "Authorization: Bearer ae4eae22-3f65-387b-a171-d37eaa366fa8" -H "Content-Type: application/json" -X POST  -d @data.json "https://gateway.api.cloud.wso2.com/api/am/store/subscriptions"
 echo "::end-group"
 
