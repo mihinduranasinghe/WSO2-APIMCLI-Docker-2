@@ -2,6 +2,7 @@ FROM ubuntu:18.04
 RUN apt update
 RUN apt install -y git
 RUN apt install -y curl
+RUN apt-get install -y jq
 RUN apt install -y nodejs
 
 # RUN node -v
