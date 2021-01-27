@@ -145,7 +145,7 @@ application_id=`curl -s --location -g --request POST 'https://gateway.api.cloud.
     "description": "Automatic generated app for automated testing purpose",
     "name": "TestAutomationApp",
     "callbackUrl": "http://my.server.com/callback"
-}' | jq --raw-output '.applicationId'`
+}' | jq '.applicationId'`
 
 echo $application_id
 echo "::end-group"
