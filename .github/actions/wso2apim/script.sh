@@ -92,7 +92,7 @@ response=`curl -i --location -g --request POST --verbose 'https://gateway.api.cl
     "callbackUrl": "www.google.lk",
     "clientName": "rest_api_publisher-new",
     "tokenScope": "Production",
-    "owner": "mihindu@wso2.com@development",
+    "owner": '$1',
     "grantType": "password refresh_token",
     "saasApp": true
 }'`
