@@ -82,7 +82,7 @@ echo "::end-group"
 echo "::group::Client Registration"
 # curl -X POST -H "Authorization: Basic base64encode(<email_username@Org_key>:<password>)" -H "Content-Type: application/json" -d @payload.json https://gateway.api.cloud.wso2.com/client-registration/register
 # curl -X POST -H "Authorization: Basic base64encode($1:$2)" -H "Content-Type: application/json" -d @payload.json https://gateway.api.cloud.wso2.com/client-registration/register
-curl -X POST --verbose 'https://gateway.api.cloud.wso2.com/client-registration/register' \
+response=$(curl -X POST --verbose 'https://gateway.api.cloud.wso2.com/client-registration/register' \
 --header "Authorization: Basic base64encode($1:$2)" \
 --header 'Content-Type: application/json' \
 --data-raw '{
@@ -92,7 +92,8 @@ curl -X POST --verbose 'https://gateway.api.cloud.wso2.com/client-registration/r
     "owner": {{$1}},
     "grantType": "password refresh_token",
     "saasApp": true
-}'
+}')
+echo response
 echo "::end-group"
 
 # echo "::group::Client Access Token Generate"
