@@ -85,7 +85,7 @@ echo "::group::Client Registration"
 
 base64key=`echo -n "$1:$2" | base64`
 
-response=`curl -X POST --verbose 'https://gateway.api.cloud.wso2.com/client-registration/register' \
+response=`curl -s --location -g --request POST --verbose 'https://gateway.api.cloud.wso2.com/client-registration/register' \
 --header "Authorization: Basic $base64key" \
 --header 'Content-Type: application/json' \
 --data-raw '{
