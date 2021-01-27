@@ -93,7 +93,7 @@ response=$(curl -X POST --verbose 'https://gateway.api.cloud.wso2.com/client-reg
     "grantType": "password refresh_token",
     "saasApp": true
 }')
-echo response
+echo $response
 echo "::end-group"
 
 # echo "::group::Client Access Token Generate"
