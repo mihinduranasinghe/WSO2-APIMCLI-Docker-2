@@ -127,10 +127,8 @@ response_client_access_token_generate=`curl -s --location -g --request --verbose
 --data-urlencode "grant_type=password" \
 --data-urlencode "username='$1'" \
 --data-urlencode "password='$2'" \
---data-urlencode "scope=apim:admin"`
+--data-urlencode "scope=apim:subscribe"`
 
-# --data-urlencode 'username="'$1'"' \
-# --data-urlencode 'password="'$2'"' \
 echo $response_client_access_token_generate
 echo "::end-group"
 
