@@ -127,7 +127,7 @@ rest_access_token=`curl -s --location -g --request POST 'https://gateway.api.clo
 --data-urlencode "grant_type=password" \
 --data-urlencode "username=$1" \
 --data-urlencode "password=$2" \
---data-urlencode "scope=apim:subscribe"`
+--data-urlencode "scope=apim:subscribe" | jq --raw-output '.access_token'`
 
 echo $rest_access_token
 echo "::end-group"
@@ -139,7 +139,7 @@ echo "::end-group"
 echo "::group::Create new Application"
 # curl -k -H "Authorization: Bearer ae4eae22-3f65-387b-a171-d37eaa366fa8" -H "Content-Type: application/json" -X POST -d @data.json "https://gateway.api.cloud.wso2.com/api/am/store/applications"
 
-application_id=`curl -s --location -g --request POST 'https://gateway.api.cloud.wso2.com/api/am/store/applications' \
+application_id=`curl -s --location -g --request --verbose POST 'https://gateway.api.cloud.wso2.com/api/am/store/applications' \
 --header "Authorization: Basic $rest_access_token" \
 --header "Content-Type: application/json" \
 --data-raw '{
@@ -147,7 +147,7 @@ application_id=`curl -s --location -g --request POST 'https://gateway.api.cloud.
     "description": "Automatic generated app for automated testing purpose",
     "name": "TestAutomationApp",
     "callbackUrl": "http://my.server.com/callback"
-}'`
+}' | jq --raw-output '.applicationId'`
 
 echo $application_id
 echo "::end-group"
