@@ -139,7 +139,8 @@ echo "::end-group"
 echo "::group::Finding the API identifier"
 
 API_Identifier=`curl --location -g --request --verbose -k GET 'https://gateway.api.cloud.wso2.com/api/am/publisher/apis' \
---header "Authorization: Bearer $rest_access_token"`
+--header "Authorization: Bearer $rest_access_token" \
+--header "Content-Type: application/json"`
 
 echo $API_Identifier
 echo "::end-group"
