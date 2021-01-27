@@ -113,7 +113,7 @@ response_client_access_token_generate=`curl -s --location -g --request POST --ve
 --data-urlencode 'grant_type=password' \
 --data-urlencode 'username="'$1'"' \
 --data-urlencode 'password="'$2'"' \
---data-urlencode 'scope=apim:subscribe'`
+--data-urlencode 'scope=apim:api_view'`
 
 echo $response_client_access_token_generate
 echo "::end-group"
@@ -126,16 +126,20 @@ echo "::end-group"
 # curl -k -H "Authorization: Bearer ae4eae22-3f65-387b-a171-d37eaa366fa8" -H "Content-Type: application/json" -X POST -d @data.json "https://gateway.api.cloud.wso2.com/api/am/store/applications"
 # echo "::end-group"
 
+# echo "::group::Add new subscription"
+# curl -k -H "Authorization: Bearer ae4eae22-3f65-387b-a171-d37eaa366fa8" -H "Content-Type: application/json" -X POST  -d @data.json "https://gateway.api.cloud.wso2.com/api/am/store/subscriptions"
+# echo "::end-group"
+
 # echo "::group::Generate access token"
 # curl -u <client id>:<client secret> -k -d "grant_type=client_credentials&validity_period=3600" -H "Content-Type:application/x-www-form-urlencoded" https://gateway.api.cloud.wso2.com:443/token
 # echo "::end-group"
 
+#-------------------------------
 # echo "::group::Testing With Postman Collection"
 # newman run $5 --insecure
 # echo "::end-group"
-#-------------------------------
 
-# -------------Malith
+# ------------------------------Malith
 
 # Client Registration
 
