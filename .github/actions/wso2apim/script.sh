@@ -123,14 +123,23 @@ echo "::group::Client Access Token Generate"
 # curl -k -d "grant_type=password&username=email_username@Org_key&password=admin&scope=apim:subscribe" -H "Authorization: Basic SGZFbDFqSlBkZzV0YnRyeGhBd3liTjA1UUdvYTpsNmMwYW9MY1dSM2Z3ZXpIaGM3WG9HT2h0NUFh" https://gateway.api.cloud.wso2.com/token
 # base64key2 = Authorization: Basic <rest-client-id:rest-client-secret>base64
 
+rest_access_token_scope_view=`curl -s --location -g --request POST 'https://gateway.api.cloud.wso2.com/token' \
+--header "Content-Type: application/x-www-form-urlencoded" \
+--header "Authorization: Basic $base64key2" \
+--data-urlencode "grant_type=password" \
+--data-urlencode "username=$1" \
+--data-urlencode "password=$2" \
+--data-urlencode "scope=apim:api_view" | jq --raw-output '.access_token'`
+
 rest_access_token=`curl -s --location -g --request POST 'https://gateway.api.cloud.wso2.com/token' \
 --header "Content-Type: application/x-www-form-urlencoded" \
 --header "Authorization: Basic $base64key2" \
 --data-urlencode "grant_type=password" \
 --data-urlencode "username=$1" \
 --data-urlencode "password=$2" \
---data-urlencode "scope=apim:apim_view" | jq --raw-output '.access_token'`
+--data-urlencode "scope=apim:api_view" | jq --raw-output '.access_token'`
 
+echo $rest_access_token_scope_view
 echo $rest_access_token
 echo "::end-group"
 
@@ -139,8 +148,7 @@ echo "::end-group"
 echo "::group::Finding the API identifier"
 
 API_Identifier=`curl --location -g --request --verbose -k GET 'https://gateway.api.cloud.wso2.com/api/am/publisher/apis' \
---header "Authorization: Bearer $rest_access_token" \
---header "Content-Type: application/json"`
+--header "Authorization: Bearer $rest_access_token_scope_view"`
 
 echo $API_Identifier
 echo "::end-group"
