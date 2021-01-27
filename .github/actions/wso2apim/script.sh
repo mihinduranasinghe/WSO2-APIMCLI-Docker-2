@@ -98,8 +98,8 @@ response_client_registration=`curl -i --location -g --request POST --verbose 'ht
     "grantType": "password refresh_token",
     "saasApp": true
 }'`
-
-echo jq ".clientId" $response_client_registration
+jq
+jq '.clientId' $response_client_registration
 echo $response_client_registration
 # echo $ClientId
 echo "::end-group"
