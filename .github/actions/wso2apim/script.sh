@@ -101,8 +101,8 @@ response_client_registration=`curl -i --location -g --request POST --verbose 'ht
 
 # ClientId = $response_client_registration | jq --raw-output '.clientId'
 # jq '.clientId' $response_client_registration
-# echo $response_client_registration
-echo $ClientId
+# echo $ClientId
+echo $response_client_registration
 echo "::end-group"
 
 
