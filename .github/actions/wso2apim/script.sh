@@ -46,6 +46,7 @@ touch ./$3/$4/Docs/docs.json
 ls ./$3/$4
 echo "::end-group"
 
+
 echo "::group::Push API project into the GIT repo from VM"
 git config --global user.email "my-bot@bot.com"
 git config --global user.name "my-bot"
@@ -148,6 +149,10 @@ application_id=`curl -s --location -g --request POST 'https://gateway.api.cloud.
 }' | jq --raw-output '.applicationId'`
 
 echo $application_id
+echo "::end-group"
+
+echo "::group::Finding the API identifier"
+API_Identifier=`curl -s -k -H "Authorization: Bearer $rest_access_token" https://gateway.api.cloud.wso2.com/api/am/publisher/apis`
 echo "::end-group"
 
 echo "::group::Add a new subscription"
