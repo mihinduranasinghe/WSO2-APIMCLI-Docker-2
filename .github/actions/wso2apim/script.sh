@@ -85,10 +85,11 @@ echo "::end-group"
 echo "::group::Client Registration"
 # curl -X POST -H "Authorization: Basic base64encode(<email_username@Org_key>:<password>)" -H "Content-Type: application/json" -d @payload.json https://gateway.api.cloud.wso2.com/client-registration/register
 # curl -X POST -H "Authorization: Basic base64encode($1:$2)" -H "Content-Type: application/json" -d @payload.json https://gateway.api.cloud.wso2.com/client-registration/register
-# base64key1 = Authorization: Basic  username@wso2.com@organizationname:password
+# base64key1 = Authorization: Basic  <username@wso2.com@organizationname:password>base64
+
 base64key1=`echo -n "$1:$2" | base64`
 
-response_clientId=`curl -s --location -g --request POST 'https://gateway.api.cloud.wso2.com/client-registration/register' \
+rest_clientId=`curl -s --location -g --request POST 'https://gateway.api.cloud.wso2.com/client-registration/register' \
 --header "Authorization: Basic $base64key1" \
 --header "Content-Type: application/json" \
 --data-raw '{
@@ -98,20 +99,32 @@ response_clientId=`curl -s --location -g --request POST 'https://gateway.api.clo
     "owner": "'$1'",
     "grantType": "password refresh_token",
     "saasApp": true
-}' | jq '.'`
+}' | jq --raw-output '.clientId'`
 
+rest_clientSecret=`curl -s --location -g --request POST 'https://gateway.api.cloud.wso2.com/client-registration/register' \
+--header "Authorization: Basic $base64key1" \
+--header "Content-Type: application/json" \
+--data-raw '{
+    "callbackUrl": "www.google.lk",
+    "clientName": "rest_api_publisher-new",
+    "tokenScope": "Production",
+    "owner": "'$1'",
+    "grantType": "password refresh_token",
+    "saasApp": true
+}' | jq --raw-output '.clientSecret'`
 
-echo $response_clientId
+base64key2=`echo -n "$rest_clientId:$rest_clientSecret" | base64`
+
+echo $base64key2
 echo "::end-group"
 
 
 echo "::group::Client Access Token Generate"
 # curl -k -d "grant_type=password&username=email_username@Org_key&password=admin&scope=apim:subscribe" -H "Authorization: Basic SGZFbDFqSlBkZzV0YnRyeGhBd3liTjA1UUdvYTpsNmMwYW9MY1dSM2Z3ZXpIaGM3WG9HT2h0NUFh" https://gateway.api.cloud.wso2.com/token
-# base64key2 = Authorization: Basic rest-client-id:rest-client-secret
-
-response_client_access_token_generate=`curl -s --location -g --request POST --verbose 'https://gateway.api.cloud.wso2.com/token' \
+# base64key2 = Authorization: <Basic rest-client-id:rest-client-secret>base64
+response_client_access_token_generate=`curl -s --location -g --request POST 'https://gateway.api.cloud.wso2.com/token' \
 --header "Content-Type: application/x-www-form-urlencoded" \
---header "Authorization: Basic $base64key" \
+--header "Authorization: Basic $base64key2" \
 --data-urlencode 'grant_type=password' \
 --data-urlencode 'username="'$1'"' \
 --data-urlencode 'password="'$2'"' \
