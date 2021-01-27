@@ -78,6 +78,34 @@ echo "::group::List APIS in targetted Tenant"
 apimcli list apis -e wso2apicloud -k
 echo "::end-group"
 
+#-------------------------------
+echo "::group::Client Registration"
+# curl -X POST -H "Authorization: Basic base64encode(<email_username@Org_key>:<password>)" -H "Content-Type: application/json" -d @payload.json https://gateway.api.cloud.wso2.com/client-registration/register
+curl -X POST -H "Authorization: Basic base64encode($1:$2)" -H "Content-Type: application/json" -d @payload.json https://gateway.api.cloud.wso2.com/client-registration/register
+echo "::end-group"
+
+# echo "::group::Client Access Token Generate"
+# curl -k -d "grant_type=password&username=email_username@Org_key&password=admin&scope=apim:subscribe" -H "Authorization: Basic SGZFbDFqSlBkZzV0YnRyeGhBd3liTjA1UUdvYTpsNmMwYW9MY1dSM2Z3ZXpIaGM3WG9HT2h0NUFh" https://gateway.api.cloud.wso2.com/token
+# # Authorization: Basic  username@wso2.com@organizationname:password
+# echo "::end-group"
+
+# echo "::group::Generate Key for Application"
+# curl -k -H "Authorization: Bearer ae4eae22-3f65-387b-a171-d37eaa366fa8" -H "Content-Type: application/json" -X POST -d @data.json  "https://gateway.api.cloud.wso2.com/api/am/store/applications/generate-keys?applicationId=c30f3a6e-ffa4-4ae7-afce-224d1f820524"
+# echo "::end-group"
+
+# echo "::group::Create new Application"
+# curl -k -H "Authorization: Bearer ae4eae22-3f65-387b-a171-d37eaa366fa8" -H "Content-Type: application/json" -X POST -d @data.json "https://gateway.api.cloud.wso2.com/api/am/store/applications"
+# echo "::end-group"
+
+# echo "::group::Generate access token"
+# curl -u <client id>:<client secret> -k -d "grant_type=client_credentials&validity_period=3600" -H "Content-Type:application/x-www-form-urlencoded" https://gateway.api.cloud.wso2.com:443/token
+# echo "::end-group"
+
+# echo "::group::Testing With Postman Collection"
+# newman run $5 --insecure
+# echo "::end-group"
+#-------------------------------
+
 apimcli logout wso2apicloud 
 
 
