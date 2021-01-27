@@ -82,10 +82,9 @@ echo "::end-group"
 echo "::group::Client Registration"
 # curl -X POST -H "Authorization: Basic base64encode(<email_username@Org_key>:<password>)" -H "Content-Type: application/json" -d @payload.json https://gateway.api.cloud.wso2.com/client-registration/register
 # curl -X POST -H "Authorization: Basic base64encode($1:$2)" -H "Content-Type: application/json" -d @payload.json https://gateway.api.cloud.wso2.com/client-registration/register
-
 base64key=`echo -n "$1:$2" | base64`
 
-response=`curl -i --location -g --request POST --verbose 'https://gateway.api.cloud.wso2.com/client-registration/register' \
+response_client_registration=`curl -i --location -g --request POST --verbose 'https://gateway.api.cloud.wso2.com/client-registration/register' \
 --header "Authorization: Basic $base64key" \
 --header "Content-Type: application/json" \
 --data-raw '{
@@ -96,22 +95,17 @@ response=`curl -i --location -g --request POST --verbose 'https://gateway.api.cl
     "grantType": "password refresh_token",
     "saasApp": true
 }'`
-# --data-raw "{
-#     'callbackUrl': 'www.google.lk',
-#     'clientName': 'rest_api_publisher-new',
-#     'tokenScope': 'Production',
-#     'owner': '$1',
-#     'grantType': 'password refresh_token',
-#     'saasApp': true
-# }"`
 
-echo $response
+echo $response_client_registration
 echo "::end-group"
 
-# echo "::group::Client Access Token Generate"
+
+echo "::group::Client Access Token Generate"
 # curl -k -d "grant_type=password&username=email_username@Org_key&password=admin&scope=apim:subscribe" -H "Authorization: Basic SGZFbDFqSlBkZzV0YnRyeGhBd3liTjA1UUdvYTpsNmMwYW9MY1dSM2Z3ZXpIaGM3WG9HT2h0NUFh" https://gateway.api.cloud.wso2.com/token
-# # Authorization: Basic  username@wso2.com@organizationname:password
-# echo "::end-group"
+# Authorization: Basic  username@wso2.com@organizationname:password
+response_client_access_token_generate = curl -k -d "grant_type=password&username=$1&password=$2&scope=apim:subscribe" -H "Authorization: Basic $base64key" https://gateway.api.cloud.wso2.com/token
+echo $response_client_access_token_generate
+echo "::end-group"
 
 # echo "::group::Generate Key for Application"
 # curl -k -H "Authorization: Bearer ae4eae22-3f65-387b-a171-d37eaa366fa8" -H "Content-Type: application/json" -X POST -d @data.json  "https://gateway.api.cloud.wso2.com/api/am/store/applications/generate-keys?applicationId=c30f3a6e-ffa4-4ae7-afce-224d1f820524"
