@@ -113,6 +113,8 @@ rest_clientSecret=`curl -s --location -g --request POST 'https://gateway.api.clo
     "saasApp": true
 }' | jq --raw-output '.clientSecret'`
 
+echo $rest_clientId
+echo $rest_clientSecret 
 base64key2=`echo -n "$rest_clientId:$rest_clientSecret" | base64`
 echo "::end-group"
 
@@ -129,6 +131,17 @@ rest_access_token=`curl -s --location -g --request POST 'https://gateway.api.clo
 --data-urlencode "password=$2" \
 --data-urlencode "scope=apim:subscribe" | jq --raw-output '.access_token'`
 
+echo $rest_access_token
+echo "::end-group"
+
+
+
+echo "::group::Finding the API identifier"
+
+API_Identifier=`curl --location -g --request GET 'https://gateway.api.cloud.wso2.com/api/am/publisher/apis' \
+--header "Authorization: Bearer $rest_access_token"`
+
+echo $API_Identifier
 echo "::end-group"
 
 # echo "::group::Generate Key for Application"
@@ -149,13 +162,6 @@ application_id=`curl -s --location -g --request POST 'https://gateway.api.cloud.
 }' | jq --raw-output '.applicationId'`
 
 echo $application_id
-echo "::end-group"
-
-echo "::group::Finding the API identifier"
-API_Identifier=`curl --location -g --request GET 'https://gateway.api.cloud.wso2.com/api/am/publisher/apis' \
---header "Authorization: Bearer $rest_access_token"`
-
-echo $API_Identifier
 echo "::end-group"
 
 echo "::group::Add a new subscription"
