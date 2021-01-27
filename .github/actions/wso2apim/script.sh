@@ -114,28 +114,27 @@ rest_clientSecret=`curl -s --location -g --request POST 'https://gateway.api.clo
 }' | jq --raw-output '.clientSecret'`
 
 base64key2=`echo -n "$rest_clientId:$rest_clientSecret" | base64`
-
-echo $base64key2
 echo "::end-group"
 
 
 echo "::group::Client Access Token Generate"
 # curl -k -d "grant_type=password&username=email_username@Org_key&password=admin&scope=apim:subscribe" -H "Authorization: Basic SGZFbDFqSlBkZzV0YnRyeGhBd3liTjA1UUdvYTpsNmMwYW9MY1dSM2Z3ZXpIaGM3WG9HT2h0NUFh" https://gateway.api.cloud.wso2.com/token
 # base64key2 = Authorization: <Basic rest-client-id:rest-client-secret>base64
+
 response_client_access_token_generate=`curl -s --location -g --request POST 'https://gateway.api.cloud.wso2.com/token' \
 --header "Content-Type: application/x-www-form-urlencoded" \
 --header "Authorization: Basic $base64key2" \
 --data-urlencode 'grant_type=password' \
 --data-urlencode 'username="'$1'"' \
 --data-urlencode 'password="'$2'"' \
---data-urlencode 'scope=apim:api_view'`
+--data-urlencode 'scope=apim:subscribe'`
 
 echo $response_client_access_token_generate
 echo "::end-group"
 
-# echo "::group::Generate Key for Application"
+echo "::group::Generate Key for Application"
 # curl -k -H "Authorization: Bearer ae4eae22-3f65-387b-a171-d37eaa366fa8" -H "Content-Type: application/json" -X POST -d @data.json  "https://gateway.api.cloud.wso2.com/api/am/store/applications/generate-keys?applicationId=c30f3a6e-ffa4-4ae7-afce-224d1f820524"
-# echo "::end-group"
+echo "::end-group"
 
 # echo "::group::Create new Application"
 # curl -k -H "Authorization: Bearer ae4eae22-3f65-387b-a171-d37eaa366fa8" -H "Content-Type: application/json" -X POST -d @data.json "https://gateway.api.cloud.wso2.com/api/am/store/applications"
