@@ -145,13 +145,14 @@ application_id=`curl -s --location -g --request POST 'https://gateway.api.cloud.
     "description": "Automatic generated app for automated testing purpose",
     "name": "TestAutomationApp",
     "callbackUrl": "http://my.server.com/callback"
-}' | jq --raw-output '.applicationId'`
+}' | jq '.'`
 
+echo $application_id
 echo "::end-group"
 
-# echo "::group::Add new subscription"
+echo "::group::Add new subscription"
 # curl -k -H "Authorization: Bearer ae4eae22-3f65-387b-a171-d37eaa366fa8" -H "Content-Type: application/json" -X POST  -d @data.json "https://gateway.api.cloud.wso2.com/api/am/store/subscriptions"
-# echo "::end-group"
+echo "::end-group"
 
 # echo "::group::Generate access token"
 # curl -u <client id>:<client secret> -k -d "grant_type=client_credentials&validity_period=3600" -H "Content-Type:application/x-www-form-urlencoded" https://gateway.api.cloud.wso2.com:443/token
