@@ -100,6 +100,7 @@ response_client_registration=`curl -i --location -g --request POST --verbose 'ht
 }'`
 
 echo $response_client_registration
+echo `$response_client_registration["clientId"]
 echo "::end-group"
 
 
