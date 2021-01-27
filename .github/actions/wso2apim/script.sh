@@ -109,9 +109,9 @@ echo "::group::Client Access Token Generate"
 
 response_client_access_token_generate=`curl -s --location -g --request POST --verbose 'https://gateway.api.cloud.wso2.com/token' \
 --header "Content-Type: application/x-www-form-urlencoded" \
---header "Authorization: Basic $base64key" \
+--header "Authorization: Basic $response_clientId" \
 --data-urlencode 'grant_type=password' \
---data-urlencode 'username="'$response_clientId'"' \
+--data-urlencode 'username="'$1'"' \
 --data-urlencode 'password="'$2'"' \
 --data-urlencode 'scope=apim:subscribe'`
 
