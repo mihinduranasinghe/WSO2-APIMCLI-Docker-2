@@ -68,7 +68,7 @@ echo "::group::REST Client Registration"
     # base64key1 = Authorization: Basic  <username@wso2.com@organizationname:password>base64
     base64key1=`echo -n "$1:$2" | base64`
 
-    rest_client_object=`echo curl -s --location -g --request POST 'https://gateway.api.cloud.wso2.com/client-registration/register' \
+    rest_client_object=`curl -s --location -g --request POST 'https://gateway.api.cloud.wso2.com/client-registration/register' \
     --header "Authorization: Basic $base64key1" \
     --header "Content-Type: application/json" \
     --data-raw '{
@@ -93,7 +93,7 @@ echo "::group::REST Client Access Token Generate"
     # base64key2 = Authorization: Basic <rest-client-id:rest-client-secret>base64
     base64key2=`echo -n "$rest_clientId:$rest_clientSecret" | base64`
 
-    rest_access_token_scope_view=`echo curl -s --location -g --request POST 'https://gateway.api.cloud.wso2.com/token' \
+    rest_access_token_scope_view=`curl -s --location -g --request POST 'https://gateway.api.cloud.wso2.com/token' \
     --header "Content-Type: application/x-www-form-urlencoded" \
     --header "Authorization: Basic $base64key2" \
     --data-urlencode "grant_type=password" \
