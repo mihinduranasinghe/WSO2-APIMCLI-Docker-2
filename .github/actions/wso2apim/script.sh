@@ -168,18 +168,18 @@ application_id=`echo "$testing_automation_application" | jq --raw-output '.appli
 echo $application_id
 
 if [ -z "$application_id" ]
-then
-new_test_automation_application=`curl -s --location -g --request POST 'https://gateway.api.cloud.wso2.com/api/am/store/applications' \
---header "Authorization: Bearer $rest_access_token_subscribe" \
---header "Content-Type: application/json" \
---data-raw '{
-    "throttlingTier": "Unlimited",
-    "description": "Automatic generated app for automated testing purpose",
-    "name": "TestingAutomationApp",
-    "callbackUrl": "http://my.server.com/callback"
-}'`
+    then
+    new_test_automation_application=`curl -s --location -g --request POST 'https://gateway.api.cloud.wso2.com/api/am/store/applications' \
+    --header "Authorization: Bearer $rest_access_token_subscribe" \
+    --header "Content-Type: application/json" \
+    --data-raw '{
+        "throttlingTier": "Unlimited",
+        "description": "Automatic generated app for automated testing purpose",
+        "name": "TestingAutomationApp",
+        "callbackUrl": "http://my.server.com/callback"
+    }'`
 
-application_id=`echo "$new_test_automation_application" | jq --raw-output '.applicationId'`
+    application_id=`echo "$new_test_automation_application" | jq --raw-output '.applicationId'`
 fi
 
 echo $application_id
