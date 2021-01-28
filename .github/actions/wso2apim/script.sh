@@ -6,8 +6,17 @@
     # $4 - APIVersion
     # $5 - PostmanCollectionTestFile
 
-sample=`echo "$2"`
-echo $sample
+    username=`echo "$1"`
+    password=`echo "$2"`
+    APIName=`echo "$3"`
+    APIVersion=`echo "$4"`
+    PostmanCollectionTestFile=`echo "$5"`
+
+    echo $username
+    echo $password
+    echo $APIName
+    echo $APIVersion
+    echo $PostmanCollectionTestFile
 
 
 echo "::group::WSO2 APIMCloud Tenants"
