@@ -133,8 +133,17 @@ rest_access_token_subscribe=`curl -s --location -g --request POST 'https://gatew
 --data-urlencode "password=$2" \
 --data-urlencode "scope=apim:subscribe" | jq --raw-output '.access_token'`
 
+rest_access_token_subscription_view=`curl -s --location -g --request POST 'https://gateway.api.cloud.wso2.com/token' \
+--header "Content-Type: application/x-www-form-urlencoded" \
+--header "Authorization: Basic $base64key2" \
+--data-urlencode "grant_type=password" \
+--data-urlencode "username=$1" \
+--data-urlencode "password=$2" \
+--data-urlencode "scope=apim:subscription_view" | jq --raw-output '.access_token'`
+
 echo $rest_access_token_scope_view
 echo $rest_access_token_subscribe
+echo $rest_access_token_subscription_view
 echo "::end-group"
 
 
@@ -185,7 +194,8 @@ echo "::end-group"
 echo "::group::Add a new subscription"
 # curl -k -H "Authorization: Bearer ae4eae22-3f65-387b-a171-d37eaa366fa8" -H "Content-Type: application/json" -X POST  -d @data.json "https://gateway.api.cloud.wso2.com/api/am/store/subscriptions"
 view_subscriptions=`curl -s --location -g --request GET 'https://gateway.api.cloud.wso2.com/api/am/store/subscriptions' \
---header "Authorization: Bearer $rest_access_token_subscribe"`
+--header "Authorization: Bearer $rest_access_token_subscription_view"`
+# applications_list=`echo "$view_applications_response" | jq '.list'`
 echo $view_subscriptions
 
 add_subscription=`curl -s --location -g --request POST 'https://gateway.api.cloud.wso2.com/api/am/store/subscriptions' \
