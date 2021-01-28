@@ -87,7 +87,6 @@ echo "::end-group"
 #-------------------------------
 # Invoking and testing automation
 
-
 echo "::group::Client Registration"
 # curl -X POST -H "Authorization: Basic base64encode(<email_username@Org_key>:<password>)" -H "Content-Type: application/json" -d @payload.json https://gateway.api.cloud.wso2.com/client-registration/register
 # base64key1 = Authorization: Basic  <username@wso2.com@organizationname:password>base64
@@ -165,8 +164,6 @@ application_id=`echo "$testing_automation_application" | jq --raw-output '.appli
 # echo $view_applications_response
 # echo $applications_list
 # echo $testing_automation_application
-echo $application_id
-
 if [ -z "$application_id" ]
     then
     new_test_automation_application=`curl -s --location -g --request POST 'https://gateway.api.cloud.wso2.com/api/am/store/applications' \
@@ -181,13 +178,15 @@ if [ -z "$application_id" ]
 
     application_id=`echo "$new_test_automation_application" | jq --raw-output '.applicationId'`
 fi
-
-echo $application_id
+# echo $application_id
 echo "::end-group"
 
 
 echo "::group::Add a new subscription"
 # curl -k -H "Authorization: Bearer ae4eae22-3f65-387b-a171-d37eaa366fa8" -H "Content-Type: application/json" -X POST  -d @data.json "https://gateway.api.cloud.wso2.com/api/am/store/subscriptions"
+view_subscriptions=`curl -s --location -g --request GET 'https://gateway.api.cloud.wso2.com/api/am/store/subscriptions' \
+--header "Authorization: Bearer $rest_access_token_subscribe"`
+echo $view_subscriptions
 
 add_subscription=`curl -s --location -g --request POST 'https://gateway.api.cloud.wso2.com/api/am/store/subscriptions' \
 --header "Authorization: Bearer $rest_access_token_subscribe" \
@@ -197,7 +196,6 @@ add_subscription=`curl -s --location -g --request POST 'https://gateway.api.clou
     "apiIdentifier": "'$api_identifier'",
     "applicationId": "'$application_id'"
 }'`
-
 echo $add_subscription
 echo "::end-group"
 
