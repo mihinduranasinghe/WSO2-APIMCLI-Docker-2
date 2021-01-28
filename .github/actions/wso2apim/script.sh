@@ -34,17 +34,17 @@ echo "::end-group"
 
 
 echo "::group::Init API iproject with given API definition"
-# apictl import-api -f $API_DIR -e $DEV_ENV -k --preserve-provider --update --verbose
-# apimcli init SampleStore --oas petstore.json --definition api_template.yaml
-# apimcli init ./$3/$6 --oas $
-# apimcli init -f ./$3/$6 --oas $ --definition $
-apimcli init ./$3/$4 
-mkdir ./$3/$4/Sequences/fault-sequence/Custom
-mkdir ./$3/$4/Sequences/in-sequence/Custom
-mkdir ./$3/$4/Sequences/out-sequence/Custom
-mkdir ./$3/$4/Testing
-touch ./$3/$4/Docs/docs.json
-ls ./$3/$4
+    # apictl import-api -f $API_DIR -e $DEV_ENV -k --preserve-provider --update --verbose
+    # apimcli init SampleStore --oas petstore.json --definition api_template.yaml
+    # apimcli init ./$3/$6 --oas $
+    # apimcli init -f ./$3/$6 --oas $ --definition $
+    apimcli init ./$3/$4 
+    mkdir ./$3/$4/Sequences/fault-sequence/Custom
+    mkdir ./$3/$4/Sequences/in-sequence/Custom
+    mkdir ./$3/$4/Sequences/out-sequence/Custom
+    mkdir ./$3/$4/Testing
+    touch ./$3/$4/Docs/docs.json
+    ls ./$3/$4
 echo "::end-group"
 
 
