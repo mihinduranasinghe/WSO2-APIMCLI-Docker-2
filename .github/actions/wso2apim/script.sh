@@ -101,7 +101,7 @@ rest_client_object=`curl -s --location -g --request POST 'https://gateway.api.cl
     "saasApp": true
 }'`
 
-rest_clientId=`$rest_client_object | jq --raw-output '.clientId'`
+rest_clientId=`echo "$rest_client_object" | jq --raw-output '.clientId'`
 
 rest_clientSecret=`curl -s --location -g --request POST 'https://gateway.api.cloud.wso2.com/client-registration/register' \
 --header "Authorization: Basic $base64key1" \
