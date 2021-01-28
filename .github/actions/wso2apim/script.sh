@@ -73,8 +73,8 @@ echo "::group::Import API project to targetted Tenant"
     apimcli import-api -f ./$APIName/$APIVersion -e wso2apicloud --preserve-provider=false --update --verbose -k
 echo "::end-group"
 
-#wait for 20s until the API is deployed because it might take some time to deploy in background.                                                
-    sleep 20s     
+#wait for 25s until the API is deployed because it might take some time to deploy in background.                                                
+    sleep 25s     
 
 ## Listing the APIS in targeted Tenant
 echo "::group::List APIS in targeted Tenant"
@@ -170,12 +170,14 @@ echo "::end-group"
 ## Create A New Application named "TestingAutomationApp" for testing purpose
 echo "::group::Create A New Application - TestingAutomationApp"
 
+    new_app_name="TestingAutomationApp"
+
     view_applications_response=`curl -s --location -g --request GET 'https://gateway.api.cloud.wso2.com/api/am/store/applications' \
     --header "Authorization: Bearer $rest_access_token_subscribe"`
     # curl -k -H "Authorization: Bearer ae4eae22-3f65-387b-a171-d37eaa366fa8" -H "Content-Type: application/json" -X POST -d @data.json "https://gateway.api.cloud.wso2.com/api/am/store/applications"
 
     applications_list=`echo "$view_applications_response" | jq '.list'`
-    testing_automation_application=`echo "$applications_list" | jq '.[] | select(.name=="TestingAutomationApp")'`
+    testing_automation_application=`echo "$applications_list" | jq '.[] | select(.name=="'$new_app_name'")'`
     application_id=`echo "$testing_automation_application" | jq --raw-output '.applicationId'`
     
     # echo $view_applications_response
@@ -191,7 +193,7 @@ echo "::group::Create A New Application - TestingAutomationApp"
         --data-raw '{
             "throttlingTier": "Unlimited",
             "description": "Automatic generated app for automated testing purpose",
-            "name": "TestingAutomationApp",
+            "name": "'$new_app_name'",
             "callbackUrl": "http://my.server.com/callback"
         }'`
 
