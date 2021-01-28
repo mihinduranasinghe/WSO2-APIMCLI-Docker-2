@@ -212,7 +212,7 @@ subscription_id=`echo "$testing_automation_app_subscription" | jq --raw-output '
 # echo $view_api_subscriptions_response
 # echo $api_subscriptions_list
 # echo $testing_automation_app_subscription
-# echo $subscription_id
+echo $subscription_id
 if [ -z "$subscription_id" ]
     then
     add_subscription_response=`curl -s --location -g --request POST 'https://gateway.api.cloud.wso2.com/api/am/store/subscriptions' \
@@ -225,13 +225,15 @@ if [ -z "$subscription_id" ]
     }'`
     echo $add_subscription_response
 fi 
+echo $subscription_id
+echo $application_id
 echo "::end-group"
 
 
 
 echo "::group::Generate consumer Keys(client keys) and secrets for for the Testing Automation Application"
 # curl -k -H "Authorization: Bearer ae4eae22-3f65-387b-a171-d37eaa366fa8" -H "Content-Type: application/json" -X POST -d @data.json  "https://gateway.api.cloud.wso2.com/api/am/store/applications/generate-keys?applicationId=c30f3a6e-ffa4-4ae7-afce-224d1f820524"
-
+echo "Run"
 application_access_response=`curl -s --location -g --request POST "https://gateway.api.cloud.wso2.com/api/am/store/applications/generate-keys?applicationId=$application_id" \
 --header "Authorization: Bearer $rest_access_token_subscribe" \
 --header "Content-Type: application/json" \
