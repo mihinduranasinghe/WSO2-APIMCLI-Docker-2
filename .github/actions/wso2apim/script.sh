@@ -183,7 +183,7 @@ add_subscription=`curl -s --location -g --request POST 'https://gateway.api.clou
 --header "Authorization: Bearer $rest_access_token_subscribe" \
 --header "Content-Type: application/json" \
 --data-raw '{
-    "tier": "Gold",
+    "tier": "unlimited",
     "apiIdentifier": "'$api_identifier'",
     "applicationId": "'$application_id'"
 }'`
