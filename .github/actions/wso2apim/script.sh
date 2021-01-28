@@ -31,12 +31,13 @@ apimcli add-env -n wso2apicloud \
 apimcli list envs          
 echo "::end-group"
 
+
+
+echo "::group::Init API iproject with given API definition"
 # apictl import-api -f $API_DIR -e $DEV_ENV -k --preserve-provider --update --verbose
 # apimcli init SampleStore --oas petstore.json --definition api_template.yaml
 # apimcli init ./$3/$6 --oas $
 # apimcli init -f ./$3/$6 --oas $ --definition $
-
-echo "::group::Init API iproject with given API definition"
 apimcli init ./$3/$4 
 mkdir ./$3/$4/Sequences/fault-sequence/Custom
 mkdir ./$3/$4/Sequences/in-sequence/Custom
@@ -58,6 +59,7 @@ git commit -m "API project initialized"
 git push
 echo "::end-group"
 
+
 echo "::group::Testing With Postman Collection"
 if [ $5 ]
 then
@@ -67,11 +69,13 @@ echo "You have not given a postmanfile to run."
 fi
 echo "::end-group"
 
+
 echo "::group::Import API project to targetted Tenant"
 apimcli login wso2apicloud -u $1 -p $2 -k
 apimcli import-api -f ./$3/$4 -e wso2apicloud --preserve-provider=false --update --verbose -k
 # apimcli logout wso2apicloud 
 echo "::end-group"
+
 
 echo "::group::List APIS in targetted Tenant"
 # apimcli list apis -e <environment> -k
@@ -82,6 +86,7 @@ echo "::end-group"
 
 #-------------------------------
 # Invoking and testing automation
+
 
 echo "::group::Client Registration"
 # curl -X POST -H "Authorization: Basic base64encode(<email_username@Org_key>:<password>)" -H "Content-Type: application/json" -d @payload.json https://gateway.api.cloud.wso2.com/client-registration/register
@@ -134,7 +139,6 @@ echo $rest_access_token_subscribe
 echo "::end-group"
 
 
-
 echo "::group::Finding the API identifier"
 API_response=`curl -s --location -g --request GET 'https://gateway.api.cloud.wso2.com/api/am/publisher/apis' \
 --header "Authorization: Bearer $rest_access_token_scope_view"`
@@ -171,17 +175,20 @@ application_id=`echo "$new_test_automation_application" | jq --raw-output '.appl
 echo $application_id
 echo "::end-group"
 
+
 echo "::group::Add a new subscription"
 # curl -k -H "Authorization: Bearer ae4eae22-3f65-387b-a171-d37eaa366fa8" -H "Content-Type: application/json" -X POST  -d @data.json "https://gateway.api.cloud.wso2.com/api/am/store/subscriptions"
 
-# add_subscription=`curl -s --location -g --request --verbose POST 'https://gateway.api.cloud.wso2.com/api/am/store/subscriptions' \
-# --header "Authorization: Bearer $rest_access_token_subscribe" \
-# --header "Content-Type: application/json" \
-# --data-raw '{
-#     "tier": "Gold",
-#     "apiIdentifier": "'$identifier'",
-#     "applicationId": "'$application_id'"
-# }' | jq --raw-output '.applicationId'`
+add_subscription=`curl -s --location -g --request --verbose POST 'https://gateway.api.cloud.wso2.com/api/am/store/subscriptions' \
+--header "Authorization: Bearer $rest_access_token_subscribe" \
+--header "Content-Type: application/json" \
+--data-raw '{
+    "tier": "Gold",
+    "apiIdentifier": "'$api_identifier'",
+    "applicationId": "'$application_id'"
+}' | jq --raw-output '.applicationId'`
+
+echo $add_subscription
 echo "::end-group"
 
 # echo "::group::Generate access token"
