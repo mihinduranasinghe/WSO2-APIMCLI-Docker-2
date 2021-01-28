@@ -88,7 +88,8 @@ echo "::end-group"
 
 
 ################~~ Invoking an API Access Token ~~################
-if [ "$needAPIAccessToken" ]
+
+if [ $needAPIAccessToken ]
     then
     echo "TRUE"
     else
