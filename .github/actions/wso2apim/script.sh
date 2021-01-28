@@ -1,11 +1,16 @@
 #!/bin/sh -l
 
-    # $1 - usernameTargettedTenant
-    # $2 - passwordTargettedTenant
-    # $3 - APIProjectName
-    # $4 - APIVersion
-    # $5 - PostmanCollectionTestFile
+        # User Inputs Array~~~~~~~~~~~~~~~~~~~~~~~~
+        #                                         | 
+        #     $1 - usernameTargettedTenant        |
+        #     $2 - passwordTargettedTenant        |
+        #     $3 - APIProjectName                 |
+        #     $4 - APIVersion                     |
+        #     $5 - PostmanCollectionTestFile      |  
+        #                                         |
+        #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+#Assigning user inputs into variables
     username=`echo "$1"`
     password=`echo "$2"`
     APIName=`echo "$3"`
@@ -21,7 +26,7 @@ echo "::group::Your Inputs"
 echo "::end-group"
 
 echo "::group::WSO2 APIMCloud Tenants"
-    echo Targeted Tenant  - $1
+    echo Targeted Tenant  - $username
 echo "::end-group"
 
 echo "::group::Add environment wso2apicloud"
@@ -63,7 +68,7 @@ echo "::end-group"
 
 
 echo "::group::Import API project to targetted Tenant"
-    apimcli login wso2apicloud -u $1 -p $password -k
+    apimcli login wso2apicloud -u $username -p $password -k
     apimcli import-api -f ./$3/$4 -e wso2apicloud --preserve-provider=false --update --verbose -k
 echo "::end-group"
 
@@ -80,7 +85,7 @@ echo "::end-group"
 echo "::group::REST Client Registration"
     # curl -X POST -H "Authorization: Basic base64encode(<email_username@Org_key>:<password>)" -H "Content-Type: application/json" -d @payload.json https://gateway.api.cloud.wso2.com/client-registration/register
     # base64key1 = Authorization: Basic  <username@wso2.com@organizationname:password>base64
-    base64key1=`echo -n "$1:$2" | base64`
+    base64key1=`echo -n "$username:$2" | base64`
 
     rest_client_object=`curl -s --location -g --request POST 'https://gateway.api.cloud.wso2.com/client-registration/register' \
     --header "Authorization: Basic $base64key1" \
@@ -89,7 +94,7 @@ echo "::group::REST Client Registration"
         "callbackUrl": "www.google.lk",
         "clientName": "rest_api_store",
         "tokenScope": "Production",
-        "owner": "'$1'",
+        "owner": "'$username'",
         "grantType": "password refresh_token",
         "saasApp": true
     }'`
@@ -111,7 +116,7 @@ echo "::group::REST Client Access Token Generate"
     --header "Content-Type: application/x-www-form-urlencoded" \
     --header "Authorization: Basic $base64key2" \
     --data-urlencode "grant_type=password" \
-    --data-urlencode "username=$1" \
+    --data-urlencode "username=$username" \
     --data-urlencode "password=$2" \
     --data-urlencode "scope=apim:api_view" | jq --raw-output '.access_token'`
 
@@ -119,7 +124,7 @@ echo "::group::REST Client Access Token Generate"
     --header "Content-Type: application/x-www-form-urlencoded" \
     --header "Authorization: Basic $base64key2" \
     --data-urlencode "grant_type=password" \
-    --data-urlencode "username=$1" \
+    --data-urlencode "username=$username" \
     --data-urlencode "password=$2" \
     --data-urlencode "scope=apim:subscribe" | jq --raw-output '.access_token'`
 
@@ -127,7 +132,7 @@ echo "::group::REST Client Access Token Generate"
     --header "Content-Type: application/x-www-form-urlencoded" \
     --header "Authorization: Basic $base64key2" \
     --data-urlencode "grant_type=password" \
-    --data-urlencode "username=$1" \
+    --data-urlencode "username=$username" \
     --data-urlencode "password=$2" \
     --data-urlencode "scope=apim:subscription_view" | jq --raw-output '.access_token'`
 
