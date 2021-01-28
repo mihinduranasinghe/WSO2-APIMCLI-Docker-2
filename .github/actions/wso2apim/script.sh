@@ -102,18 +102,19 @@ rest_client_object=`curl -s --location -g --request POST 'https://gateway.api.cl
 }'`
 
 rest_clientId=`echo "$rest_client_object" | jq --raw-output '.clientId'`
+rest_clientSecret=`echo "$rest_client_object" | jq --raw-output '.clientSecret'`
 
-rest_clientSecret=`curl -s --location -g --request POST 'https://gateway.api.cloud.wso2.com/client-registration/register' \
---header "Authorization: Basic $base64key1" \
---header "Content-Type: application/json" \
---data-raw '{
-    "callbackUrl": "www.google.lk",
-    "clientName": "rest_api_store",
-    "tokenScope": "Production",
-    "owner": "'$1'",
-    "grantType": "password refresh_token",
-    "saasApp": true
-}' | jq --raw-output '.clientSecret'`
+# rest_clientSecret=`curl -s --location -g --request POST 'https://gateway.api.cloud.wso2.com/client-registration/register' \
+# --header "Authorization: Basic $base64key1" \
+# --header "Content-Type: application/json" \
+# --data-raw '{
+#     "callbackUrl": "www.google.lk",
+#     "clientName": "rest_api_store",
+#     "tokenScope": "Production",
+#     "owner": "'$1'",
+#     "grantType": "password refresh_token",
+#     "saasApp": true
+# }' | jq --raw-output '.clientSecret'`
 
 echo $rest_clientId
 echo $rest_clientSecret 
