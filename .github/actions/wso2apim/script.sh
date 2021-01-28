@@ -141,7 +141,7 @@ APIs=`curl -s --location -g --request GET 'https://gateway.api.cloud.wso2.com/ap
 
 # all_APIs_list = `echo "$APIs" | jq '.list | [.]'`
 # all_APIs_count = `echo "$APIs" | jq '.count'`
-all_APIs_count=`echo "$APIs" | jq '.count'`
+all_APIs_count=`echo "$APIs" | jq '.list'`
 echo $APIs
 echo $all_APIs_count
 # relevant_api  = `echo "$all_APIs_list" | jq '.[] | select(.)'`
