@@ -7,7 +7,7 @@
         #     $3 - APIProjectName                 |
         #     $4 - APIVersion                     |
         #     $5 - PostmanCollectionTestFile      |  
-        #                                         |
+        #     $6 - needAPIAccessToken             |
         #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ## Re-assigning user inputs into variables
@@ -16,6 +16,7 @@
     APIName=`echo "$3"`
     APIVersion=`echo "$4"`
     PostmanCollectionTestFile=`echo "$5"`
+    needAPIAccessToken=`echo $6`
 
 ## Echo user inputs
 echo "::group::WSO2 APIMCloud - Your Inputs"
@@ -24,6 +25,7 @@ echo "::group::WSO2 APIMCloud - Your Inputs"
     echo APIName                   - $APIName
     echo APIVersion                - $APIVersion
     echo PostmanCollectionTestFile - $PostmanCollectionTestFile 
+    echo needAPIAccessToken        - $needAPIAccessToken 
 echo "::end-group"
 
 ## Confiduring WSO2 API Cloud gateway environment in VM
