@@ -233,7 +233,10 @@ echo "::end-group"
 
 echo "::group::Generate consumer Keys(client keys) and secrets for for the Testing Automation Application"
 # curl -k -H "Authorization: Bearer ae4eae22-3f65-387b-a171-d37eaa366fa8" -H "Content-Type: application/json" -X POST -d @data.json  "https://gateway.api.cloud.wso2.com/api/am/store/applications/generate-keys?applicationId=c30f3a6e-ffa4-4ae7-afce-224d1f820524"
-echo "Run"
+view_application_access_keys_response=`curl -s --location -g --request GET "https://gateway.api.cloud.wso2.com/api/am/store/applications/generate-keys?applicationId=$application_id" \
+--header "Authorization: Bearer $rest_access_token_subscription_view"`
+echo $view_application_access_keys_response
+
 application_access_response=`curl -s --location -g --request POST "https://gateway.api.cloud.wso2.com/api/am/store/applications/generate-keys?applicationId=$application_id" \
 --header "Authorization: Bearer $rest_access_token_subscribe" \
 --header "Content-Type: application/json" \
