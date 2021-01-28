@@ -10,14 +10,15 @@
         #                                         |
         #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-#Assigning user inputs into variables
+#Re-assigning user inputs into variables
     username=`echo "$1"`
     password=`echo "$2"`
     APIName=`echo "$3"`
     APIVersion=`echo "$4"`
     PostmanCollectionTestFile=`echo "$5"`
 
-echo "::group::Your Inputs"
+# Echo user inputs
+echo "::group::WSO2 APIMCloud - Your Inputs"
     echo Username Targeted tenant  - $username
     echo Password                  - $password
     echo APIName                   - $APIName
@@ -25,10 +26,7 @@ echo "::group::Your Inputs"
     echo PostmanCollectionTestFile - $PostmanCollectionTestFile 
 echo "::end-group"
 
-echo "::group::WSO2 APIMCloud Tenants"
-    echo Targeted Tenant  - $username
-echo "::end-group"
-
+# Confiduring WSO2 API Cloud gateway environment in VM
 echo "::group::Add environment wso2apicloud"
 apimcli add-env -n wso2apicloud \
                       --registration https://gateway.api.cloud.wso2.com/client-registration/register \
@@ -43,6 +41,7 @@ apimcli list envs
 echo "::end-group"
 
 
+# Init API iproject with given API definition
 echo "::group::Init API iproject with given API definition"
     apimcli init ./$APIName/$APIVersion 
     mkdir ./$APIName/$APIVersion/Sequences/fault-sequence/Custom
@@ -150,6 +149,22 @@ echo "::group::Finding The API Identifier(apiId)"
     relevant_api=`echo "$all_APIs_list" | jq '.[] | select(.name=="'$APIName'" and .version=="'$APIVersion'")'`
     api_identifier=`echo "$relevant_api" | jq --raw-output '.id'`
     
+    echo "test"
+    echo "test"
+    echo "test"
+    echo "test"
+    echo "test"
+    echo "test"
+    echo "test"
+    echo "test"
+    echo "test"
+    echo "test"
+    echo "test"
+    echo "test"
+    echo "test"
+    echo "test"
+    echo "test"
+    echo "test"
     echo "test"
     echo "test"
     echo "test"
