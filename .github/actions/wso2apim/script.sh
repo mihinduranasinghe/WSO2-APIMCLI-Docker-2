@@ -175,7 +175,7 @@ application_id=`echo "$testing_automation_application" | jq --raw-output '.appli
 # echo $testing_automation_application
 if [ -z "$application_id" ]
     then
-    new_test_automation_application=`curl -s --location -g --request POST 'https://gateway.api.cloud.wso2.com/api/am/store/applications' \
+    new_testing_automation_application=`curl -s --location -g --request POST 'https://gateway.api.cloud.wso2.com/api/am/store/applications' \
     --header "Authorization: Bearer $rest_access_token_subscribe" \
     --header "Content-Type: application/json" \
     --data-raw '{
@@ -185,7 +185,7 @@ if [ -z "$application_id" ]
         "callbackUrl": "http://my.server.com/callback"
     }'`
 
-    application_id=`echo "$new_test_automation_application" | jq --raw-output '.applicationId'`
+    application_id=`echo "$new_testing_automation_application" | jq --raw-output '.applicationId'`
 fi
 # echo $application_id
 echo "::end-group"
@@ -193,10 +193,12 @@ echo "::end-group"
 
 echo "::group::Add a new subscription"
 # curl -k -H "Authorization: Bearer ae4eae22-3f65-387b-a171-d37eaa366fa8" -H "Content-Type: application/json" -X POST  -d @data.json "https://gateway.api.cloud.wso2.com/api/am/store/subscriptions"
-view_subscriptions=`curl -s --location -g --request GET "https://gateway.api.cloud.wso2.com/api/am/publisher/subscriptions?apiId=$api_identifier" \
+view_api_subscriptions_response=`curl -s --location -g --request GET "https://gateway.api.cloud.wso2.com/api/am/publisher/subscriptions?apiId=$api_identifier" \
 --header "Authorization: Bearer $rest_access_token_subscription_view"`
-# applications_list=`echo "$view_applications_response" | jq '.list'`
-echo $view_subscriptions
+
+api_subscriptions_list=`echo "$view_api_subscriptions_response" | jq '.list'`
+# echo $view_api_subscriptions_response
+echo $api_subscriptions_list
 
 add_subscription=`curl -s --location -g --request POST 'https://gateway.api.cloud.wso2.com/api/am/store/subscriptions' \
 --header "Authorization: Bearer $rest_access_token_subscribe" \
