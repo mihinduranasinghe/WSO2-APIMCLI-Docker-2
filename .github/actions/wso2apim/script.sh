@@ -169,9 +169,6 @@ echo $application_id
 
 if [ -z "$application_id" ]
 then
-echo "Yes"
-else
-echo "No"
 new_test_automation_application=`curl -s --location -g --request POST 'https://gateway.api.cloud.wso2.com/api/am/store/applications' \
 --header "Authorization: Bearer $rest_access_token_subscribe" \
 --header "Content-Type: application/json" \
@@ -184,7 +181,6 @@ new_test_automation_application=`curl -s --location -g --request POST 'https://g
 
 application_id=`echo "$new_test_automation_application" | jq --raw-output '.applicationId'`
 fi
-
 
 echo $application_id
 echo "::end-group"
