@@ -12,12 +12,13 @@
     APIVersion=`echo "$4"`
     PostmanCollectionTestFile=`echo "$5"`
 
-    echo $username
-    echo $password
-    echo $APIName
-    echo $APIVersion
-    echo $PostmanCollectionTestFile
-
+echo "::group::Your Inputs"
+    echo Username Targeted tenant  - $username
+    echo Password                  - $password
+    echo APIName                   - $APIName
+    echo APIVersion                - $APIVersion
+    echo PostmanCollectionTestFile - $PostmanCollectionTestFile 
+echo "::end-group"
 
 echo "::group::WSO2 APIMCloud Tenants"
     echo Targeted Tenant  - $1
@@ -62,7 +63,7 @@ echo "::end-group"
 
 
 echo "::group::Import API project to targetted Tenant"
-    apimcli login wso2apicloud -u $1 -p $2 -k
+    apimcli login wso2apicloud -u $1 -p $password -k
     apimcli import-api -f ./$3/$4 -e wso2apicloud --preserve-provider=false --update --verbose -k
 echo "::end-group"
 
