@@ -136,12 +136,12 @@ echo "::end-group"
 
 
 echo "::group::Finding the API identifier"
-APIs=`curl -s --location -g --request GET 'https://gateway.api.cloud.wso2.com/api/am/publisher/apis' \
+API_response=`curl -s --location -g --request GET 'https://gateway.api.cloud.wso2.com/api/am/publisher/apis' \
 --header "Authorization: Bearer $rest_access_token_scope_view"`
 
-all_APIs_list=`echo "$APIs" | jq '.list'`
+all_APIs_list=`echo "$API_response" | jq '.list'`
 relevant_api=`echo "$all_APIs_list" | jq '.[] | select(.name=="'$3'" and .version=="'$4'")'`
-api_identifier=`echo "$relevant_api" | jq '.id'`
+api_identifier=`echo "$relevant_api" | jq --raw-output '.id'`
 # echo $APIs
 # echo $all_APIs_list
 # echo $relevant_api
