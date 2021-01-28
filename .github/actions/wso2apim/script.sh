@@ -94,7 +94,7 @@ rest_clientId=`curl -s --location -g --request POST 'https://gateway.api.cloud.w
 --header "Content-Type: application/json" \
 --data-raw '{
     "callbackUrl": "www.google.lk",
-    "clientName": "rest_api_publisher-new",
+    "clientName": "rest_api_store",
     "tokenScope": "Production",
     "owner": "'$1'",
     "grantType": "password refresh_token",
@@ -106,7 +106,7 @@ rest_clientSecret=`curl -s --location -g --request POST 'https://gateway.api.clo
 --header "Content-Type: application/json" \
 --data-raw '{
     "callbackUrl": "www.google.lk",
-    "clientName": "rest_api_publisher-new",
+    "clientName": "rest_api_store",
     "tokenScope": "Production",
     "owner": "'$1'",
     "grantType": "password refresh_token",
