@@ -89,7 +89,7 @@ echo "::group::Client Registration"
 # base64key1 = Authorization: Basic  <username@wso2.com@organizationname:password>base64
 base64key1=`echo -n "$1:$2" | base64`
 
-rest_clientId=`curl -s --location -g --request POST 'https://gateway.api.cloud.wso2.com/client-registration/register' \
+rest_client_object=`curl -s --location -g --request POST 'https://gateway.api.cloud.wso2.com/client-registration/register' \
 --header "Authorization: Basic $base64key1" \
 --header "Content-Type: application/json" \
 --data-raw '{
@@ -99,7 +99,9 @@ rest_clientId=`curl -s --location -g --request POST 'https://gateway.api.cloud.w
     "owner": "'$1'",
     "grantType": "password refresh_token",
     "saasApp": true
-}' | jq --raw-output '.clientId'`
+}'`
+
+rest_clientId=`$rest_client_object | jq --raw-output '.clientId'`
 
 rest_clientSecret=`curl -s --location -g --request POST 'https://gateway.api.cloud.wso2.com/client-registration/register' \
 --header "Authorization: Basic $base64key1" \
@@ -131,7 +133,7 @@ rest_access_token_scope_view=`curl -s --location -g --request POST 'https://gate
 --data-urlencode "password=$2" \
 --data-urlencode "scope=apim:api_view" | jq --raw-output '.access_token'`
 
-rest_access_token=`curl -s --location -g --request POST 'https://gateway.api.cloud.wso2.com/token' \
+rest_access_token_subscribe=`curl -s --location -g --request POST 'https://gateway.api.cloud.wso2.com/token' \
 --header "Content-Type: application/x-www-form-urlencoded" \
 --header "Authorization: Basic $base64key2" \
 --data-urlencode "grant_type=password" \
@@ -140,7 +142,7 @@ rest_access_token=`curl -s --location -g --request POST 'https://gateway.api.clo
 --data-urlencode "scope=apim:subscribe" | jq --raw-output '.access_token'`
 
 echo $rest_access_token_scope_view
-echo $rest_access_token
+echo $rest_access_token_subscribe
 echo "::end-group"
 
 
@@ -153,15 +155,17 @@ API_Identifier=`curl -s --location -g --request GET 'https://gateway.api.cloud.w
 echo $API_Identifier
 echo "::end-group"
 
+
 # echo "::group::Generate Key for Application"
 # # curl -k -H "Authorization: Bearer ae4eae22-3f65-387b-a171-d37eaa366fa8" -H "Content-Type: application/json" -X POST -d @data.json  "https://gateway.api.cloud.wso2.com/api/am/store/applications/generate-keys?applicationId=c30f3a6e-ffa4-4ae7-afce-224d1f820524"
 # echo "::end-group"
+
 
 echo "::group::Create new Application"
 # curl -k -H "Authorization: Bearer ae4eae22-3f65-387b-a171-d37eaa366fa8" -H "Content-Type: application/json" -X POST -d @data.json "https://gateway.api.cloud.wso2.com/api/am/store/applications"
 
 application_id=`curl -s --location -g --request POST 'https://gateway.api.cloud.wso2.com/api/am/store/applications' \
---header "Authorization: Bearer $rest_access_token" \
+--header "Authorization: Bearer $rest_access_token_subscribe" \
 --header "Content-Type: application/json" \
 --data-raw '{
     "throttlingTier": "Unlimited",
@@ -177,7 +181,7 @@ echo "::group::Add a new subscription"
 # curl -k -H "Authorization: Bearer ae4eae22-3f65-387b-a171-d37eaa366fa8" -H "Content-Type: application/json" -X POST  -d @data.json "https://gateway.api.cloud.wso2.com/api/am/store/subscriptions"
 
 # add_subscription=`curl -s --location -g --request --verbose POST 'https://gateway.api.cloud.wso2.com/api/am/store/subscriptions' \
-# --header "Authorization: Bearer $rest_access_token" \
+# --header "Authorization: Bearer $rest_access_token_subscribe" \
 # --header "Content-Type: application/json" \
 # --data-raw '{
 #     "tier": "Gold",
