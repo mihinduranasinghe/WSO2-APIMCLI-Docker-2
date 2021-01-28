@@ -140,6 +140,7 @@ APIs=`curl -s --location -g --request GET 'https://gateway.api.cloud.wso2.com/ap
 --header "Authorization: Bearer $rest_access_token_scope_view"`
 
 all_APIs_list = `echo "$APIs" | jq --raw-output '.list'`
+echo $APIs
 # relevant_api  = `echo "$all_APIs_list" | jq '.[] | select(.)'`
 echo $all_APIs_list
 echo "::end-group"
