@@ -161,9 +161,9 @@ view_applications_response=`curl -s --location -g --request GET 'https://gateway
 
 applications_list=`echo "$view_applications_response" | jq '.list'`
 testing_automation_application=`echo "$applications_list" | jq '.[] | select(.name=="TestingAutomationApp")'`
-# echo $view_applications_response
-# echo $applications_list
-# echo $testing_automation_application
+echo $view_applications_response
+echo $applications_list
+echo $testing_automation_application
 if [ $testing_automation_application ]
 then
 echo "Yes"
