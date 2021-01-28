@@ -237,11 +237,11 @@ view_application_access_keys_response=`curl -s --location -g --request GET "http
 --header "Authorization: Bearer $rest_access_token_subscribe"`
 echo $view_application_access_keys_response
 
-if [ -z "$view_application_access_keys_response" ]
+if [ "$view_application_access_keys_response" ]
     then
-    echo "No"
-    else
     echo "yes"
+    else
+    echo "no"
 fi 
 
 application_access_response=`curl -s --location -g --request POST "https://gateway.api.cloud.wso2.com/api/am/store/applications/generate-keys?applicationId=$application_id" \
