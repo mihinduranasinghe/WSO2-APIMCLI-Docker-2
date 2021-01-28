@@ -104,14 +104,8 @@ echo "::end-group"
         #       9.  
         #      10.                
         #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-if [ $needAPIAccessToken == true ]
-    then 
-    echo "true"
-    else
-    echo "false"
-if
 
-if [ $needAPIAccessToken == true ]
+if [ "$needAPIAccessToken" = true ]
     then   
         ## Register a WSO2 Cloud REST API client
         echo "::group::REST Client Registration"
