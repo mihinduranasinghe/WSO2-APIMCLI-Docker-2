@@ -83,8 +83,8 @@ echo "::group::REST Client Registration"
     rest_clientId=`echo "$rest_client_object" | jq --raw-output '.clientId'`
     rest_clientSecret=`echo "$rest_client_object" | jq --raw-output '.clientSecret'`
 
-    # echo $rest_clientId
-    # echo $rest_clientSecret 
+    echo $rest_clientId
+    echo $rest_clientSecret 
 echo "::end-group"
 
 
@@ -117,9 +117,9 @@ echo "::group::REST Client Access Token Generate"
     --data-urlencode "password=$2" \
     --data-urlencode "scope=apim:subscription_view" | jq --raw-output '.access_token'`
 
-    # echo $rest_access_token_scope_view
-    # echo $rest_access_token_subscribe
-    # echo $rest_access_token_subscription_view
+    echo $rest_access_token_scope_view
+    echo $rest_access_token_subscribe
+    echo $rest_access_token_subscription_view
 echo "::end-group"
 
 
@@ -136,6 +136,7 @@ echo "::group::Finding The API Identifier(apiId)"
     # echo $relevant_api
     echo $api_identifier
 echo "::end-group"
+
 
 echo "::group::Create A New Application - TestingAutomationApp"
     # curl -k -H "Authorization: Bearer ae4eae22-3f65-387b-a171-d37eaa366fa8" -H "Content-Type: application/json" -X POST -d @data.json "https://gateway.api.cloud.wso2.com/api/am/store/applications"
