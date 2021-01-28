@@ -167,7 +167,7 @@ application_id=`echo "$testing_automation_application" | jq --raw-output '.appli
 # echo $testing_automation_application
 echo $application_id
 
-if [ $application_id ]
+if [ !$application_id ]
 then
 echo "Yes"
 else
