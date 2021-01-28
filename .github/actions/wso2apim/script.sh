@@ -141,9 +141,11 @@ APIs=`curl -s --location -g --request GET 'https://gateway.api.cloud.wso2.com/ap
 
 all_APIs_list=`echo "$APIs" | jq '.list'`
 relevant_api=`echo "$all_APIs_list" | jq '.[] | select(.name=="'$3'" and .version=="'$4'")'`
-echo $APIs
-echo $all_APIs_list
-echo $relevant_api
+api_identifier=`echo "$relevant_api" | jq '.id'`
+# echo $APIs
+# echo $all_APIs_list
+# echo $relevant_api
+echo $api_identifier
 echo "::end-group"
 
 
