@@ -104,6 +104,12 @@ echo "::end-group"
         #       9.  
         #      10.                
         #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+if [ $needAPIAccessToken == true ]
+    then 
+    echo "true"
+    else
+    echo "false"
+if
 
 if [ $needAPIAccessToken == true ]
     then   
