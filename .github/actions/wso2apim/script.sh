@@ -82,7 +82,7 @@ echo "::group::List APIS in targetted Tenant"
 echo "::end-group"
 
 
-#-------------------------------Invoking and testing automation
+#-----------------------------------------------------------------Invoking and testing automation
 
 echo "::group::Client Registration"
     # curl -X POST -H "Authorization: Basic base64encode(<email_username@Org_key>:<password>)" -H "Content-Type: application/json" -d @payload.json https://gateway.api.cloud.wso2.com/client-registration/register
@@ -151,7 +151,8 @@ echo "::group::Finding the API identifier"
     all_APIs_list=`echo "$API_response" | jq '.list'`
     relevant_api=`echo "$all_APIs_list" | jq '.[] | select(.name=="'$3'" and .version=="'$4'")'`
     api_identifier=`echo "$relevant_api" | jq --raw-output '.id'`
-    echo $API_response
+    
+    # echo $API_response
     # echo $all_APIs_list
     # echo $relevant_api
     echo $api_identifier
@@ -159,64 +160,65 @@ echo "::end-group"
 
 
 echo "::group::Create new Application"
-# curl -k -H "Authorization: Bearer ae4eae22-3f65-387b-a171-d37eaa366fa8" -H "Content-Type: application/json" -X POST -d @data.json "https://gateway.api.cloud.wso2.com/api/am/store/applications"
+    # curl -k -H "Authorization: Bearer ae4eae22-3f65-387b-a171-d37eaa366fa8" -H "Content-Type: application/json" -X POST -d @data.json "https://gateway.api.cloud.wso2.com/api/am/store/applications"
 
-view_applications_response=`curl -s --location -g --request GET 'https://gateway.api.cloud.wso2.com/api/am/store/applications' \
---header "Authorization: Bearer $rest_access_token_subscribe"`
+    view_applications_response=`curl -s --location -g --request GET 'https://gateway.api.cloud.wso2.com/api/am/store/applications' \
+    --header "Authorization: Bearer $rest_access_token_subscribe"`
 
-applications_list=`echo "$view_applications_response" | jq '.list'`
-testing_automation_application=`echo "$applications_list" | jq '.[] | select(.name=="TestingAutomationApp")'`
-application_id=`echo "$testing_automation_application" | jq --raw-output '.applicationId'`
-# echo $view_applications_response
-# echo $applications_list
-# echo $testing_automation_application
-echo $application_id
-
-if [ -z "$application_id" ]
-    then
-    new_testing_automation_application=`curl -s --location -g --request POST 'https://gateway.api.cloud.wso2.com/api/am/store/applications' \
-    --header "Authorization: Bearer $rest_access_token_subscribe" \
-    --header "Content-Type: application/json" \
-    --data-raw '{
-        "throttlingTier": "Unlimited",
-        "description": "Automatic generated app for automated testing purpose",
-        "name": "TestingAutomationApp",
-        "callbackUrl": "http://my.server.com/callback"
-    }'`
-
-    application_id=`echo "$new_testing_automation_application" | jq --raw-output '.applicationId'`
+    applications_list=`echo "$view_applications_response" | jq '.list'`
+    testing_automation_application=`echo "$applications_list" | jq '.[] | select(.name=="TestingAutomationApp")'`
+    application_id=`echo "$testing_automation_application" | jq --raw-output '.applicationId'`
+    
+    # echo $view_applications_response
+    # echo $applications_list
+    # echo $testing_automation_application
     echo $application_id
-fi
+
+    if [ -z "$application_id" ]
+        then
+        new_testing_automation_application=`curl -s --location -g --request POST 'https://gateway.api.cloud.wso2.com/api/am/store/applications' \
+        --header "Authorization: Bearer $rest_access_token_subscribe" \
+        --header "Content-Type: application/json" \
+        --data-raw '{
+            "throttlingTier": "Unlimited",
+            "description": "Automatic generated app for automated testing purpose",
+            "name": "TestingAutomationApp",
+            "callbackUrl": "http://my.server.com/callback"
+        }'`
+
+        application_id=`echo "$new_testing_automation_application" | jq --raw-output '.applicationId'`
+        echo $application_id
+    fi
 echo "::end-group"
 
 
 
 echo "::group::Add a new subscription"
-# curl -k -H "Authorization: Bearer ae4eae22-3f65-387b-a171-d37eaa366fa8" -H "Content-Type: application/json" -X POST  -d @data.json "https://gateway.api.cloud.wso2.com/api/am/store/subscriptions"
-view_api_subscriptions_response=`curl -s --location -g --request GET "https://gateway.api.cloud.wso2.com/api/am/publisher/subscriptions?apiId=$api_identifier" \
---header "Authorization: Bearer $rest_access_token_subscription_view"`
-   
-api_subscriptions_list=`echo "$view_api_subscriptions_response" | jq '.list'`
-testing_automation_app_subscription=`echo "$api_subscriptions_list" | jq '.[] | select(.applicationId=="'$application_id'")'`
-subscription_id=`echo "$testing_automation_app_subscription" | jq --raw-output '.subscriptionId'`
-# echo $view_api_subscriptions_response
-# echo $api_subscriptions_list
-# echo $testing_automation_app_subscription
-echo $subscription_id
-if [ -z "$subscription_id" ]
-    then
-    add_subscription_response=`curl -s --location -g --request POST 'https://gateway.api.cloud.wso2.com/api/am/store/subscriptions' \
-    --header "Authorization: Bearer $rest_access_token_subscribe" \
-    --header "Content-Type: application/json" \
-    --data-raw '{
-        "tier": "Unlimited",
-        "apiIdentifier": "'$api_identifier'",
-        "applicationId": "'$application_id'"
-    }'`
-    echo $add_subscription_response
-fi 
-echo $subscription_id
-echo $application_id
+    # curl -k -H "Authorization: Bearer ae4eae22-3f65-387b-a171-d37eaa366fa8" -H "Content-Type: application/json" -X POST  -d @data.json "https://gateway.api.cloud.wso2.com/api/am/store/subscriptions"
+    view_api_subscriptions_response=`curl -s --location -g --request GET "https://gateway.api.cloud.wso2.com/api/am/publisher/subscriptions?apiId=$api_identifier" \
+    --header "Authorization: Bearer $rest_access_token_subscription_view"`
+    
+    api_subscriptions_list=`echo "$view_api_subscriptions_response" | jq '.list'`
+    testing_automation_app_subscription=`echo "$api_subscriptions_list" | jq '.[] | select(.applicationId=="'$application_id'")'`
+    subscription_id=`echo "$testing_automation_app_subscription" | jq --raw-output '.subscriptionId'`
+    # echo $view_api_subscriptions_response
+    # echo $api_subscriptions_list
+    # echo $testing_automation_app_subscription
+    echo $subscription_id
+    if [ -z "$subscription_id" ]
+        then
+        add_subscription_response=`curl -s --location -g --request POST 'https://gateway.api.cloud.wso2.com/api/am/store/subscriptions' \
+        --header "Authorization: Bearer $rest_access_token_subscribe" \
+        --header "Content-Type: application/json" \
+        --data-raw '{
+            "tier": "Unlimited",
+            "apiIdentifier": "'$api_identifier'",
+            "applicationId": "'$application_id'"
+        }'`
+        echo $add_subscription_response
+    fi 
+    echo $subscription_id
+    echo $application_id
 echo "::end-group"
 
 
