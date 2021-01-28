@@ -186,7 +186,7 @@ add_subscription=`curl -s --location -g --request --verbose POST 'https://gatewa
     "tier": "Gold",
     "apiIdentifier": "'$api_identifier'",
     "applicationId": "'$application_id'"
-}' | jq --raw-output '.applicationId'`
+}'`
 
 echo $add_subscription
 echo "::end-group"
