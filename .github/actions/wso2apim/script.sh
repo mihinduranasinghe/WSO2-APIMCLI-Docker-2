@@ -211,6 +211,16 @@ echo "::end-group"
 
 echo "::group::Generate access token for your API"
 # curl -u <client id>:<client secret> -k -d "grant_type=client_credentials&validity_period=3600" -H "Content-Type:application/x-www-form-urlencoded" https://gateway.api.cloud.wso2.com:443/token
+# base64 encode<consumer-key:consumer-secret>
+base64key3=`echo -n "$consumer_key:$consumer_secret" | base64`
+
+api_access_token_response=`curl -s --location -g --request POST 'hhttps://gateway.api.cloud.wso2.com:443/token' \
+--header "Content-Type: application/x-www-form-urlencoded" \
+--header "Authorization: Basic $base64key3" \
+--data-urlencode "grant_type=client_credentials" \
+--data-urlencode "validity_period=3600"`
+
+echo $api_access_token_response
 echo "::end-group"
 
 #-------------------------------
