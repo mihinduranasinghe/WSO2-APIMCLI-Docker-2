@@ -21,5 +21,5 @@ jobs:
           passwordDevTenant: ${{secrets.PASSWORD}}
           APIProjectName: "SampleStore"
           APIVersion: "1.0.0"
-          needAPIAccessToken: TRUE
+          needAPIAccessToken: FALSE
           # PostmanCollectionTestFile: "sample_store.postman_collection.json"
