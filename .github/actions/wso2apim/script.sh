@@ -6,6 +6,9 @@
     # $4 - APIVersion
     # $5 - PostmanCollectionTestFile
 
+sample = `$1`
+echo $sample
+
 echo "::group::WSO2 APIMCloud Tenants"
     echo Targeted Tenant  - $1
 echo "::end-group"
@@ -61,7 +64,7 @@ echo "::group::List APIS in targetted Tenant"
 echo "::end-group"
 
 
-#-----------------------------------------------------------------Invoking and API Access Token
+#-----------------------------------------------------------------Invoking an API Access Token
 
 echo "::group::REST Client Registration"
     # curl -X POST -H "Authorization: Basic base64encode(<email_username@Org_key>:<password>)" -H "Content-Type: application/json" -d @payload.json https://gateway.api.cloud.wso2.com/client-registration/register
@@ -279,7 +282,7 @@ echo "::group::Create a file with important records"
 
 echo "::end-group"
 
-#-----------------------------------------------------------------End of Invoking and API Access Token
+#-----------------------------------------------------------------End of Invoking an API Access Token
 
 echo "::group::Testing With Postman Collection"
     if [ $5 ]
