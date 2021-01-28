@@ -59,16 +59,6 @@ echo "::group::Push API project into the GIT repo from VM"
 echo "::end-group"
 
 
-echo "::group::Testing With Postman Collection"
-    if [ $5 ]
-        then
-        newman run ./$3/$4/Testing/$5 --insecure 
-        else
-        echo "You have not given a postmanfile to run."
-    fi
-echo "::end-group"
-
-
 echo "::group::Import API project to targetted Tenant"
     apimcli login wso2apicloud -u $1 -p $2 -k
     apimcli import-api -f ./$3/$4 -e wso2apicloud --preserve-provider=false --update --verbose -k
@@ -82,7 +72,7 @@ echo "::group::List APIS in targetted Tenant"
 echo "::end-group"
 
 
-#-----------------------------------------------------------------Invoking and testing automation
+#-----------------------------------------------------------------Invoking and API Access Token
 
 echo "::group::Client Registration"
     # curl -X POST -H "Authorization: Basic base64encode(<email_username@Org_key>:<password>)" -H "Content-Type: application/json" -d @payload.json https://gateway.api.cloud.wso2.com/client-registration/register
@@ -255,7 +245,6 @@ echo "::group::Generate consumer Keys(client keys) and secrets for for the Testi
 echo "::end-group"
 
 
-
 echo "::group::Generate access token for your API"
     # curl -u <client id>:<client secret> -k -d "grant_type=client_credentials&validity_period=3600" -H "Content-Type:application/x-www-form-urlencoded" https://gateway.api.cloud.wso2.com:443/token
     # base64 encode<consumer-key:consumer-secret>
@@ -274,11 +263,20 @@ echo "::group::Generate access token for your API"
 echo "::end-group"
 
 
-
 echo "::group::Create a file with important records"
 
 echo "::end-group"
 
-#--------------------------------------------------------------------------------------
+#-----------------------------------------------------------------End of Invoking and API Access Token
+
+echo "::group::Testing With Postman Collection"
+    if [ $5 ]
+        then
+        newman run ./$3/$4/Testing/$5 --insecure 
+        else
+        echo "You have not given a postmanfile to run."
+    fi
+echo "::end-group"
+
 apimcli logout wso2apicloud 
 
