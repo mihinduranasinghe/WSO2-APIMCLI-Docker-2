@@ -88,6 +88,12 @@ echo "::end-group"
 
 
 ################~~ Invoking an API Access Token ~~################
+if [ "$needAPIAccessToken" ]
+    then
+    echo "TRUE"
+    else
+    echo "FALSE"
+fi    
 
 ## Register a WSO2 Cloud REST API client
 echo "::group::REST Client Registration"
