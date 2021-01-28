@@ -6,14 +6,6 @@
     # $4 - APIVersion
     # $5 - PostmanCollectionTestFile
 
-echo "::group::WSO2 APIMCLI Version"
-    apimcli version
-echo "::end-group"
-
-echo "::group::WSO2 APIMCLI Help"
-    apimcli --help
-echo "::end-group"
-
 echo "::group::WSO2 APIMCloud Tenants"
     echo Targeted Tenant  - $1
 echo "::end-group"
@@ -135,14 +127,14 @@ echo "::end-group"
 
 
 echo "::group::Finding the API identifier"
-    API_response=`curl -s --location -g --request GET 'https://gateway.api.cloud.wso2.com/api/am/publisher/apis' \
+    GET_APIs_response=`curl -s --location -g --request GET 'https://gateway.api.cloud.wso2.com/api/am/publisher/apis' \
     --header "Authorization: Bearer $rest_access_token_scope_view"`
 
-    all_APIs_list=`echo "$API_response" | jq '.list'`
+    all_APIs_list=`echo "$GET_APIs_response" | jq '.list'`
     relevant_api=`echo "$all_APIs_list" | jq '.[] | select(.name=="'$3'" and .version=="'$4'")'`
     api_identifier=`echo "$relevant_api" | jq --raw-output '.id'`
     
-    echo $API_response
+    echo $GET_APIs_response
     # echo $all_APIs_list
     # echo $relevant_api
     echo $api_identifier
