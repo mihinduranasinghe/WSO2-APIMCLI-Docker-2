@@ -197,8 +197,10 @@ view_api_subscriptions_response=`curl -s --location -g --request GET "https://ga
 --header "Authorization: Bearer $rest_access_token_subscription_view"`
 
 api_subscriptions_list=`echo "$view_api_subscriptions_response" | jq '.list'`
+testing_automation_app_subscription=`echo "$api_subscriptions_list" | jq '.[] | select(.applicationId=="'$application_id'")'`
 # echo $view_api_subscriptions_response
-echo $api_subscriptions_list
+# echo $api_subscriptions_list
+echo $testing_automation_app_subscription
 
 add_subscription=`curl -s --location -g --request POST 'https://gateway.api.cloud.wso2.com/api/am/store/subscriptions' \
 --header "Authorization: Bearer $rest_access_token_subscribe" \
