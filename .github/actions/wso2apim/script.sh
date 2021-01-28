@@ -151,6 +151,10 @@ echo "::group::Finding The API Identifier(apiId)"
     echo "test"
     echo "test"
     echo "test"
+    echo "test"
+    echo "test"
+    echo "test"
+    echo "test"
     # echo $GET_APIs_response
     # echo $all_APIs_list
     # echo $relevant_api
