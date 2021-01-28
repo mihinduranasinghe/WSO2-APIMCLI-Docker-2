@@ -44,13 +44,13 @@ echo "::end-group"
 
 
 echo "::group::Init API iproject with given API definition"
-    apimcli init ./$3/$4 
-    mkdir ./$3/$4/Sequences/fault-sequence/Custom
-    mkdir ./$3/$4/Sequences/in-sequence/Custom
-    mkdir ./$3/$4/Sequences/out-sequence/Custom
-    mkdir ./$3/$4/Testing
-    touch ./$3/$4/Docs/docs.json
-    ls ./$3/$4
+    apimcli init ./$APIName/$APIVersion 
+    mkdir ./$APIName/$APIVersion/Sequences/fault-sequence/Custom
+    mkdir ./$APIName/$APIVersion/Sequences/in-sequence/Custom
+    mkdir ./$APIName/$APIVersion/Sequences/out-sequence/Custom
+    mkdir ./$APIName/$APIVersion/Testing
+    touch ./$APIName/$APIVersion/Docs/docs.json
+    ls ./$APIName/$APIVersion
 echo "::end-group"
 
 
@@ -69,7 +69,7 @@ echo "::end-group"
 
 echo "::group::Import API project to targetted Tenant"
     apimcli login wso2apicloud -u $username -p $password -k
-    apimcli import-api -f ./$3/$4 -e wso2apicloud --preserve-provider=false --update --verbose -k
+    apimcli import-api -f ./$APIName/$APIVersion -e wso2apicloud --preserve-provider=false --update --verbose -k
 echo "::end-group"
 
 
@@ -85,7 +85,7 @@ echo "::end-group"
 echo "::group::REST Client Registration"
     # curl -X POST -H "Authorization: Basic base64encode(<email_username@Org_key>:<password>)" -H "Content-Type: application/json" -d @payload.json https://gateway.api.cloud.wso2.com/client-registration/register
     # base64key1 = Authorization: Basic  <username@wso2.com@organizationname:password>base64
-    base64key1=`echo -n "$username:$2" | base64`
+    base64key1=`echo -n "$username:$password" | base64`
 
     rest_client_object=`curl -s --location -g --request POST 'https://gateway.api.cloud.wso2.com/client-registration/register' \
     --header "Authorization: Basic $base64key1" \
@@ -117,7 +117,7 @@ echo "::group::REST Client Access Token Generate"
     --header "Authorization: Basic $base64key2" \
     --data-urlencode "grant_type=password" \
     --data-urlencode "username=$username" \
-    --data-urlencode "password=$2" \
+    --data-urlencode "password=$password" \
     --data-urlencode "scope=apim:api_view" | jq --raw-output '.access_token'`
 
     rest_access_token_subscribe=`curl -s --location -g --request POST 'https://gateway.api.cloud.wso2.com/token' \
@@ -125,7 +125,7 @@ echo "::group::REST Client Access Token Generate"
     --header "Authorization: Basic $base64key2" \
     --data-urlencode "grant_type=password" \
     --data-urlencode "username=$username" \
-    --data-urlencode "password=$2" \
+    --data-urlencode "password=$password" \
     --data-urlencode "scope=apim:subscribe" | jq --raw-output '.access_token'`
 
     rest_access_token_subscription_view=`curl -s --location -g --request POST 'https://gateway.api.cloud.wso2.com/token' \
@@ -133,7 +133,7 @@ echo "::group::REST Client Access Token Generate"
     --header "Authorization: Basic $base64key2" \
     --data-urlencode "grant_type=password" \
     --data-urlencode "username=$username" \
-    --data-urlencode "password=$2" \
+    --data-urlencode "password=$password" \
     --data-urlencode "scope=apim:subscription_view" | jq --raw-output '.access_token'`
 
     # echo $rest_access_token_scope_view
@@ -147,7 +147,7 @@ echo "::group::Finding The API Identifier(apiId)"
     --header "Authorization: Bearer $rest_access_token_scope_view"`
 
     all_APIs_list=`echo "$GET_APIs_response" | jq '.list'`
-    relevant_api=`echo "$all_APIs_list" | jq '.[] | select(.name=="'$3'" and .version=="'$4'")'`
+    relevant_api=`echo "$all_APIs_list" | jq '.[] | select(.name=="'$APIName'" and .version=="'$APIVersion'")'`
     api_identifier=`echo "$relevant_api" | jq --raw-output '.id'`
     
     echo "test"
@@ -301,9 +301,9 @@ echo "::end-group"
 #-----------------------------------------------------------------End of Invoking an API Access Token
 
 echo "::group::Testing With Postman Collection"
-    if [ $5 ]
+    if [ $PostmanCollectionTestFile ]
         then
-        newman run ./$3/$4/Testing/$5 --insecure 
+        newman run ./$APIName/$APIVersion/Testing/$PostmanCollectionTestFile --insecure 
         else
         echo "You have not given a postmanfile to run."
     fi
