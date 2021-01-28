@@ -155,6 +155,13 @@ echo "::end-group"
 
 echo "::group::Create new Application"
 # curl -k -H "Authorization: Bearer ae4eae22-3f65-387b-a171-d37eaa366fa8" -H "Content-Type: application/json" -X POST -d @data.json "https://gateway.api.cloud.wso2.com/api/am/store/applications"
+
+view_applications=`curl -s --location -g --request GET 'https://gateway.api.cloud.wso2.com/api/am/store/applications' \
+--header "Authorization: Bearer $rest_access_token_subscribe"`
+
+echo $view_applications
+
+
 new_test_automation_application=`curl -s --location -g --request POST 'https://gateway.api.cloud.wso2.com/api/am/store/applications' \
 --header "Authorization: Bearer $rest_access_token_subscribe" \
 --header "Content-Type: application/json" \
@@ -233,36 +240,6 @@ echo "::group::Testing With Postman Collection"
 echo "::end-group"
 
 
-# ------------------------------Malith
-
-# Client Registration
-
-# curl --location -g --request POST 'https://{{url}}/client-registration/register' \
-# --header 'Content-Type: application/json' \
-# --header 'Authorization: Basic e3t1c2VybmFtZX19Ont7cGFzc3dvcmR9fQ==' \
-# --data-raw '{
-#     "callbackUrl": "www.google.lk",
-#     "clientName": "rest_api_publisher-new",
-#     "tokenScope": "Production",
-#     "owner": {{applicationowner}},
-#     "grantType": "password refresh_token",
-#     "saasApp": true
-# }'
-
-
-
-# Client Access Token
-
-# curl --location -g --request POST 'https://{{url}}/token' \
-# --header 'Content-Type: application/x-www-form-urlencoded' \
-# --header 'Authorization: Basic e3tyZXN0LWNsaWVudC1pZH19Ont7cmVzdC1jbGllbnQtc2VjcmV0fX0=' \
-# --data-urlencode 'grant_type=password' \
-# --data-urlencode 'username={{username}}' \
-# --data-urlencode 'password={{password}}' \
-# --data-urlencode 'scope=apim:api_view'
-
-#---------------------------------------
-
 apimcli logout wso2apicloud 
 
 
@@ -271,8 +248,6 @@ apimcli logout wso2apicloud
 # # apimcli export-api --name <API-name> --version <version> --provider <provider> --environment <environment> --username <username> --password <password> --insecure
 # # apimcli export-api -n TeamMasterAPI -v v1.0.0 -r mihindu@wso2.com@development -e wso2apicloud -k
 # echo "::end-group"
-
-
 
 # apimcli login wso2apicloud -u $3 -p $4 -k
 # echo "::group::Import API to Prod Tenant"
@@ -289,8 +264,6 @@ apimcli logout wso2apicloud
 # apimcli list apis -e wso2apicloud -k
 # echo "::end-group"
 # apimcli logout wso2apicloud 
-
-
 
 # echo "::group::Export an *App from current tenant"
 # # apimcli export-app -n <application-name> -o <owner> -e <environment> -k
