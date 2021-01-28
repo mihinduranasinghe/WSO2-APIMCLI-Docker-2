@@ -153,11 +153,6 @@ echo $api_identifier
 echo "::end-group"
 
 
-# echo "::group::Generate Key for Application"
-# # curl -k -H "Authorization: Bearer ae4eae22-3f65-387b-a171-d37eaa366fa8" -H "Content-Type: application/json" -X POST -d @data.json  "https://gateway.api.cloud.wso2.com/api/am/store/applications/generate-keys?applicationId=c30f3a6e-ffa4-4ae7-afce-224d1f820524"
-# echo "::end-group"
-
-
 echo "::group::Create new Application"
 # curl -k -H "Authorization: Bearer ae4eae22-3f65-387b-a171-d37eaa366fa8" -H "Content-Type: application/json" -X POST -d @data.json "https://gateway.api.cloud.wso2.com/api/am/store/applications"
 new_test_automation_application=`curl -s --location -g --request POST 'https://gateway.api.cloud.wso2.com/api/am/store/applications' \
@@ -191,9 +186,28 @@ add_subscription=`curl -s --location -g --request POST 'https://gateway.api.clou
 echo $add_subscription
 echo "::end-group"
 
-# echo "::group::Generate access token"
+
+
+echo "::group::Generate consumer Keys and secrets for for the Testing Automation Application"
+# curl -k -H "Authorization: Bearer ae4eae22-3f65-387b-a171-d37eaa366fa8" -H "Content-Type: application/json" -X POST -d @data.json  "https://gateway.api.cloud.wso2.com/api/am/store/applications/generate-keys?applicationId=c30f3a6e-ffa4-4ae7-afce-224d1f820524"
+
+application_access_response=`curl -s --location -g --request POST "https://gateway.api.cloud.wso2.com/api/am/store/applications/generate-keys?applicationId=$application_id" \
+--header "Authorization: Bearer $base64key2" \
+--header "Content-Type: application/json" \
+--data-raw '{    
+  "validityTime": "3600",
+  "keyType": "PRODUCTION",
+  "accessAllowDomains": ["ALL"]
+}'`
+
+echo $application_access_response
+echo "::end-group"
+
+
+
+echo "::group::Generate access token for your API"
 # curl -u <client id>:<client secret> -k -d "grant_type=client_credentials&validity_period=3600" -H "Content-Type:application/x-www-form-urlencoded" https://gateway.api.cloud.wso2.com:443/token
-# echo "::end-group"
+echo "::end-group"
 
 #-------------------------------
 
