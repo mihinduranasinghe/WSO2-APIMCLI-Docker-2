@@ -215,7 +215,7 @@ if [ -z "$subscription_id" ]
     }'`
     echo $add_subscription
 fi   
- echo $add_subscription
+echo $add_subscription
 echo "::end-group"
 
 
