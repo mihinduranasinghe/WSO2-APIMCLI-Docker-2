@@ -179,7 +179,7 @@ echo "::end-group"
 echo "::group::Add a new subscription"
 # curl -k -H "Authorization: Bearer ae4eae22-3f65-387b-a171-d37eaa366fa8" -H "Content-Type: application/json" -X POST  -d @data.json "https://gateway.api.cloud.wso2.com/api/am/store/subscriptions"
 
-add_subscription=`curl -s --location -g --request --verbose POST 'https://gateway.api.cloud.wso2.com/api/am/store/subscriptions' \
+add_subscription=`curl -s --location -g --request POST 'https://gateway.api.cloud.wso2.com/api/am/store/subscriptions' \
 --header "Authorization: Bearer $rest_access_token_subscribe" \
 --header "Content-Type: application/json" \
 --data-raw '{
