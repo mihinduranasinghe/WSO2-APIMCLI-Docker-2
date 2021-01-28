@@ -200,7 +200,11 @@ application_access_response=`curl -s --location -g --request POST "https://gatew
   "accessAllowDomains": ["ALL"]
 }'`
 
-echo $application_access_response
+consumer_key=`echo "$application_access_response" | jq --raw-output '.consumerKey'`
+consumer_secret=`echo "$application_access_response" | jq --raw-output '.consumerSecret'`
+# echo $application_access_response
+echo $consumer_key
+echo $consumer_secret
 echo "::end-group"
 
 
