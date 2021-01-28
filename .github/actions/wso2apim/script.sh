@@ -91,19 +91,20 @@ echo "::end-group"
 
 ################~~ Invoking an API Access Token ~~################
 
-        # If client requested APIAccessToken ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-        #
-        #       1.                                  
-        #       2.     
-        #       3.      
-        #       4.              
-        #       5.                 
-        #       6.    
-        #       7. 
-        #       8.
-        #       9.  
-        #      10.                
-        #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  # If client requested APIAccessToken ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  #
+  #   1.Register a WSO2 Cloud REST API client                                  
+  #   2.Generate access tokens for the REST Client for different scopes 
+  #     (api_view, subscribe, subscription_view, ...) 
+  #   3.Finding The API Identifier(apiId) of the user's respective API      
+  #   4.Create A New Application named "TestingAutomationApp" for testing purpose              
+  #   5.Creating A New Application named "TestingAutomationApp" for testing purpose                 
+  #   6.Add a new subscription from newly created "TestingAutomationApp" to the current API    
+  #   7.Generate consumer Keys(client key and secret) for for the Testing Automation Application 
+  #   8.Generate access token for your API
+  #   9.Creating a text file with important records  
+  #                  
+  #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 if [ "$needAPIAccessToken" = true ]
     then   
@@ -189,7 +190,7 @@ if [ "$needAPIAccessToken" = true ]
         echo "::end-group"
 
 
-        ## Create A New Application named "TestingAutomationApp" for testing purpose
+        ## Creating A New Application named "TestingAutomationApp" for testing purpose
         echo "::group::Create A New Application - TestingAutomationApp"
 
             new_app_name="TestingAutomationApp"
@@ -254,7 +255,6 @@ if [ "$needAPIAccessToken" = true ]
 
                 echo $add_subscription_response
             fi 
-
             # echo $subscription_id
             # echo $application_id
         echo "::end-group"
@@ -293,8 +293,7 @@ if [ "$needAPIAccessToken" = true ]
 
 
         ## Generate access token for your API
-        echo "::group::Generate access token for your API"
-            
+        echo "::group::Generate access token for your API"            
             # base64 encode<consumer-key:consumer-secret>
             base64key3=`echo -n "$consumer_key:$consumer_secret" | base64`
 
@@ -313,7 +312,7 @@ if [ "$needAPIAccessToken" = true ]
         echo "::end-group"
 
 
-        ## Creating a file with important records
+        ## Creating a text file with important records
         echo "::group::Create a file with important records"
 
         echo "::end-group"
@@ -332,11 +331,11 @@ fi
 echo "::group::Testing With Postman Collection"
     if [ $PostmanCollectionTestFile ]
         then
-        newman run ./$APIName/$APIVersion/Testing/$PostmanCollectionTestFile --insecure 
+            newman run ./$APIName/$APIVersion/Testing/$PostmanCollectionTestFile --insecure 
         else
-        echo "You have not given a postmanfile to run."
+            echo "You have not given a postmanfile to run."
     fi
 echo "::end-group"
 
-apimcli logout wso2apicloud 
+
 
