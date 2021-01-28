@@ -202,17 +202,20 @@ subscription_id=`echo "$testing_automation_app_subscription" | jq --raw-output '
 # echo $view_api_subscriptions_response
 # echo $api_subscriptions_list
 # echo $testing_automation_app_subscription
-echo subscription_id
-
-add_subscription=`curl -s --location -g --request POST 'https://gateway.api.cloud.wso2.com/api/am/store/subscriptions' \
---header "Authorization: Bearer $rest_access_token_subscribe" \
---header "Content-Type: application/json" \
---data-raw '{
-    "tier": "Unlimited",
-    "apiIdentifier": "'$api_identifier'",
-    "applicationId": "'$application_id'"
-}'`
-echo $add_subscription
+echo $subscription_id
+if [ -z "$subscription_id" ]
+    then
+    add_subscription=`curl -s --location -g --request POST 'https://gateway.api.cloud.wso2.com/api/am/store/subscriptions' \
+    --header "Authorization: Bearer $rest_access_token_subscribe" \
+    --header "Content-Type: application/json" \
+    --data-raw '{
+        "tier": "Unlimited",
+        "apiIdentifier": "'$api_identifier'",
+        "applicationId": "'$application_id'"
+    }'`
+    echo $add_subscription
+fi   
+ echo $add_subscription
 echo "::end-group"
 
 
