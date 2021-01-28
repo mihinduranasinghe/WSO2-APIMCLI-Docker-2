@@ -73,8 +73,9 @@ echo "::group::Import API project to targetted Tenant"
     apimcli import-api -f ./$APIName/$APIVersion -e wso2apicloud --preserve-provider=false --update --verbose -k
 echo "::end-group"
 
-#wait for 25s until the API is deployed because it might take some time to deploy in background.                                                
-    sleep 25s     
+#wait for 35s until the API is deployed because it might take some time to deploy in background.                                                
+    echo "Please wait ... "
+    sleep 35s     
 
 ## Listing the APIS in targeted Tenant
 echo "::group::List APIS in targeted Tenant"
