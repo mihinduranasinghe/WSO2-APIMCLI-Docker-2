@@ -25,10 +25,6 @@ echo "::end-group"
 
 
 echo "::group::Init API iproject with given API definition"
-    # apictl import-api -f $API_DIR -e $DEV_ENV -k --preserve-provider --update --verbose
-    # apimcli init SampleStore --oas petstore.json --definition api_template.yaml
-    # apimcli init ./$3/$6 --oas $
-    # apimcli init -f ./$3/$6 --oas $ --definition $
     apimcli init ./$3/$4 
     mkdir ./$3/$4/Sequences/fault-sequence/Custom
     mkdir ./$3/$4/Sequences/in-sequence/Custom
@@ -42,9 +38,10 @@ echo "::end-group"
 echo "::group::Push API project into the GIT repo from VM"
     git config --global user.email "my-bot@bot.com"
     git config --global user.name "my-bot"
-    #This shell script will find all empty directories and sub-directories in a project folder and creates a .gitkeep file, so that the empty directory 
-    #can be added to the git index. 
+
+    #Search for all empty directories/sub-directories and creates a ".gitkeep" file, 
     find * -type d -empty -exec touch '{}'/.gitkeep \;
+    
     git add . 
     git commit -m "API project initialized"
     git push
@@ -66,7 +63,7 @@ echo "::end-group"
 
 #-----------------------------------------------------------------Invoking and API Access Token
 
-echo "::group::Client Registration"
+echo "::group::REST Client Registration"
     # curl -X POST -H "Authorization: Basic base64encode(<email_username@Org_key>:<password>)" -H "Content-Type: application/json" -d @payload.json https://gateway.api.cloud.wso2.com/client-registration/register
     # base64key1 = Authorization: Basic  <username@wso2.com@organizationname:password>base64
     base64key1=`echo -n "$1:$2" | base64`
@@ -91,7 +88,7 @@ echo "::group::Client Registration"
 echo "::end-group"
 
 
-echo "::group::Client Access Token Generate"
+echo "::group::REST Client Access Token Generate"
     # curl -k -d "grant_type=password&username=email_username@Org_key&password=admin&scope=apim:subscribe" -H "Authorization: Basic SGZFbDFqSlBkZzV0YnRyeGhBd3liTjA1UUdvYTpsNmMwYW9MY1dSM2Z3ZXpIaGM3WG9HT2h0NUFh" https://gateway.api.cloud.wso2.com/token
     # base64key2 = Authorization: Basic <rest-client-id:rest-client-secret>base64
     base64key2=`echo -n "$rest_clientId:$rest_clientSecret" | base64`
@@ -126,7 +123,7 @@ echo "::group::Client Access Token Generate"
 echo "::end-group"
 
 
-echo "::group::Finding the API identifier"
+echo "::group::Finding The API Identifier(apiId)"
     GET_APIs_response=`curl -s --location -g --request GET 'https://gateway.api.cloud.wso2.com/api/am/publisher/apis' \
     --header "Authorization: Bearer $rest_access_token_scope_view"`
 
@@ -141,7 +138,7 @@ echo "::group::Finding the API identifier"
 echo "::end-group"
 
 
-echo "::group::Create new Application"
+echo "::group::Create A New Application - TestingAutomationApp"
     # curl -k -H "Authorization: Bearer ae4eae22-3f65-387b-a171-d37eaa366fa8" -H "Content-Type: application/json" -X POST -d @data.json "https://gateway.api.cloud.wso2.com/api/am/store/applications"
 
     view_applications_response=`curl -s --location -g --request GET 'https://gateway.api.cloud.wso2.com/api/am/store/applications' \
@@ -172,7 +169,6 @@ echo "::group::Create new Application"
         echo $application_id
     fi
 echo "::end-group"
-
 
 
 echo "::group::Add a new subscription"
