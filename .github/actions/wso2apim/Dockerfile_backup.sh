@@ -1,11 +1,12 @@
 FROM ubuntu:18.04
 RUN apt update
-RUN apt install -y git \
-    curl   \
-    jq     \
-    nodejs \
-    npm
-    
+RUN apt install -y git
+RUN apt install -y curl
+RUN apt-get install -y jq
+RUN apt install -y nodejs
+
+# RUN node -v
+RUN apt install -y npm
 RUN npm install -y -g newman@3 --unsafe-perm
 
 # FROM openjdk:jre-slim
