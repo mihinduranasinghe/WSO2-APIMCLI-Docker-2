@@ -139,7 +139,7 @@ echo "::group::Finding the API identifier"
 APIs=`curl -s --location -g --request GET 'https://gateway.api.cloud.wso2.com/api/am/publisher/apis' \
 --header "Authorization: Bearer $rest_access_token_scope_view"`
 
-all_APIs_list = `echo "$APIs" | jq '.list | []'`
+all_APIs_list = `echo "$APIs" | jq '.[] | .list'`
 echo $APIs
 echo $all_APIs_list
 # relevant_api  = `echo "$all_APIs_list" | jq '.[] | select(.)'`
