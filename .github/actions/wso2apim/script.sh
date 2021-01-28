@@ -183,7 +183,7 @@ add_subscription=`curl -s --location -g --request POST 'https://gateway.api.clou
 --header "Authorization: Bearer $rest_access_token_subscribe" \
 --header "Content-Type: application/json" \
 --data-raw '{
-    "tier": "unlimited",
+    "tier": "Unlimited",
     "apiIdentifier": "'$api_identifier'",
     "applicationId": "'$application_id'"
 }'`
@@ -196,9 +196,12 @@ echo "::end-group"
 # echo "::end-group"
 
 #-------------------------------
-# echo "::group::Testing With Postman Collection"
+
+
+echo "::group::Testing With Postman Collection"
 # newman run $5 --insecure
-# echo "::end-group"
+echo "::end-group"
+
 
 # ------------------------------Malith
 
