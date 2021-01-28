@@ -215,7 +215,7 @@ subscription_id=`echo "$testing_automation_app_subscription" | jq --raw-output '
 # echo $subscription_id
 if [ -z "$subscription_id" ]
     then
-    add_subscription=`curl -s --location -g --request POST 'https://gateway.api.cloud.wso2.com/api/am/store/subscriptions' \
+    add_subscription_response=`curl -s --location -g --request POST 'https://gateway.api.cloud.wso2.com/api/am/store/subscriptions' \
     --header "Authorization: Bearer $rest_access_token_subscribe" \
     --header "Content-Type: application/json" \
     --data-raw '{
@@ -223,7 +223,7 @@ if [ -z "$subscription_id" ]
         "apiIdentifier": "'$api_identifier'",
         "applicationId": "'$application_id'"
     }'`
-    echo $add_subscription
+    echo $add_subscription_response
 fi 
 echo "::end-group"
 
