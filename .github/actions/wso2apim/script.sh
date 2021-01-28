@@ -220,8 +220,9 @@ api_access_response=`curl -s --location -g --request POST 'https://gateway.api.c
 --data-urlencode "grant_type=client_credentials" \
 --data-urlencode "validity_period=3600"`
 
-# api_access_token=`echo "$api_access_response" | jq --raw-output '.access_token'`
-echo $api_access_response
+api_access_token=`echo "$api_access_response" | jq --raw-output '.access_token'`
+# echo $api_access_response
+echo $api_access_token
 echo "::end-group"
 
 #-------------------------------
