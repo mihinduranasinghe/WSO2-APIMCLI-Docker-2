@@ -173,6 +173,7 @@ if [ "$needAPIAccessToken" == "true" ]
 
         echo "::end-group"
 
+
         ## Create A New Application named "TestingAutomationApp" for testing purpose
         echo "::group::Create A New Application - TestingAutomationApp"
 
@@ -207,6 +208,7 @@ if [ "$needAPIAccessToken" == "true" ]
                 echo ApplicationID - $application_id
             fi
         echo "::end-group"
+
 
         ## Add a new subscription from newly created "TestingAutomationApp" to the current API
         echo "::group::Add a new subscription"
@@ -295,14 +297,17 @@ if [ "$needAPIAccessToken" == "true" ]
 
         echo "::end-group"
 
+
         ## Creating a file with important records
         echo "::group::Create a file with important records"
 
         echo "::end-group"
+
+
     else
         echo "::group:: Do you need an API Access Token for automated testing ?"
             echo "You have not requested an API Access Token."
-            echo "Provide the input with the value as TRUE, to generate API Access Token for testing with your own postman collection"
+            echo "Provide the following input with the value as TRUE in your code chunk, to generate API Access Token for testing with your own postman collection"
             echo "'needAPIAccessToken' : TRUE"    
         echo "::end-group"
 fi
