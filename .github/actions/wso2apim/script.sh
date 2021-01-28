@@ -48,6 +48,7 @@ ls ./$3/$4
 echo "::end-group"
 
 
+
 echo "::group::Push API project into the GIT repo from VM"
 git config --global user.email "my-bot@bot.com"
 git config --global user.name "my-bot"
@@ -60,6 +61,7 @@ git push
 echo "::end-group"
 
 
+
 echo "::group::Testing With Postman Collection"
 if [ $5 ]
 then
@@ -70,11 +72,13 @@ fi
 echo "::end-group"
 
 
+
 echo "::group::Import API project to targetted Tenant"
 apimcli login wso2apicloud -u $1 -p $2 -k
 apimcli import-api -f ./$3/$4 -e wso2apicloud --preserve-provider=false --update --verbose -k
 # apimcli logout wso2apicloud 
 echo "::end-group"
+
 
 
 echo "::group::List APIS in targetted Tenant"
@@ -112,6 +116,7 @@ echo $rest_clientSecret
 echo "::end-group"
 
 
+
 echo "::group::Client Access Token Generate"
 # curl -k -d "grant_type=password&username=email_username@Org_key&password=admin&scope=apim:subscribe" -H "Authorization: Basic SGZFbDFqSlBkZzV0YnRyeGhBd3liTjA1UUdvYTpsNmMwYW9MY1dSM2Z3ZXpIaGM3WG9HT2h0NUFh" https://gateway.api.cloud.wso2.com/token
 # base64key2 = Authorization: Basic <rest-client-id:rest-client-secret>base64
@@ -147,6 +152,7 @@ echo $rest_access_token_subscription_view
 echo "::end-group"
 
 
+
 echo "::group::Finding the API identifier"
 API_response=`curl -s --location -g --request GET 'https://gateway.api.cloud.wso2.com/api/am/publisher/apis' \
 --header "Authorization: Bearer $rest_access_token_scope_view"`
@@ -161,6 +167,7 @@ echo $api_identifier
 echo "::end-group"
 
 
+
 echo "::group::Create new Application"
 # curl -k -H "Authorization: Bearer ae4eae22-3f65-387b-a171-d37eaa366fa8" -H "Content-Type: application/json" -X POST -d @data.json "https://gateway.api.cloud.wso2.com/api/am/store/applications"
 
@@ -173,6 +180,8 @@ application_id=`echo "$testing_automation_application" | jq --raw-output '.appli
 # echo $view_applications_response
 # echo $applications_list
 # echo $testing_automation_application
+echo $application_id
+
 if [ -z "$application_id" ]
     then
     new_testing_automation_application=`curl -s --location -g --request POST 'https://gateway.api.cloud.wso2.com/api/am/store/applications' \
@@ -186,9 +195,10 @@ if [ -z "$application_id" ]
     }'`
 
     application_id=`echo "$new_testing_automation_application" | jq --raw-output '.applicationId'`
+    echo $application_id
 fi
-# echo $application_id
 echo "::end-group"
+
 
 
 echo "::group::Add a new subscription"
@@ -202,7 +212,7 @@ subscription_id=`echo "$testing_automation_app_subscription" | jq --raw-output '
 # echo $view_api_subscriptions_response
 # echo $api_subscriptions_list
 # echo $testing_automation_app_subscription
-echo $subscription_id
+# echo $subscription_id
 if [ -z "$subscription_id" ]
     then
     add_subscription=`curl -s --location -g --request POST 'https://gateway.api.cloud.wso2.com/api/am/store/subscriptions' \
@@ -214,8 +224,7 @@ if [ -z "$subscription_id" ]
         "applicationId": "'$application_id'"
     }'`
     echo $add_subscription
-fi   
-echo $add_subscription
+fi 
 echo "::end-group"
 
 
@@ -255,6 +264,12 @@ api_access_response=`curl -s --location -g --request POST 'https://gateway.api.c
 api_access_token=`echo "$api_access_response" | jq --raw-output '.access_token'`
 # echo $api_access_response
 echo $api_access_token
+echo "::end-group"
+
+
+
+echo "::group::Create a file with important records"
+
 echo "::end-group"
 
 #-------------------------------
