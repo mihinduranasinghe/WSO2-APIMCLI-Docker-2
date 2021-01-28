@@ -6,7 +6,7 @@
     # $4 - APIVersion
     # $5 - PostmanCollectionTestFile
 
-sample = `"$1"`
+sample=`"$1"`
 echo $sample
 
 echo "::group::WSO2 APIMCloud Tenants"
