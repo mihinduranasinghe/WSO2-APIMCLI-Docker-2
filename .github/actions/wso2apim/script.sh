@@ -41,7 +41,7 @@ echo "::group::Push API project into the GIT repo from VM"
 
     #Search for all empty directories/sub-directories and creates a ".gitkeep" file, 
     find * -type d -empty -exec touch '{}'/.gitkeep \;
-    
+
     git add . 
     git commit -m "API project initialized"
     git push
@@ -83,8 +83,8 @@ echo "::group::REST Client Registration"
     rest_clientId=`echo "$rest_client_object" | jq --raw-output '.clientId'`
     rest_clientSecret=`echo "$rest_client_object" | jq --raw-output '.clientSecret'`
 
-    echo $rest_clientId
-    echo $rest_clientSecret 
+    # echo $rest_clientId
+    # echo $rest_clientSecret 
 echo "::end-group"
 
 
@@ -117,9 +117,9 @@ echo "::group::REST Client Access Token Generate"
     --data-urlencode "password=$2" \
     --data-urlencode "scope=apim:subscription_view" | jq --raw-output '.access_token'`
 
-    echo $rest_access_token_scope_view
-    echo $rest_access_token_subscribe
-    echo $rest_access_token_subscription_view
+    # echo $rest_access_token_scope_view
+    # echo $rest_access_token_subscribe
+    # echo $rest_access_token_subscription_view
 echo "::end-group"
 
 
