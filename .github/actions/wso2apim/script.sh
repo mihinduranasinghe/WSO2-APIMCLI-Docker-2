@@ -32,7 +32,6 @@ apimcli list envs
 echo "::end-group"
 
 
-
 echo "::group::Init API iproject with given API definition"
     # apictl import-api -f $API_DIR -e $DEV_ENV -k --preserve-provider --update --verbose
     # apimcli init SampleStore --oas petstore.json --definition api_template.yaml
@@ -48,27 +47,25 @@ echo "::group::Init API iproject with given API definition"
 echo "::end-group"
 
 
-
 echo "::group::Push API project into the GIT repo from VM"
-git config --global user.email "my-bot@bot.com"
-git config --global user.name "my-bot"
-#This shell script will find all empty directories and sub-directories in a project folder and creates a .gitkeep file, so that the empty directory 
-#can be added to the git index. 
-find * -type d -empty -exec touch '{}'/.gitkeep \;
-git add . 
-git commit -m "API project initialized"
-git push
+    git config --global user.email "my-bot@bot.com"
+    git config --global user.name "my-bot"
+    #This shell script will find all empty directories and sub-directories in a project folder and creates a .gitkeep file, so that the empty directory 
+    #can be added to the git index. 
+    find * -type d -empty -exec touch '{}'/.gitkeep \;
+    git add . 
+    git commit -m "API project initialized"
+    git push
 echo "::end-group"
 
 
-
 echo "::group::Testing With Postman Collection"
-if [ $5 ]
-then
-newman run ./$3/$4/Testing/$5 --insecure 
-else
-echo "You have not given a postmanfile to run."
-fi
+    if [ $5 ]
+        then
+        newman run ./$3/$4/Testing/$5 --insecure 
+        else
+        echo "You have not given a postmanfile to run."
+    fi
 echo "::end-group"
 
 
