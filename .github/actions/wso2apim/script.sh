@@ -83,8 +83,8 @@ echo "::group::REST Client Registration"
     rest_clientId=`echo "$rest_client_object" | jq --raw-output '.clientId'`
     rest_clientSecret=`echo "$rest_client_object" | jq --raw-output '.clientSecret'`
 
-    echo $rest_clientId
-    echo $rest_clientSecret 
+    # echo $rest_clientId
+    # echo $rest_clientSecret 
 echo "::end-group"
 
 
@@ -117,9 +117,9 @@ echo "::group::REST Client Access Token Generate"
     --data-urlencode "password=$2" \
     --data-urlencode "scope=apim:subscription_view" | jq --raw-output '.access_token'`
 
-    echo $rest_access_token_scope_view
-    echo $rest_access_token_subscribe
-    echo $rest_access_token_subscription_view
+    # echo $rest_access_token_scope_view
+    # echo $rest_access_token_subscribe
+    # echo $rest_access_token_subscription_view
 echo "::end-group"
 
 
@@ -131,6 +131,22 @@ echo "::group::Finding The API Identifier(apiId)"
     relevant_api=`echo "$all_APIs_list" | jq '.[] | select(.name=="'$3'" and .version=="'$4'")'`
     api_identifier=`echo "$relevant_api" | jq --raw-output '.id'`
     
+    echo "test"
+    echo "test"
+    echo "test"
+    echo "test"
+    echo "test"
+    echo "test"
+    echo "test"
+    echo "test"
+    echo "test"
+    echo "test"
+    echo "test"
+    echo "test"
+    echo "test"
+    echo "test"
+    echo "test"
+    echo "test"
     echo "test"
     echo "test"
     echo "test"
