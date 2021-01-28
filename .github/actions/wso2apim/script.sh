@@ -156,11 +156,14 @@ echo "::end-group"
 echo "::group::Create new Application"
 # curl -k -H "Authorization: Bearer ae4eae22-3f65-387b-a171-d37eaa366fa8" -H "Content-Type: application/json" -X POST -d @data.json "https://gateway.api.cloud.wso2.com/api/am/store/applications"
 
-view_applications=`curl -s --location -g --request GET 'https://gateway.api.cloud.wso2.com/api/am/store/applications' \
+view_applications_response=`curl -s --location -g --request GET 'https://gateway.api.cloud.wso2.com/api/am/store/applications' \
 --header "Authorization: Bearer $rest_access_token_subscribe"`
 
-echo $view_applications
-
+applications_list=`echo "$view_applications_response" | jq '.list'`
+testing_automation_application=`echo "$applications_list" | jq '.[] | select(.name=="TestingAutomationApp")'`
+echo $view_applications_response
+echo $applications_list
+echo $testing_automation_application
 
 new_test_automation_application=`curl -s --location -g --request POST 'https://gateway.api.cloud.wso2.com/api/am/store/applications' \
 --header "Authorization: Bearer $rest_access_token_subscribe" \
@@ -168,7 +171,7 @@ new_test_automation_application=`curl -s --location -g --request POST 'https://g
 --data-raw '{
     "throttlingTier": "Unlimited",
     "description": "Automatic generated app for automated testing purpose",
-    "name": "TestAutomationApp",
+    "name": "TestingAutomationApp",
     "callbackUrl": "http://my.server.com/callback"
 }'`
 
