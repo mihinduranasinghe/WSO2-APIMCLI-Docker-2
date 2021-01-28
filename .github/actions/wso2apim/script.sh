@@ -28,16 +28,16 @@ echo "::end-group"
 
 # Confiduring WSO2 API Cloud gateway environment in VM
 echo "::group::Add environment wso2apicloud"
-apimcli add-env -n wso2apicloud \
-                      --registration https://gateway.api.cloud.wso2.com/client-registration/register \
-                      --apim https://gateway.api.cloud.wso2.com/pulisher \
-                      --token https://gateway.api.cloud.wso2.com/token \
-                      --import-export https://gateway.api.cloud.wso2.com/api-import-export \
-                      --admin https://gateway.api.cloud.wso2.com/api/am/admin/ \
-                      --api_list https://gateway.api.cloud.wso2.com/api/am/publisher/apis \
-                      --app_list https://gateway.api.cloud.wso2.com/api/am/store/applications
+    apimcli add-env -n wso2apicloud \
+                        --registration https://gateway.api.cloud.wso2.com/client-registration/register \
+                        --apim https://gateway.api.cloud.wso2.com/pulisher \
+                        --token https://gateway.api.cloud.wso2.com/token \
+                        --import-export https://gateway.api.cloud.wso2.com/api-import-export \
+                        --admin https://gateway.api.cloud.wso2.com/api/am/admin/ \
+                        --api_list https://gateway.api.cloud.wso2.com/api/am/publisher/apis \
+                        --app_list https://gateway.api.cloud.wso2.com/api/am/store/applications
 
-apimcli list envs          
+    apimcli list envs          
 echo "::end-group"
 
 
@@ -71,10 +71,21 @@ echo "::group::Import API project to targetted Tenant"
     apimcli import-api -f ./$APIName/$APIVersion -e wso2apicloud --preserve-provider=false --update --verbose -k
 echo "::end-group"
 
+    echo "test"
+    echo "test"
+    echo "test"
+    echo "test"
+    echo "test"
+    echo "test"
+    echo "test"
+    echo "test"
+    echo "test"
+    echo "test"
+    echo "test"
 
 echo "::group::List APIS in targetted Tenant"
     # apimcli list apis -e <environment> -k
-    # apimcli list apis --environment <environment> --insec# echo "::set-env name=HELLO::hello"ure
+    # apimcli list apis --environment <environment> --insec
     apimcli list apis -e wso2apicloud -k
 echo "::end-group"
 
