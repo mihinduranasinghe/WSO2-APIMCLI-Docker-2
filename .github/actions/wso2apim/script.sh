@@ -188,7 +188,7 @@ if [ "$needAPIAccessToken" = true ]
 
             endpointConfig=`echo "$GET_specific_API_response" | jq '.endpointConfig'`
             
-            echo $GET_specific_API_response
+            # echo $GET_specific_API_response
             echo $endpointConfig
             
             # api_production_end_point=`echo "$relevant_api" | jq --raw-output '.id'`
@@ -196,7 +196,7 @@ if [ "$needAPIAccessToken" = true ]
             
             # echo $GET_APIs_response
             # echo $all_APIs_list
-            echo $relevant_api
+            # echo $relevant_api
             echo API Identifier - $api_identifier
             # echo API PRODUCTION End Point - $api_production_end_point
             # echo API SANDBOX End Point - $api_sandbox_end_point
