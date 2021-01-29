@@ -97,12 +97,13 @@ echo "::end-group"
   #   2.Generate access tokens for the REST Client for different scopes 
   #     (api_view, subscribe, subscription_view, ...) 
   #   3.Finding The API Identifier(apiId) of the user's respective API      
-  #   4.Create A New Application named "TestingAutomationApp" for testing purpose              
-  #   5.Creating A New Application named "TestingAutomationApp" for testing purpose                 
-  #   6.Add a new subscription from newly created "TestingAutomationApp" to the current API    
-  #   7.Generate consumer Keys(client key and secret) for for the Testing Automation Application 
-  #   8.Generate access token for your API
-  #   9.Creating a text file with important records  
+  #   4.Create A New Application named "TestingAutomationApp" for testing purpose                 
+  #   5.Add a new subscription from newly created "TestingAutomationApp" to the current API    
+  #   6.Generate consumer Keys(client key and secret) for PRODUCTION API 
+  #   7.Generate consumer Keys(client key and secret) for SANDBOX API
+  #   8.Generate access token for your PRODUCTION API
+  #   9.Generate access token for your SANDBOX API
+  #  10.Creating a text file with important records  
   #                  
   #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -367,13 +368,15 @@ if [ "$needAPIAccessToken" = true ]
 
         ## Creating a text file with important records
         echo "::group::Create a file with important API Tokens records"
-            echo "Please navigate to $APIName/$APIVersion/Testing/ACCESS_TOKENS.txt to claim you API tokens"
+            # rm ./$APIName/$APIVersion/Testing/ACCESS_TOKENS.txt
             echo "
                 Here we have generated API access tokens for you to test your API with your own postman collection
                 --------------------------------------------------------------------------------------------------
                 SANDBOX API ACCESS TOKEN    - $api_access_token_SANDBOX
                 PRODUCTION API ACCESS TOKEN - $api_access_token_PRODUCTION
             " >./$APIName/$APIVersion/Testing/ACCESS_TOKENS.txt
+
+            echo "Please navigate to $APIName/$APIVersion/Testing/ACCESS_TOKENS.txt to claim you API tokens"
         echo "::end-group"
 
 
