@@ -184,7 +184,7 @@ if [ "$needAPIAccessToken" = true ]
             
             # echo $GET_APIs_response
             # echo $all_APIs_list
-            # echo $relevant_api
+            echo $relevant_api
             echo API Identifier - $api_identifier
 
         echo "::end-group"
@@ -261,7 +261,7 @@ if [ "$needAPIAccessToken" = true ]
 
 
         ## Generate consumer Keys(client key and secret) for PRODUCTION for the Testing Automation Application
-        echo "::group::Generate consumer Keys(client key and secret) for for the Testing Automation Application"
+        echo "::group::Generate consumer Keys(client key and secret) for PRODUCTION API for the Testing Automation Application"
 
             view_application_access_keys_response=`curl -s --location -g --request GET "https://gateway.api.cloud.wso2.com/api/am/store/applications/$application_id/keys/PRODUCTION" \
             --header "Authorization: Bearer $rest_access_token_subscribe"`
@@ -292,8 +292,8 @@ if [ "$needAPIAccessToken" = true ]
         echo "::end-group"
 
 
-        ## Generate access token for your API
-        echo "::group::Generate access token for your API"            
+        ## Generate access token for your PRODUCTION API
+        echo "::group::Generate access token for your PRODUCTION API"            
             # base64 encode<consumer-key:consumer-secret>
             base64key3=`echo -n "$consumer_key_PRODUCTION:$consumer_secret_PRODUCTION" | base64`
 
@@ -313,7 +313,7 @@ if [ "$needAPIAccessToken" = true ]
 
 
         ## Generate consumer Keys(client key and secret) for SANDBOX for the Testing Automation Application
-        echo "::group::Generate consumer Keys(client key and secret) for for the Testing Automation Application"
+        echo "::group::Generate consumer Keys(client key and secret) for SANDBOX API for the Testing Automation Application"
 
             view_application_access_keys_response_SANDBOX=`curl -s --location -g --request GET "https://gateway.api.cloud.wso2.com/api/am/store/applications/$application_id/keys/SANDBOX" \
             --header "Authorization: Bearer $rest_access_token_subscribe"`
@@ -345,7 +345,7 @@ if [ "$needAPIAccessToken" = true ]
 
 
         ## Generate access token for your SANDBOX API
-        echo "::group::Generate access token for your API"            
+        echo "::group::Generate access token for your SANDBOX API"            
             # base64 encode<consumer-key:consumer-secret>
             base64key3=`echo -n "$consumer_key_SANDBOX:$consumer_secret_SANDBOX" | base64`
 
@@ -362,8 +362,6 @@ if [ "$needAPIAccessToken" = true ]
             echo SANDBOX API ACCESS TOKEN - $api_access_token_SANDBOX
 
         echo "::end-group"
-
-
 
 
         ## Creating a text file with important records
