@@ -184,9 +184,9 @@ if [ "$needAPIAccessToken" = true ]
             api_identifier=`echo "$relevant_api" | jq --raw-output '.id'`
 
             GET_end_points_response=`curl -s --location -g --request GET "https://gateway.api.cloud.wso2.com/api/am/publisher/apis/$api_identifier" \
-            --header "Authorization: Bearer $rest_access_token_api_view" | jq '.endpointConfig' | jq '.production_endpoints'`
+            --header "Authorization: Bearer $rest_access_token_api_view" | jq '.endpointConfig'`
 
-            # api_production_end_point=`echo "$GET_end_points_response" | jq '.production_endpoints'`
+            api_production_end_point=`echo "$GET_end_points_response" | jq '.production_endpoints'`
 
             echo $GET_end_points_response
             
@@ -195,7 +195,7 @@ if [ "$needAPIAccessToken" = true ]
             # echo $all_APIs_list
             # echo $relevant_api
             echo API Identifier - $api_identifier
-            # echo API PRODUCTION End Point - $api_production_end_point
+            echo API PRODUCTION End Point - $api_production_end_point
             # echo API SANDBOX End Point - $api_sandbox_end_point
 
         echo "::end-group"
