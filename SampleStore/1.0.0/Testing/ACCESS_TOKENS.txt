@@ -2,5 +2,5 @@
                 Here we have generated API access tokens for you to test your API with your own postman collection
                 --------------------------------------------------------------------------------------------------
                 SANDBOX API ACCESS TOKEN    - dc861476-ef73-3a7f-a349-399a3d8f450f
-                PRODUCTION API ACCESS TOKEN - bf0ff406-4a75-39c0-9bfb-0dd4644040c5
+                PRODUCTION API ACCESS TOKEN - 
             

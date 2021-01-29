@@ -366,7 +366,8 @@ if [ "$needAPIAccessToken" = true ]
 
 
         ## Creating a text file with important records
-        echo "::group::Create a file with important records"
+        echo "::group::Create a file with important API Tokens records"
+            echo "Please navigate to $APIName/$APIVersion/Testing/ACCESS_TOKENS.txt to claim you API tokens"
             echo "
                 Here we have generated API access tokens for you to test your API with your own postman collection
                 --------------------------------------------------------------------------------------------------
@@ -374,6 +375,7 @@ if [ "$needAPIAccessToken" = true ]
                 PRODUCTION API ACCESS TOKEN - $api_access_token_PRODUCTION
             " >./$APIName/$APIVersion/Testing/ACCESS_TOKENS.txt
         echo "::end-group"
+
 
         ## Push newly initialized API project into the GIT repo again from VM
         echo "::group::Push API project into the GIT repo from VM"
