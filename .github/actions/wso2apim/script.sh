@@ -186,8 +186,8 @@ if [ "$needAPIAccessToken" = true ]
             GET_specific_API_response=`curl -s --location -g --request GET "https://gateway.api.cloud.wso2.com/api/am/publisher/apis/$api_identifier" \
             --header "Authorization: Bearer $rest_access_token_api_view"`
 
+            endpointConfig=`echo "$GET_specific_API_response" | jq '.name'`
             echo $GET_specific_API_response
-            endpointConfig=`echo "$GET_specific_API_response" | jq '.endpointConfig'`
             echo $endpointConfig
             
             # api_production_end_point=`echo "$relevant_api" | jq --raw-output '.id'`
