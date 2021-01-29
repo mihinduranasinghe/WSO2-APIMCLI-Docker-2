@@ -174,59 +174,59 @@ echo "::end-group"
 ## Generate consumer Keys(client key and secret) for for the Testing Automation Application
 echo "::group::Generate consumer Keys(client key and secret) for for the Testing Automation Application"
 
-view_application_access_keys_response=`curl -s --location -g --request GET "https://gateway.api.cloud.wso2.com/api/am/store/applications/$application_id/keys/PRODUCTION" \
---header "Authorization: Bearer $rest_access_token_subscribe"`
-# curl -k -H "Authorization: Bearer ae4eae22-3f65-387b-a171-d37eaa366fa8" -H "Content-Type: application/json" -X POST -d @data.json  "https://gateway.api.cloud.wso2.com/api/am/store/applications/generate-keys?applicationId=c30f3a6e-ffa4-4ae7-afce-224d1f820524"
+    view_application_access_keys_response=`curl -s --location -g --request GET "https://gateway.api.cloud.wso2.com/api/am/store/applications/$application_id/keys/PRODUCTION" \
+    --header "Authorization: Bearer $rest_access_token_subscribe"`
+    # curl -k -H "Authorization: Bearer ae4eae22-3f65-387b-a171-d37eaa366fa8" -H "Content-Type: application/json" -X POST -d @data.json  "https://gateway.api.cloud.wso2.com/api/am/store/applications/generate-keys?applicationId=c30f3a6e-ffa4-4ae7-afce-224d1f820524"
 
-if [ "$view_application_access_keys_response" ]
-    then
-    consumer_key=`echo "$view_application_access_keys_response" | jq --raw-output '.consumerKey'`
-    consumer_secret=`echo "$view_application_access_keys_response" | jq --raw-output '.consumerSecret'`
+    if [ "$view_application_access_keys_response" ]
+        then
+        consumer_key=`echo "$view_application_access_keys_response" | jq --raw-output '.consumerKey'`
+        consumer_secret=`echo "$view_application_access_keys_response" | jq --raw-output '.consumerSecret'`
 
-    else
-    application_access_response=`curl -s --location -g --request POST "https://gateway.api.cloud.wso2.com/api/am/store/applications/generate-keys?applicationId=$application_id" \
-    --header "Authorization: Bearer $rest_access_token_subscribe" \
-    --header "Content-Type: application/json" \
-    --data-raw '{    
-    "validityTime": "3600",
-    "keyType": "PRODUCTION",
-    "accessAllowDomains": ["ALL"]
-    }'`
+        else
+        application_access_response=`curl -s --location -g --request POST "https://gateway.api.cloud.wso2.com/api/am/store/applications/generate-keys?applicationId=$application_id" \
+        --header "Authorization: Bearer $rest_access_token_subscribe" \
+        --header "Content-Type: application/json" \
+        --data-raw '{    
+        "validityTime": "3600",
+        "keyType": "PRODUCTION",
+        "accessAllowDomains": ["ALL"]
+        }'`
 
-    # echo $application_access_response
-    consumer_key=`echo "$application_access_response" | jq --raw-output '.consumerKey'`
-    consumer_secret=`echo "$application_access_response" | jq --raw-output '.consumerSecret'`
+        # echo $application_access_response
+        consumer_key=`echo "$application_access_response" | jq --raw-output '.consumerKey'`
+        consumer_secret=`echo "$application_access_response" | jq --raw-output '.consumerSecret'`
         fi 
 
-            echo consumer_key    - $consumer_key
-            echo consumer_secret - $consumer_secret
-    echo "::end-group"
+        echo consumer_key    - $consumer_key
+        echo consumer_secret - $consumer_secret
+echo "::end-group"
 
 
-    ## Generate access token for your API
-    echo "::group::Generate access token for your API"            
-        # base64 encode<consumer-key:consumer-secret>
-        base64key3=`echo -n "$consumer_key:$consumer_secret" | base64`
+## Generate access token for your API
+echo "::group::Generate access token for your API"            
+    # base64 encode<consumer-key:consumer-secret>
+    base64key3=`echo -n "$consumer_key:$consumer_secret" | base64`
 
-        # curl -u <client id>:<client secret> -k -d "grant_type=client_credentials&validity_period=3600" -H "Content-Type:application/x-www-form-urlencoded" https://gateway.api.cloud.wso2.com:443/token
-        api_access_response=`curl -s --location -g --request POST 'https://gateway.api.cloud.wso2.com:443/token' \
-        --header "Content-Type: application/x-www-form-urlencoded" \
-        --header "Authorization: Basic $base64key3" \
-        --data-urlencode "grant_type=client_credentials" \
-        --data-urlencode "validity_period=3600"`
+    # curl -u <client id>:<client secret> -k -d "grant_type=client_credentials&validity_period=3600" -H "Content-Type:application/x-www-form-urlencoded" https://gateway.api.cloud.wso2.com:443/token
+    api_access_response=`curl -s --location -g --request POST 'https://gateway.api.cloud.wso2.com:443/token' \
+    --header "Content-Type: application/x-www-form-urlencoded" \
+    --header "Authorization: Basic $base64key3" \
+    --data-urlencode "grant_type=client_credentials" \
+    --data-urlencode "validity_period=3600"`
 
-        api_access_token=`echo "$api_access_response" | jq --raw-output '.access_token'`
-    
-        # echo $api_access_response
-        echo API ACCESS TOKEN - $api_access_token
+    api_access_token=`echo "$api_access_response" | jq --raw-output '.access_token'`
 
-    echo "::end-group"
+    # echo $api_access_response
+    echo API ACCESS TOKEN - $api_access_token
+
+echo "::end-group"
 
 
-    ## Creating a text file with important records
-    echo "::group::Create a file with important records"
+## Creating a text file with important records
+echo "::group::Create a file with important records"
 
-    echo "::end-group"
+echo "::end-group"
 
 
     

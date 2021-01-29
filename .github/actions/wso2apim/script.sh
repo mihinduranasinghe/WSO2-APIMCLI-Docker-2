@@ -94,8 +94,6 @@ if [ "$needAPIAccessToken" = true ]
         export password
         export APIName
         export APIVersion
-        export username
-        export needAPIAccessToken
         ./script_api_invoke.sh
     else
         echo "::group:: Do you need an API Access Token for automated testing ?"
