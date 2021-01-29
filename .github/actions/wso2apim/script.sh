@@ -188,7 +188,7 @@ if [ "$needAPIAccessToken" = true ]
 
             api_production_end_point=`echo "$GET_end_points_response" | jq '.production_endpoints'`
 
-            echo $GET_specific_API_response
+            echo $GET_end_points_response
             
             
             # echo $GET_APIs_response
