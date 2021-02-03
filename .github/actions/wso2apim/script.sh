@@ -1,5 +1,7 @@
 #!/bin/sh -l
-set -e
+# set -e
+set -e -o pipefail
+
         # User Inputs Array~~~~~~~~~~~~~~~~~~~~~~~~
         #                                         | 
         #     $1 - usernameTargettedTenant        |
@@ -42,7 +44,7 @@ echo "::group::Add environment wso2apicloud"
     apimcli list envs          
 echo "::end-group"
 
-
+set +e
 ## Init API iproject with given API definition
 echo "::group::Init API iproject with given API definition"
     apimcli init ./$APIName/$APIVersion 
@@ -53,7 +55,7 @@ echo "::group::Init API iproject with given API definition"
     touch ./$APIName/$APIVersion/Docs/docs.json
     ls ./$APIName/$APIVersion
 echo "::end-group"
-
+set -e
 
 ## Push newly initialized API project into the GIT repo again from VM
 echo "::group::Push API project into the GIT repo from VM"
