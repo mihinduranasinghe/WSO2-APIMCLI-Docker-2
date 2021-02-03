@@ -57,19 +57,20 @@ set +e
     echo "::end-group"
 set -e
 
-## Push newly initialized API project into the GIT repo again from VM
-echo "::group::Push API project into the GIT repo from VM"
-    git config --global user.email "my-bot@bot.com"
-    git config --global user.name "my-bot"
+set +e
+    ## Push newly initialized API project into the GIT repo again from VM
+    echo "::group::Push API project into the GIT repo from VM"
+        git config --global user.email "my-bot@bot.com"
+        git config --global user.name "my-bot"
 
-    #Search for all empty directories/sub-directories and creates a ".gitkeep" file, 
-    find * -type d -empty -exec touch '{}'/.gitkeep \;
+        #Search for all empty directories/sub-directories and creates a ".gitkeep" file, 
+        find * -type d -empty -exec touch '{}'/.gitkeep \;
 
-    git add . 
-    git commit -m "API project initialized"
-    git push
-echo "::end-group"
-
+        git add . 
+        git commit -m "API project initialized"
+        git push
+    echo "::end-group"
+set -e
 
 ## Import/deploy API project to the targetted Tenant
 echo "::group::Import API project to targetted Tenant"
