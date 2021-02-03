@@ -1,5 +1,5 @@
 #!/bin/sh -l
-
+set -e
         # User Inputs Array~~~~~~~~~~~~~~~~~~~~~~~~
         #                                         | 
         #     $1 - usernameTargettedTenant        |
