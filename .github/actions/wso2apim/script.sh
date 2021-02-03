@@ -382,7 +382,7 @@ if [ "$needAPIAccessToken" = true ]
             echo "Please navigate to $APIName/$APIVersion/Testing/ACCESS_TOKENS.txt to claim you API tokens"
         echo "::end-group"
 
-
+set +e
         ## Push newly initialized API project into the GIT repo again from VM
         echo "::group::Push API project into the GIT repo from VM"
             git config --global user.email "my-bot@bot.com"
@@ -395,7 +395,7 @@ if [ "$needAPIAccessToken" = true ]
             git commit -m "API project initialized"
             git push
         echo "::end-group"      
-
+set -e
 
     else
         echo "::group:: Do you need an API Access Token for automated testing ?"
