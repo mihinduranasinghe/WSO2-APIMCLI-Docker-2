@@ -1,5 +1,5 @@
 #!/bin/sh -l
-# set -e
+set +e
         # User Inputs Array~~~~~~~~~~~~~~~~~~~~~~~~
         #                                         | 
         #     $1 - usernameTargettedTenant        |
@@ -227,7 +227,7 @@ if [ "$needAPIAccessToken" = true ]
             fi
         echo "::end-group"
 
-set +e
+
         ## Add a new subscription from newly created "TestingAutomationApp" to the current API
         echo "::group::Add a new subscription"
 
@@ -260,7 +260,7 @@ set +e
             # echo $subscription_id
             # echo $application_id
         echo "::end-group"
-set -e
+
 
         ## Generate consumer Keys(client key and secret) for PRODUCTION for the Testing Automation Application
         echo "::group::Generate consumer Keys(client key and secret) for PRODUCTION API for the Testing Automation Application"
@@ -415,3 +415,4 @@ echo "::end-group"
 
 
 
+set -e
