@@ -1,5 +1,5 @@
 #!/bin/sh -l
-set -e
+# set -e
 # set -e -o pipefail
 
         # User Inputs Array~~~~~~~~~~~~~~~~~~~~~~~~
