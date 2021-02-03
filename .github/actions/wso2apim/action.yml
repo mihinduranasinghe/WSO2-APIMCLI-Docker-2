@@ -12,7 +12,7 @@ inputs:
     required: true
 
   APIProjectName:
-    description: "API Project Name"
+    description: "API Name"
     required: true
 
   APIVersion:
