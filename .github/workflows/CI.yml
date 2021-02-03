@@ -24,13 +24,3 @@ jobs:
           needAPIAccessToken: TRUE
           # PostmanCollectionTestFile: "sample_store.postman_collection.json"
 
-      - name: SampleStore v2.0.0 deploying to development tenant
-        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-        uses: ./.github/actions/wso2apim/
-        id: apim2
-        with:
-          usernameDevTenant: "mihindu@wso2.com@development"
-          passwordDevTenant: ${{secrets.PASSWORD}}
-          APIProjectName: "SampleStore"
-          APIVersion: "2.0.0"
-          needAPIAccessToken: TRUE
