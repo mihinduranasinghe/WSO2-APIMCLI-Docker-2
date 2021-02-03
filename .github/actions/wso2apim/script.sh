@@ -1,5 +1,5 @@
 #!/bin/sh -l
-set +e
+set -e
         # User Inputs Array~~~~~~~~~~~~~~~~~~~~~~~~
         #                                         | 
         #     $1 - usernameTargettedTenant        |
@@ -415,4 +415,3 @@ echo "::end-group"
 
 
 
-set -e
