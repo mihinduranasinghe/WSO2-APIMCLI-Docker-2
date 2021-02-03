@@ -30,19 +30,21 @@ echo "::group::WSO2 APIMCloud - Your Inputs"
     echo needAPIAccessToken        - $needAPIAccessToken 
 echo "::end-group"
 
-## Confiduring WSO2 API Cloud gateway environment in VM
-echo "::group::Add environment wso2apicloud"
-    apimcli add-env -n wso2apicloud \
-                        --registration https://gateway.api.cloud.wso2.com/client-registration/register \
-                        --apim https://gateway.api.cloud.wso2.com/pulisher \
-                        --token https://gateway.api.cloud.wso2.com/token \
-                        --import-export https://gateway.api.cloud.wso2.com/api-import-export \
-                        --admin https://gateway.api.cloud.wso2.com/api/am/admin/ \
-                        --api_list https://gateway.api.cloud.wso2.com/api/am/publisher/apis \
-                        --app_list https://gateway.api.cloud.wso2.com/api/am/store/applications
+set +e
+    ## Confiduring WSO2 API Cloud gateway environment in VM
+    echo "::group::Add environment wso2apicloud"
+        apimcli add-env -n wso2apicloud \
+                            --registration https://gateway.api.cloud.wso2.com/client-registration/register \
+                            --apim https://gateway.api.cloud.wso2.com/pulisher \
+                            --token https://gateway.api.cloud.wso2.com/token \
+                            --import-export https://gateway.api.cloud.wso2.com/api-import-export \
+                            --admin https://gateway.api.cloud.wso2.com/api/am/admin/ \
+                            --api_list https://gateway.api.cloud.wso2.com/api/am/publisher/apis \
+                            --app_list https://gateway.api.cloud.wso2.com/api/am/store/applications
 
-    apimcli list envs          
-echo "::end-group"
+        apimcli list envs          
+    echo "::end-group"
+set -e
 
 set +e
     ## Init API iproject with given API definition
