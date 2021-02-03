@@ -12,15 +12,15 @@ jobs:
       - name: checkout files to vm
         uses: actions/checkout@v2.3.4
 
-      - name: SampleStore v1.0.0 deploying to development tenant
-        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-        uses: ./.github/actions/wso2apim/
-        id: apim1
-        with:
-          usernameDevTenant: "mihindu@wso2.com@development"
-          passwordDevTenant: ${{secrets.PASSWORD}}
-          APIProjectName: "SampleStore"
-          APIVersion: "1.0.0"
-          needAPIAccessToken: TRUE
+      # - name: SampleStore v1.0.0 deploying to development tenant
+      #   if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+      #   uses: ./.github/actions/wso2apim/
+      #   id: apim1
+      #   with:
+      #     usernameDevTenant: "mihindu@wso2.com@development"
+      #     passwordDevTenant: ${{secrets.PASSWORD}}
+      #     APIProjectName: "SampleStore"
+      #     APIVersion: "1.0.0"
+      #     needAPIAccessToken: TRUE
           ## PostmanCollectionTestFile: "sample_store.postman_collection.json"
 

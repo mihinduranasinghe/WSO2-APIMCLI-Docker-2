@@ -31,7 +31,7 @@ echo "::group::WSO2 APIMCloud - Your Inputs"
 echo "::end-group"
 
 set +e
-    ## Confiduring WSO2 API Cloud gateway environment in VM
+    ## Configuring WSO2 API Cloud gateway environment in VM
     echo "::group::Add environment wso2apicloud"
         apimcli add-env -n wso2apicloud \
                             --registration https://gateway.api.cloud.wso2.com/client-registration/register \
