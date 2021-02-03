@@ -155,6 +155,7 @@ if [ "$needAPIAccessToken" = true ]
             --data-urlencode "username=$username" \
             --data-urlencode "password=$password" \
             --data-urlencode "scope=apim:api_view" | jq --raw-output '.access_token'`
+            #REST_API_view_access_token
 
             rest_access_token_subscribe=`curl -s --location -g --request POST 'https://gateway.api.cloud.wso2.com/token' \
             --header "Content-Type: application/x-www-form-urlencoded" \
@@ -184,7 +185,7 @@ if [ "$needAPIAccessToken" = true ]
             GET_APIs_response=`curl -s --location -g --request GET 'https://gateway.api.cloud.wso2.com/api/am/publisher/apis' \
             --header "Authorization: Bearer $rest_access_token_api_view"`
             
-            all_APIs_list=`echo "$GET_APIs_response" | jq '.list'`
+            all_APIs_list=`echo "$GET_APIs_response" | jq '.list' `
             relevant_api=`echo "$all_APIs_list" | jq '.[] | select(.name=="'$APIName'" and .version=="'$APIVersion'")'`
             
             api_identifier=`echo "$relevant_api" | jq --raw-output '.id'`
