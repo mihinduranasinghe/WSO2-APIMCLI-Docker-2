@@ -1,6 +1,6 @@
 #!/bin/sh -l
-# set -e
-set -e -o pipefail
+set -e
+# set -e -o pipefail
 
         # User Inputs Array~~~~~~~~~~~~~~~~~~~~~~~~
         #                                         | 
@@ -45,16 +45,16 @@ echo "::group::Add environment wso2apicloud"
 echo "::end-group"
 
 set +e
-## Init API iproject with given API definition
-echo "::group::Init API iproject with given API definition"
-    apimcli init ./$APIName/$APIVersion 
-    mkdir ./$APIName/$APIVersion/Sequences/fault-sequence/Custom
-    mkdir ./$APIName/$APIVersion/Sequences/in-sequence/Custom
-    mkdir ./$APIName/$APIVersion/Sequences/out-sequence/Custom
-    mkdir ./$APIName/$APIVersion/Testing
-    touch ./$APIName/$APIVersion/Docs/docs.json
-    ls ./$APIName/$APIVersion
-echo "::end-group"
+    ## Init API iproject with given API definition
+    echo "::group::Init API iproject with given API definition"
+        apimcli init ./$APIName/$APIVersion 
+        mkdir ./$APIName/$APIVersion/Sequences/fault-sequence/Custom
+        mkdir ./$APIName/$APIVersion/Sequences/in-sequence/Custom
+        mkdir ./$APIName/$APIVersion/Sequences/out-sequence/Custom
+        mkdir ./$APIName/$APIVersion/Testing
+        touch ./$APIName/$APIVersion/Docs/docs.json
+        ls ./$APIName/$APIVersion
+    echo "::end-group"
 set -e
 
 ## Push newly initialized API project into the GIT repo again from VM
