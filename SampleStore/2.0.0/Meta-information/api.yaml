@@ -11,8 +11,15 @@ availableTiers:
   - name: Bronze
 status: published
 visibility: public
-transports: http,https
-# productionUrl: http://localhost:8080
-# sandboxUrl: http://localhost:8081
+# Mediation Sequence
+# transports: http,https
+# inSequence: in_seq
+# outSequence: out_seq
+# faultSequence: fault_seq
+tags: []
+# Enabling Documents Adding
+documents: []
 productionUrl: https://api.cloud.wso2.com/
 sandboxUrl: https://api.cloud.wso2.com/
+# productionUrl: http://localhost:8080
+# sandboxUrl: http://localhost:8081
