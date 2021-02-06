@@ -1,4 +1,4 @@
-name: custom actions
+name: custom actions2
 on:
   push:
     branches: [main, prod]
