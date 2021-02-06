@@ -75,6 +75,11 @@ set +e
     echo "::end-group"
 set -e
 
+# echo "::group:: Set HTTP request timeout "
+# apimcli set --http-request-timeout <http-request-timeout>
+apimcli set --http-request-timeout 30000
+# echo "::end-group"
+
 
 ## Import/deploy API project to the targetted Tenant
 echo "::group::Import API project to targetted Tenant"
