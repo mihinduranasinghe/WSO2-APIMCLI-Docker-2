@@ -81,12 +81,25 @@ echo "::end-group"
 
 
 #wait for 40s until the API is deployed because it might take some time to deploy in background.                                                
-    echo "Please wait ... "
-    sleep 40s     
+    echo "Looping Please wait ... "
+    # sleep 40s     
 
 
 ## Listing the APIS in targeted Tenant
 echo "::group::List APIS in targeted Tenant"
+
+    api_identifier=""
+
+    while [ "api_identifier" ]
+    do 
+            GET_APIs_response=`curl -s --location -g --request GET 'https://gateway.api.cloud.wso2.com/api/am/publisher/apis' \
+                    --header "Authorization: Bearer $rest_access_token_api_view"`
+            
+            all_APIs_list=`echo "$GET_APIs_response" | jq '.list' `
+            relevant_api=`echo "$all_APIs_list" | jq '.[] | select(.name=="'$APIName'" and .version=="'$APIVersion'")'`
+            
+            api_identifier=`echo "$relevant_api" | jq --raw-output '.id'`
+    done
     # apimcli list apis -e <environment> -k
     # apimcli list apis --environment <environment> --insec
     apimcli list apis -e wso2apicloud -k
