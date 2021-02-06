@@ -81,7 +81,7 @@ echo "::end-group"
 
 
 #wait for 40s until the API is deployed because it might take some time to deploy in background.                                                
-    echo "Looping Please wait ... "
+    echo "Please wait ... "
     # sleep 40s     
 
 
@@ -103,6 +103,7 @@ echo "::group::List APIS in targeted Tenant"
     # apimcli list apis -e <environment> -k
     # apimcli list apis --environment <environment> --insec
     apimcli list apis -e wso2apicloud -k
+    echo api_identifier
 echo "::end-group"
 
 
