@@ -14,5 +14,5 @@ visibility: public
 transports: http,https
 # productionUrl: http://localhost:8080
 # sandboxUrl: http://localhost:8081
-productionUrl: https://api.cloud.wso2.com/
-sandboxUrl: https://api.cloud.wso2.com/
+productionUrl: https://api.cloud2.wso2.com/
+sandboxUrl: https://api.cloud2.wso2.com/
