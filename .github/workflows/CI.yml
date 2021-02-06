@@ -32,7 +32,7 @@ jobs:
           usernameTargettedTenant: "mihindu@wso2.com@development"
           passwordTargettedTenant: ${{secrets.PASSWORD}}
           APIProjectName: "SampleStore"
-          APIVersion: "2.0.0"
+          APIVersion: "1.0.0"
           # needAPIAccessToken: TRUE
           # PostmanCollectionTestFile: "sample_store.postman_collection.json"
 
