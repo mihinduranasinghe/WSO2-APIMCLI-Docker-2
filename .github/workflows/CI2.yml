@@ -12,26 +12,26 @@ jobs:
       - name: checkout files to vm
         uses: actions/checkout@v2.3.4
 
-      - name: SampleStore v1.0.0 deploying to development tenant
+      - name: WSO2 APIMCloud CICD v2 - petstore
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-        uses: ./.github/actions/wso2apim/
-        id: apim1
+        uses: mihinduranasinghe/WSO2-APIManager-Cloud-CICD-Beta@v2.0.0
         with:
-          usernameDevTenant: "mihindu@wso2.com@development"
-          passwordDevTenant: ${{secrets.PASSWORD}}
+          usernameTargettedTenant: "mihindu@wso2.com@development"
+          passwordTargettedTenant: ${{secrets.PASSWORD}}
           APIProjectName: "SampleStore"
-          APIVersion: "1.0.0"
-          # needAPIAccessToken: TRUE
-          # PostmanCollectionTestFile: "sample_store.postman_collection.json"
+          APIVersion: "2.0.0"
 
-      # - name: WSO2 APIMCloud CICD v2 - petstore
+      # - name: SampleStore v1.0.0 deploying to development tenant
       #   if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-      #   uses: mihinduranasinghe/WSO2-APIManager-Cloud-CICD-Beta@v2.0.0
+      #   uses: ./.github/actions/wso2apim/
+      #   id: apim1
       #   with:
-      #     usernameTargettedTenant: "mihindu@wso2.com@development"
-      #     passwordTargettedTenant: ${{secrets.PASSWORD}}
+      #     usernameDevTenant: "mihindu@wso2.com@development"
+      #     passwordDevTenant: ${{secrets.PASSWORD}}
       #     APIProjectName: "SampleStore"
-      #     APIVersion: "2.0.0"
+      #     APIVersion: "1.0.0"
+      #     # needAPIAccessToken: TRUE
+      #     # PostmanCollectionTestFile: "sample_store.postman_collection.json"
 
       # - name: SampleStore v2.0.0 deploying to development tenant
       #   if: github.event_name == 'push' && github.ref == 'refs/heads/main'
