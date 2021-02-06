@@ -1,0 +1,5 @@
+<sequence xmlns="http://ws.apache.org/ns/synapse" name="out_seq">
+    <log level="custom">
+        <property name="OUT_MESSAGE" value="OUT_FLOW"/>
+    </log>
+</sequence>
