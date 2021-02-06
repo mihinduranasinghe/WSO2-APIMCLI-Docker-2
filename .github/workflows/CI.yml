@@ -57,7 +57,7 @@ jobs:
           passwordDevTenant: ${{secrets.PASSWORD}}
           APIProjectName: "SampleStore"
           needAPIAccessToken: TRUE
-          testingAppName: "TestingApp2"
+          # testingAppName: "TestingApp2"
           # OASJsonFilePath: "./SampleStore/2.0.0/Meta-information/swagger.yaml"
           # APIDefinitionFilePath: "./SampleStore/2.0.0/Meta-information/api.yaml"
           APIVersion: "4.0.0"
