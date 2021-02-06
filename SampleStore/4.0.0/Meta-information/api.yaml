@@ -13,12 +13,12 @@ status: published
 visibility: public
 transports: http,https
 # Mediation Sequence
-inSequence: in_seq
-outSequence: out_seq
-faultSequence: fault_seq
+# inSequence: in_seq
+# outSequence: out_seq
+# faultSequence: fault_seq
 tags: []
 # Enabling Documents Adding
-# documents: []
+documents: []
 # productionUrl: http://localhost:8080
 # sandboxUrl: http://localhost:8081
 productionUrl: https://api.cloud.wso2.com/
