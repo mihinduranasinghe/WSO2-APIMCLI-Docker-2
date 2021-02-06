@@ -1,4 +1,6 @@
 #!/bin/sh -l
+# set -e
+# set -e -o pipefail
 
         # User Inputs Array~~~~~~~~~~~~~~~~~~~~~~~~
         #                                         | 
@@ -28,46 +30,49 @@ echo "::group::WSO2 APIMCloud - Your Inputs"
     echo needAPIAccessToken        - $needAPIAccessToken 
 echo "::end-group"
 
-## Confiduring WSO2 API Cloud gateway environment in VM
-echo "::group::Add environment wso2apicloud"
-    apimcli add-env -n wso2apicloud \
-                        --registration https://gateway.api.cloud.wso2.com/client-registration/register \
-                        --apim https://gateway.api.cloud.wso2.com/pulisher \
-                        --token https://gateway.api.cloud.wso2.com/token \
-                        --import-export https://gateway.api.cloud.wso2.com/api-import-export \
-                        --admin https://gateway.api.cloud.wso2.com/api/am/admin/ \
-                        --api_list https://gateway.api.cloud.wso2.com/api/am/publisher/apis \
-                        --app_list https://gateway.api.cloud.wso2.com/api/am/store/applications
+set +e
+    ## Configuring WSO2 API Cloud gateway environment in VM
+    echo "::group::Add environment wso2apicloud"
+        apimcli add-env -n wso2apicloud \
+                            --registration https://gateway.api.cloud.wso2.com/client-registration/register \
+                            --apim https://gateway.api.cloud.wso2.com/pulisher \
+                            --token https://gateway.api.cloud.wso2.com/token \
+                            --import-export https://gateway.api.cloud.wso2.com/api-import-export \
+                            --admin https://gateway.api.cloud.wso2.com/api/am/admin/ \
+                            --api_list https://gateway.api.cloud.wso2.com/api/am/publisher/apis \
+                            --app_list https://gateway.api.cloud.wso2.com/api/am/store/applications
 
-    apimcli list envs          
-echo "::end-group"
+        apimcli list envs          
+    echo "::end-group"
+set -e
 
+set +e
+    ## Init API iproject with given API definition
+    echo "::group::Init API iproject with given API definition"
+        apimcli init ./$APIName/$APIVersion 
+        mkdir ./$APIName/$APIVersion/Sequences/fault-sequence/Custom
+        mkdir ./$APIName/$APIVersion/Sequences/in-sequence/Custom
+        mkdir ./$APIName/$APIVersion/Sequences/out-sequence/Custom
+        mkdir ./$APIName/$APIVersion/Testing
+        touch ./$APIName/$APIVersion/Docs/docs.json
+        ls ./$APIName/$APIVersion
+    echo "::end-group"
+set -e
 
-## Init API iproject with given API definition
-echo "::group::Init API iproject with given API definition"
-    apimcli init ./$APIName/$APIVersion 
-    mkdir ./$APIName/$APIVersion/Sequences/fault-sequence/Custom
-    mkdir ./$APIName/$APIVersion/Sequences/in-sequence/Custom
-    mkdir ./$APIName/$APIVersion/Sequences/out-sequence/Custom
-    mkdir ./$APIName/$APIVersion/Testing
-    touch ./$APIName/$APIVersion/Docs/docs.json
-    ls ./$APIName/$APIVersion
-echo "::end-group"
+set +e
+    ## Push newly initialized API project into the GIT repo again from VM
+    echo "::group::Push API project into the GIT repo from VM"
+        git config --global user.email "my-bot@bot.com"
+        git config --global user.name "my-bot"
 
+        #Search for all empty directories/sub-directories and creates a ".gitkeep" file, 
+        find * -type d -empty -exec touch '{}'/.gitkeep \;
 
-## Push newly initialized API project into the GIT repo again from VM
-echo "::group::Push API project into the GIT repo from VM"
-    git config --global user.email "my-bot@bot.com"
-    git config --global user.name "my-bot"
-
-    #Search for all empty directories/sub-directories and creates a ".gitkeep" file, 
-    find * -type d -empty -exec touch '{}'/.gitkeep \;
-
-    git add . 
-    git commit -m "API project initialized"
-    git push
-echo "::end-group"
-
+        git add . 
+        git commit -m "API project initialized"
+        git push
+    echo "::end-group"
+set -e
 
 ## Import/deploy API project to the targetted Tenant
 echo "::group::Import API project to targetted Tenant"
@@ -150,6 +155,7 @@ if [ "$needAPIAccessToken" = true ]
             --data-urlencode "username=$username" \
             --data-urlencode "password=$password" \
             --data-urlencode "scope=apim:api_view" | jq --raw-output '.access_token'`
+            #REST_API_view_access_token
 
             rest_access_token_subscribe=`curl -s --location -g --request POST 'https://gateway.api.cloud.wso2.com/token' \
             --header "Content-Type: application/x-www-form-urlencoded" \
@@ -179,7 +185,7 @@ if [ "$needAPIAccessToken" = true ]
             GET_APIs_response=`curl -s --location -g --request GET 'https://gateway.api.cloud.wso2.com/api/am/publisher/apis' \
             --header "Authorization: Bearer $rest_access_token_api_view"`
             
-            all_APIs_list=`echo "$GET_APIs_response" | jq '.list'`
+            all_APIs_list=`echo "$GET_APIs_response" | jq '.list' `
             relevant_api=`echo "$all_APIs_list" | jq '.[] | select(.name=="'$APIName'" and .version=="'$APIVersion'")'`
             
             api_identifier=`echo "$relevant_api" | jq --raw-output '.id'`
@@ -375,11 +381,17 @@ if [ "$needAPIAccessToken" = true ]
                 SANDBOX API ACCESS TOKEN    - $api_access_token_SANDBOX
                 PRODUCTION API ACCESS TOKEN - $api_access_token_PRODUCTION
             " >./$APIName/$APIVersion/Testing/ACCESS_TOKENS.txt
+<<<<<<< HEAD
+
+            echo "Please navigate to $APIName/$APIVersion/Testing/ACCESS_TOKENS.txt to claim you API tokens"
+        echo "::end-group"
+=======
+>>>>>>> d80bf69c75b5233ace6d2fbd25c27a029ba771ad
 
             echo "Please navigate to $APIName/$APIVersion/Testing/ACCESS_TOKENS.txt to claim you API tokens"
         echo "::end-group"
 
-
+set +e
         ## Push newly initialized API project into the GIT repo again from VM
         echo "::group::Push API project into the GIT repo from VM"
             git config --global user.email "my-bot@bot.com"
@@ -392,7 +404,7 @@ if [ "$needAPIAccessToken" = true ]
             git commit -m "API project initialized"
             git push
         echo "::end-group"      
-
+set -e
 
     else
         echo "::group:: Do you need an API Access Token for automated testing ?"
