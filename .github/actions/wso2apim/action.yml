@@ -27,6 +27,10 @@ inputs:
     description: "TRUE or FALSE"
     required: false
 
+  testingAppName:
+    description: "Provide a name for the automatic generated API application for testing"
+    required: false
+
 runs:
   using: "docker"
   image: "Dockerfile"
@@ -38,6 +42,7 @@ runs:
     - ${{inputs.APIVersion}}
     - ${{inputs.PostmanCollectionTestFile}}
     - ${{inputs.needAPIAccessToken}}
+    - ${{inputs.testingAppName}}
 
 branding:
   icon: "check-square"

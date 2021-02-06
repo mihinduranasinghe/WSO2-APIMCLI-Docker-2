@@ -10,6 +10,7 @@
         #     $4 - APIVersion                     |
         #     $5 - PostmanCollectionTestFile      |  
         #     $6 - needAPIAccessToken             |
+        #     $7 - testingAppName                 |
         #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ## Re-assigning user inputs into variables
@@ -19,6 +20,7 @@
     APIVersion=`echo "$4"`
     PostmanCollectionTestFile=`echo "$5"`
     needAPIAccessToken=`echo $6`
+    testingAppName=`echo $7`
 
 ## Echo user inputs
 echo "::group::WSO2 APIMCloud - Your Inputs"
@@ -82,29 +84,14 @@ echo "::end-group"
 
 #wait for 40s until the API is deployed because it might take some time to deploy in background.                                                
     echo "Please wait ... "
-    # sleep 40s     
+    sleep 40s     
 
 
 ## Listing the APIS in targeted Tenant
 echo "::group::List APIS in targeted Tenant"
-
-    $api_identifier
-
-    until [ "$api_identifier" ]
-    do 
-            GET_APIs_response=`curl -s --location -g --request GET 'https://gateway.api.cloud.wso2.com/api/am/publisher/apis' \
-                    --header "Authorization: Bearer $rest_access_token_api_view"`
-            
-            all_APIs_list=`echo "$GET_APIs_response" | jq '.list' `
-            relevant_api=`echo "$all_APIs_list" | jq '.[] | select(.name=="'$APIName'" and .version=="'$APIVersion'")'`
-            
-            api_identifier=`echo "$relevant_api" | jq --raw-output '.id'`
-            echo "test"
-    done
     # apimcli list apis -e <environment> -k
     # apimcli list apis --environment <environment> --insec
     apimcli list apis -e wso2apicloud -k
-    echo "$api_identifier"
 echo "::end-group"
 
 
@@ -215,7 +202,10 @@ if [ "$needAPIAccessToken" = true ]
         ## Creating A New Application named "TestingAutomationApp" for testing purpose
         echo "::group::Create A New Application - TestingAutomationApp"
 
-            new_app_name="TestingAutomationApp"
+            if [ "$testingAppName" ]
+                new_app_name="$testingAppName"
+            else
+                new_app_name="TestingAutomationApp"
 
             view_applications_response=`curl -s --location -g --request GET 'https://gateway.api.cloud.wso2.com/api/am/store/applications' \
             --header "Authorization: Bearer $rest_access_token_subscribe"`
