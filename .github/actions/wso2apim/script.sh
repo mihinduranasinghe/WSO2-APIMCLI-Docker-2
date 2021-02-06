@@ -203,10 +203,12 @@ if [ "$needAPIAccessToken" = true ]
         echo "::group::Create A New Application - TestingAutomationApp"
 
             if [ "$testingAppName" ]
+            then
                 new_app_name="$testingAppName"
             else
                 new_app_name="TestingAutomationApp"
-
+            fi 
+            
             view_applications_response=`curl -s --location -g --request GET 'https://gateway.api.cloud.wso2.com/api/am/store/applications' \
             --header "Authorization: Bearer $rest_access_token_subscribe"`
             # curl -k -H "Authorization: Bearer ae4eae22-3f65-387b-a171-d37eaa366fa8" -H "Content-Type: application/json" -X POST -d @data.json "https://gateway.api.cloud.wso2.com/api/am/store/applications"
