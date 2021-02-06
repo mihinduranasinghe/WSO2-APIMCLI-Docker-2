@@ -90,7 +90,7 @@ echo "::group::List APIS in targeted Tenant"
 
     api_identifier=`echo ""`
 
-    while [ "api_identifier" ]
+    while [ -z "api_identifier" ]
     do 
             GET_APIs_response=`curl -s --location -g --request GET 'https://gateway.api.cloud.wso2.com/api/am/publisher/apis' \
                     --header "Authorization: Bearer $rest_access_token_api_view"`
