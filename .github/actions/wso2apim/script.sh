@@ -99,11 +99,12 @@ echo "::group::List APIS in targeted Tenant"
             relevant_api=`echo "$all_APIs_list" | jq '.[] | select(.name=="'$APIName'" and .version=="'$APIVersion'")'`
             
             api_identifier=`echo "$relevant_api" | jq --raw-output '.id'`
+            echo "test"
     done
     # apimcli list apis -e <environment> -k
     # apimcli list apis --environment <environment> --insec
     apimcli list apis -e wso2apicloud -k
-    echo $api_identifier
+    echo "$api_identifier"
 echo "::end-group"
 
 
