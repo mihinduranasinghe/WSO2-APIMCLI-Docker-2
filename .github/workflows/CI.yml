@@ -39,7 +39,7 @@ jobs:
       - name: SampleStore v3.0.0 deploying to development tenant
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         uses: ./.github/actions/wso2apim/
-        id: apim2
+        id: apim3
         with:
           usernameDevTenant: "mihindu@wso2.com@development"
           passwordDevTenant: ${{secrets.PASSWORD}}
