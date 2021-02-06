@@ -88,7 +88,7 @@ echo "::end-group"
 ## Listing the APIS in targeted Tenant
 echo "::group::List APIS in targeted Tenant"
 
-    api_identifier=`echo ""`
+    api_identifier
 
     while [ -z "api_identifier" ]
     do 
