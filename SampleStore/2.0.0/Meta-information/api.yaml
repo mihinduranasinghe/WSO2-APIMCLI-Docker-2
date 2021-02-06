@@ -1,10 +1,10 @@
 id:
   providerName: admin
   apiName: SampleStore
-  version: 4.0.0
+  version: 2.0.0
 description: This is a sample server online store
 type: HTTP
-context: /SampleStore/4.0.0
+context: /SampleStore/2.0.0
 contextTemplate: /SampleStore/{version}
 availableTiers:
   - name: Unlimited
