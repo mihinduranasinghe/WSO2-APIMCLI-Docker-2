@@ -53,9 +53,9 @@ jobs:
         uses: ./.github/actions/wso2apim/
         id: apim4
         with:
-          usernameDevTenant: "mihindu@wso2.com@development"
-          passwordDevTenant: ${{secrets.PASSWORD}}
-          APIProjectName: "SampleStore"
+          usernameTargetedTenant: "mihindu@wso2.com@development"
+          passwordTargetedTenant: ${{secrets.PASSWORD}}
+          APIName: "SampleStore"
           needAPIAccessToken: TRUE
           # testingAppName: "TestingApp2"
           # OASJsonFilePath: "./SampleStore/2.0.0/Meta-information/swagger.yaml"
