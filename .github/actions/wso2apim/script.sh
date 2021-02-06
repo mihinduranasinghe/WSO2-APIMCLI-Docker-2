@@ -56,7 +56,6 @@ set +e
         mkdir ./$APIName/$APIVersion/Testing
         touch ./$APIName/$APIVersion/Docs/docs.json
         ls ./$APIName/$APIVersion
-    echo "::end-group"
 set -e
 
 set +e
