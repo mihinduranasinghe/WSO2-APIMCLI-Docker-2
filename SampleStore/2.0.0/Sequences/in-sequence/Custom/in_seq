@@ -1,0 +1,5 @@
+<sequence xmlns="http://ws.apache.org/ns/synapse" name="in_seq">
+    <log level="custom">
+        <property name="IN_MESSAGE" value="IN_FLOW"/>
+    </log>
+</sequence>

@@ -2,7 +2,7 @@ openapi: 3.0.1
 info:
   title: Sample Store
   description: "This is a sample server online store"
-  version: 2.0.0
+  version: 4.0.0
 servers:
   - url: http://www.mocky.io/v2/5e905118330000218b27d69f
 paths:
