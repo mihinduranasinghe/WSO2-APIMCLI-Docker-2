@@ -381,12 +381,6 @@ if [ "$needAPIAccessToken" = true ]
                 SANDBOX API ACCESS TOKEN    - $api_access_token_SANDBOX
                 PRODUCTION API ACCESS TOKEN - $api_access_token_PRODUCTION
             " >./$APIName/$APIVersion/Testing/ACCESS_TOKENS.txt
-<<<<<<< HEAD
-
-            echo "Please navigate to $APIName/$APIVersion/Testing/ACCESS_TOKENS.txt to claim you API tokens"
-        echo "::end-group"
-=======
->>>>>>> d80bf69c75b5233ace6d2fbd25c27a029ba771ad
 
             echo "Please navigate to $APIName/$APIVersion/Testing/ACCESS_TOKENS.txt to claim you API tokens"
         echo "::end-group"
