@@ -29,10 +29,10 @@ jobs:
         uses: mihinduranasinghe/WSO2-APIManager-Cloud-CICD-Beta@v2.0.0
         id: apim1
         with:
-          usernameDevTenant: "mihindu@wso2.com@development"
-          passwordDevTenant: ${{secrets.PASSWORD}}
+          usernameTargettedTenant: "mihindu@wso2.com@development"
+          passwordTargettedTenant: ${{secrets.PASSWORD}}
           APIProjectName: "SampleStore"
-          APIVersion: "1.0.0"
+          APIVersion: "2.0.0"
           # needAPIAccessToken: TRUE
           # PostmanCollectionTestFile: "sample_store.postman_collection.json"
 
