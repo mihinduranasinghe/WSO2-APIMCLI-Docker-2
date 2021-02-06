@@ -4,9 +4,9 @@
 
         # User Inputs Array~~~~~~~~~~~~~~~~~~~~~~~~
         #                                         | 
-        #     $1 - usernameTargettedTenant        |
-        #     $2 - passwordTargettedTenant        |
-        #     $3 - APIProjectName                 |
+        #     $1 - usernameTargetedTenant         |
+        #     $2 - passwordTargetedTenant         |
+        #     $3 - APIName                        |
         #     $4 - APIVersion                     |
         #     $5 - PostmanCollectionTestFile      |  
         #     $6 - needAPIAccessToken             |
@@ -75,6 +75,7 @@ set +e
     echo "::end-group"
 set -e
 
+
 ## Import/deploy API project to the targetted Tenant
 echo "::group::Import API project to targetted Tenant"
     apimcli login wso2apicloud -u $username -p $password -k
@@ -137,6 +138,7 @@ if [ "$needAPIAccessToken" = true ]
             rest_clientId=`echo "$rest_client_object" | jq --raw-output '.clientId'`
             rest_clientSecret=`echo "$rest_client_object" | jq --raw-output '.clientSecret'`
 
+            echo "REST client registered successfully"
             # echo $rest_clientId
             # echo $rest_clientSecret 
         echo "::end-group"
@@ -174,6 +176,7 @@ if [ "$needAPIAccessToken" = true ]
             --data-urlencode "password=$password" \
             --data-urlencode "scope=apim:subscription_view" | jq --raw-output '.access_token'`
 
+            echo "REST access token generated successfully"
             # echo $rest_access_token_api_view
             # echo $rest_access_token_subscribe
             # echo $rest_access_token_subscription_view
@@ -208,7 +211,7 @@ if [ "$needAPIAccessToken" = true ]
             else
                 new_app_name="TestingAutomationApp"
             fi 
-            
+
             view_applications_response=`curl -s --location -g --request GET 'https://gateway.api.cloud.wso2.com/api/am/store/applications' \
             --header "Authorization: Bearer $rest_access_token_subscribe"`
             # curl -k -H "Authorization: Bearer ae4eae22-3f65-387b-a171-d37eaa366fa8" -H "Content-Type: application/json" -X POST -d @data.json "https://gateway.api.cloud.wso2.com/api/am/store/applications"
@@ -220,7 +223,7 @@ if [ "$needAPIAccessToken" = true ]
             # echo $view_applications_response
             # echo $applications_list
             # echo $testing_automation_application
-            echo ApplicationID - $application_id
+            # echo ApplicationID - $application_id
 
             if [ -z "$application_id" ]
                 then
@@ -236,6 +239,8 @@ if [ "$needAPIAccessToken" = true ]
 
                 application_id=`echo "$new_testing_automation_application" | jq --raw-output '.applicationId'`
                 echo ApplicationID - $application_id
+                else
+                echo ApplicationID - $application_id    
             fi
         echo "::end-group"
 

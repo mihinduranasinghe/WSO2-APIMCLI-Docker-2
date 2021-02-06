@@ -3,15 +3,15 @@ author: "mihinduranasinghe"
 description: "This action can be used to run apimcli ccommands."
 
 inputs:
-  usernameDevTenant:
-    description: "Development Tenant Username"
+  usernameTargetedTenant:
+    description: "Targeted Tenant/organization Username"
     required: true
 
-  passwordDevTenant:
-    description: "APICloud Dev Tenant Password"
+  passwordTargetedTenant:
+    description: "Targeted Tenant/organization user Password"
     required: true
 
-  APIProjectName:
+  APIName:
     description: "API Name"
     required: true
 
@@ -36,9 +36,9 @@ runs:
   image: "Dockerfile"
   args:
     # - inputToArg$1 # This can be added dynamically like below. It will be get as an input to entryppoint.sh
-    - ${{inputs.usernameDevTenant}}
-    - ${{inputs.passwordDevTenant}}
-    - ${{inputs.APIProjectName}}
+    - ${{inputs.usernameTargetedTenant}}
+    - ${{inputs.passwordTargetedTenant}}
+    - ${{inputs.APIName}}
     - ${{inputs.APIVersion}}
     - ${{inputs.PostmanCollectionTestFile}}
     - ${{inputs.needAPIAccessToken}}
