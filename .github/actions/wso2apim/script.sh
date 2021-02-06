@@ -54,7 +54,7 @@ set +e
         mkdir ./$APIName/$APIVersion/Sequences/in-sequence/Custom
         mkdir ./$APIName/$APIVersion/Sequences/out-sequence/Custom
         mkdir ./$APIName/$APIVersion/Testing
-        touch ./$APIName/$APIVersion/Docs/docs.json
+        # touch ./$APIName/$APIVersion/Docs/docs.json
         ls ./$APIName/$APIVersion
 set -e
 
