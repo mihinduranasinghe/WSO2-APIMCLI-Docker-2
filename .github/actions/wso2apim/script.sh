@@ -30,7 +30,7 @@ echo "::group::WSO2 APIMCloud - Your Inputs"
     echo needAPIAccessToken        - $needAPIAccessToken 
 echo "::end-group"
 
-# set +e
+set +e
     ## Configuring WSO2 API Cloud gateway environment in VM
     echo "::group::Add environment wso2apicloud"
         apimcli add-env -n wso2apicloud \
@@ -44,9 +44,9 @@ echo "::end-group"
 
         apimcli list envs          
     echo "::end-group"
-# set -e
+set -e
 
-# set +e
+set +e
     ## Init API iproject with given API definition
     echo "::group::Init API iproject with given API definition"
         apimcli init ./$APIName/$APIVersion 
@@ -57,9 +57,9 @@ echo "::end-group"
         touch ./$APIName/$APIVersion/Docs/docs.json
         ls ./$APIName/$APIVersion
     echo "::end-group"
-# set -e
+set -e
 
-# set +e
+set +e
     ## Push newly initialized API project into the GIT repo again from VM
     echo "::group::Push API project into the GIT repo from VM"
         git config --global user.email "my-bot@bot.com"
@@ -72,7 +72,7 @@ echo "::end-group"
         git commit -m "API project initialized"
         git push
     echo "::end-group"
-# set -e
+set -e
 
 ## Import/deploy API project to the targetted Tenant
 echo "::group::Import API project to targetted Tenant"
