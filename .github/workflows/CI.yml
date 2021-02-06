@@ -42,7 +42,7 @@ jobs:
         uses: ./.github/actions/wso2apim/
         id: apim3
         with:
-          uusernameTargetedTenant: "mihindu@wso2.com@development"
+          usernameTargetedTenant: "mihindu@wso2.com@development"
           passwordTargetedTenant: ${{secrets.PASSWORD}}
           APIName: "SampleStore"
           APIVersion: "3.0.0"
