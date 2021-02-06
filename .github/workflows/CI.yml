@@ -14,7 +14,7 @@ jobs:
 
       - name: SampleStore v1.0.0 deploying to development tenant
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-        uses: ./.github/actions/wso2apim/
+        uses: mihinduranasinghe/WSO2-APIManager-Cloud-CICD-Beta@v3.0.0
         id: apim1
         with:
           usernameTargetedTenant: "mihindu@wso2.com@development"
@@ -26,7 +26,7 @@ jobs:
 
       - name: SampleStore v2.0.0 deploying to development tenant
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-        uses: ./.github/actions/wso2apim/
+        uses: mihinduranasinghe/WSO2-APIManager-Cloud-CICD-Beta@v3.0.0
         id: apim2
         with:
           usernameTargetedTenant: "mihindu@wso2.com@development"
@@ -39,7 +39,7 @@ jobs:
 
       - name: SampleStore v3.0.0 deploying to development tenant
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-        uses: ./.github/actions/wso2apim/
+        uses: mihinduranasinghe/WSO2-APIManager-Cloud-CICD-Beta@v3.0.0
         id: apim3
         with:
           usernameTargetedTenant: "mihindu@wso2.com@development"
@@ -51,7 +51,7 @@ jobs:
 
       - name: SampleStore v4.0.0 deploying to development tenant
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-        uses: ./.github/actions/wso2apim/
+        uses: mihinduranasinghe/WSO2-APIManager-Cloud-CICD-Beta@v3.0.0
         id: apim4
         with:
           usernameTargetedTenant: "mihindu@wso2.com@development"
