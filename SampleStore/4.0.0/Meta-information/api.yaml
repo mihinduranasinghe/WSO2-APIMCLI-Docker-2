@@ -1,11 +1,11 @@
 id:
   providerName: admin
-  apiName: ""
-  version: 1.0.0
+  apiName: "SampleStore"
+  version: 4.0.0
 type: HTTP
 context: ""
 availableTiers:
-- name: Unlimited
+  - name: Unlimited
 status: CREATED
 visibility: public
 transports: http,https
