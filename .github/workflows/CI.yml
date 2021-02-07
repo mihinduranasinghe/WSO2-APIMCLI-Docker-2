@@ -12,46 +12,46 @@ jobs:
       - name: checkout files to vm
         uses: actions/checkout@v2.3.4
 
-      - name: SampleStore v1.0.0 deploying to development tenant
-        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-        uses: mihinduranasinghe/WSO2-APIManager-Cloud-CICD-Beta@v3.0.0
-        id: apim1
-        with:
-          usernameTargetedTenant: "mihindu@wso2.com@development"
-          passwordTargetedTenant: ${{secrets.PASSWORD}}
-          APIName: "SampleStore"
-          APIVersion: "1.0.0"
-          # needAPIAccessToken: TRUE
-          # PostmanCollectionTestFile: "sample_store.postman_collection.json"
+      # - name: SampleStore v1.0.0 deploying to development tenant
+      #   if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+      #   uses: mihinduranasinghe/WSO2-APIManager-Cloud-CICD-Beta@v3.0.0
+      #   id: apim1
+      #   with:
+      #     usernameTargetedTenant: "mihindu@wso2.com@development"
+      #     passwordTargetedTenant: ${{secrets.PASSWORD}}
+      #     APIName: "SampleStore"
+      #     APIVersion: "1.0.0"
+      #     # needAPIAccessToken: TRUE
+      #     # PostmanCollectionTestFile: "sample_store.postman_collection.json"
 
-      - name: SampleStore v2.0.0 deploying to development tenant
-        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-        uses: mihinduranasinghe/WSO2-APIManager-Cloud-CICD-Beta@v3.0.0
-        id: apim2
-        with:
-          usernameTargetedTenant: "mihindu@wso2.com@development"
-          passwordTargetedTenant: ${{secrets.PASSWORD}}
-          APIName: "SampleStore"
-          needAPIAccessToken: TRUE
-          # OASJsonFilePath: "./SampleStore/2.0.0/Meta-information/swagger.yaml"
-          # APIDefinitionFilePath: "./SampleStore/2.0.0/Meta-information/api.yaml"
-          APIVersion: "2.0.0"
+      # - name: SampleStore v2.0.0 deploying to development tenant
+      #   if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+      #   uses: mihinduranasinghe/WSO2-APIManager-Cloud-CICD-Beta@v3.0.0
+      #   id: apim2
+      #   with:
+      #     usernameTargetedTenant: "mihindu@wso2.com@development"
+      #     passwordTargetedTenant: ${{secrets.PASSWORD}}
+      #     APIName: "SampleStore"
+      #     needAPIAccessToken: TRUE
+      #     # OASJsonFilePath: "./SampleStore/2.0.0/Meta-information/swagger.yaml"
+      #     # APIDefinitionFilePath: "./SampleStore/2.0.0/Meta-information/api.yaml"
+      #     APIVersion: "2.0.0"
 
-      - name: SampleStore v3.0.0 deploying to development tenant
-        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-        uses: mihinduranasinghe/WSO2-APIManager-Cloud-CICD-Beta@v3.0.0
-        id: apim3
-        with:
-          usernameTargetedTenant: "mihindu@wso2.com@development"
-          passwordTargetedTenant: ${{secrets.PASSWORD}}
-          APIName: "SampleStore"
-          APIVersion: "3.0.0"
-          needAPIAccessToken: TRUE
-          testingAppName: "TestingApp2"
+      # - name: SampleStore v3.0.0 deploying to development tenant
+      #   if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+      #   uses: mihinduranasinghe/WSO2-APIManager-Cloud-CICD-Beta@v3.0.0
+      #   id: apim3
+      #   with:
+      #     usernameTargetedTenant: "mihindu@wso2.com@development"
+      #     passwordTargetedTenant: ${{secrets.PASSWORD}}
+      #     APIName: "SampleStore"
+      #     APIVersion: "3.0.0"
+      #     needAPIAccessToken: TRUE
+      #     testingAppName: "TestingApp2"
 
       - name: SampleStore v4.0.0 deploying to development tenant
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-        uses: mihinduranasinghe/WSO2-APIManager-Cloud-CICD-Beta@v3.0.0
+        uses: ./.github/actions/wso2apim/
         id: apim4
         with:
           usernameTargetedTenant: "mihindu@wso2.com@development"
