@@ -1,17 +1,15 @@
 #!/bin/sh -l
-# set -e
-# set -e -o pipefail
 
-        # User Inputs Array~~~~~~~~~~~~~~~~~~~~~~~~
-        #                                         | 
-        #     $1 - usernameTargetedTenant         |
-        #     $2 - passwordTargetedTenant         |
-        #     $3 - APIName                        |
-        #     $4 - APIVersion                     |
-        #     $5 - PostmanCollectionTestFile      |  
-        #     $6 - needAPIAccessToken             |
-        #     $7 - testingAppName                 |
-        #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# User Inputs Array~~~~~~~~~~~~~~~~~~~~~~~~
+#                                         | 
+#     $1 - usernameTargetedTenant         |
+#     $2 - passwordTargetedTenant         |
+#     $3 - APIName                        |
+#     $4 - APIVersion                     |
+#     $5 - PostmanCollectionTestFile      |  
+#     $6 - needAPIAccessToken             |
+#     $7 - testingAppName                 |
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ## Re-assigning user inputs into variables
     username=`echo "$1"`
