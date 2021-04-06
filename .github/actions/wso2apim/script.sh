@@ -154,16 +154,15 @@ if [ "$needAPIAccessToken" = true ]
             baseKeyClientCredentials=`echo -n "$rest_clientId:$rest_clientSecret" | base64`
 
             # curl -k -d "grant_type=password&username=email_username@Org_key&password=admin&scope=apim:subscribe" -H "Authorization: Basic SGZFbDFqSlBkZzV0YnRyeGhBd3liTjA1UUdvYTpsNmMwYW9MY1dSM2Z3ZXpIaGM3WG9HT2h0NUFh" https://gateway.api.cloud.wso2.com/token
-            rest_access_token_api_view=`curl -s --location -g --request POST 'https://gateway.api.cloud.wso2.com/token' \
+            REST_API_view_access_token=`curl -s --location -g --request POST 'https://gateway.api.cloud.wso2.com/token' \
             --header "Content-Type: application/x-www-form-urlencoded" \
             --header "Authorization: Basic $baseKeyClientCredentials" \
             --data-urlencode "grant_type=password" \
             --data-urlencode "username=$username" \
             --data-urlencode "password=$password" \
             --data-urlencode "scope=apim:api_view" | jq --raw-output '.access_token'`
-            #REST_API_view_access_token
 
-            rest_access_token_subscribe=`curl -s --location -g --request POST 'https://gateway.api.cloud.wso2.com/token' \
+            REST_API_subscribe_token=`curl -s --location -g --request POST 'https://gateway.api.cloud.wso2.com/token' \
             --header "Content-Type: application/x-www-form-urlencoded" \
             --header "Authorization: Basic $baseKeyClientCredentials" \
             --data-urlencode "grant_type=password" \
@@ -171,7 +170,7 @@ if [ "$needAPIAccessToken" = true ]
             --data-urlencode "password=$password" \
             --data-urlencode "scope=apim:subscribe" | jq --raw-output '.access_token'`
 
-            rest_access_token_subscription_view=`curl -s --location -g --request POST 'https://gateway.api.cloud.wso2.com/token' \
+            REST_API_subscription_view_token=`curl -s --location -g --request POST 'https://gateway.api.cloud.wso2.com/token' \
             --header "Content-Type: application/x-www-form-urlencoded" \
             --header "Authorization: Basic $baseKeyClientCredentials" \
             --data-urlencode "grant_type=password" \
@@ -180,9 +179,6 @@ if [ "$needAPIAccessToken" = true ]
             --data-urlencode "scope=apim:subscription_view" | jq --raw-output '.access_token'`
 
             echo "REST access token generated successfully"
-            # echo $rest_access_token_api_view
-            # echo $rest_access_token_subscribe
-            # echo $rest_access_token_subscription_view
         echo "::end-group"
 
 
@@ -190,16 +186,13 @@ if [ "$needAPIAccessToken" = true ]
         echo "::group::Finding The API Identifier(apiId)"
 
             GET_APIs_response=`curl -s --location -g --request GET 'https://gateway.api.cloud.wso2.com/api/am/publisher/apis' \
-            --header "Authorization: Bearer $rest_access_token_api_view"`
+            --header "Authorization: Bearer $REST_API_view_access_token"`
             
             all_APIs_list=`echo "$GET_APIs_response" | jq '.list' `
             relevant_api=`echo "$all_APIs_list" | jq '.[] | select(.name=="'$APIName'" and .version=="'$APIVersion'")'`
             
             api_identifier=`echo "$relevant_api" | jq --raw-output '.id'`
 
-            # echo $GET_APIs_response
-            # echo $all_APIs_list
-            # echo $relevant_api
             echo API Identifier - $api_identifier
 
         echo "::end-group"
@@ -216,22 +209,17 @@ if [ "$needAPIAccessToken" = true ]
             fi 
 
             view_applications_response=`curl -s --location -g --request GET 'https://gateway.api.cloud.wso2.com/api/am/store/applications' \
-            --header "Authorization: Bearer $rest_access_token_subscribe"`
+            --header "Authorization: Bearer $REST_API_subscribe_token"`
             # curl -k -H "Authorization: Bearer ae4eae22-3f65-387b-a171-d37eaa366fa8" -H "Content-Type: application/json" -X POST -d @data.json "https://gateway.api.cloud.wso2.com/api/am/store/applications"
 
             applications_list=`echo "$view_applications_response" | jq '.list'`
             testing_automation_application=`echo "$applications_list" | jq '.[] | select(.name=="'$new_app_name'")'`
             application_id=`echo "$testing_automation_application" | jq --raw-output '.applicationId'`
-            
-            # echo $view_applications_response
-            # echo $applications_list
-            # echo $testing_automation_application
-            # echo ApplicationID - $application_id
 
             if [ -z "$application_id" ]
                 then
                 new_testing_automation_application=`curl -s --location -g --request POST 'https://gateway.api.cloud.wso2.com/api/am/store/applications' \
-                --header "Authorization: Bearer $rest_access_token_subscribe" \
+                --header "Authorization: Bearer $REST_API_subscribe_token" \
                 --header "Content-Type: application/json" \
                 --data-raw '{
                     "throttlingTier": "Unlimited",
@@ -253,21 +241,16 @@ if [ "$needAPIAccessToken" = true ]
 
             # curl -k -H "Authorization: Bearer ae4eae22-3f65-387b-a171-d37eaa366fa8" -H "Content-Type: application/json" -X POST  -d @data.json "https://gateway.api.cloud.wso2.com/api/am/store/subscriptions"
             view_api_subscriptions_response=`curl -s --location -g --request GET "https://gateway.api.cloud.wso2.com/api/am/publisher/subscriptions?apiId=$api_identifier" \
-            --header "Authorization: Bearer $rest_access_token_subscription_view"`
+            --header "Authorization: Bearer $REST_API_subscription_view_token"`
             
             api_subscriptions_list=`echo "$view_api_subscriptions_response" | jq '.list'`
             testing_automation_app_subscription=`echo "$api_subscriptions_list" | jq '.[] | select(.applicationId=="'$application_id'")'`
             subscription_id=`echo "$testing_automation_app_subscription" | jq --raw-output '.subscriptionId'`
             
-            # echo $view_api_subscriptions_response
-            # echo $api_subscriptions_list
-            # echo $testing_automation_app_subscription
-            # echo $subscription_id
-            
             if [ -z "$subscription_id" ]
                 then
                 add_subscription_response=`curl -s --location -g --request POST 'https://gateway.api.cloud.wso2.com/api/am/store/subscriptions' \
-                --header "Authorization: Bearer $rest_access_token_subscribe" \
+                --header "Authorization: Bearer $REST_API_subscribe_token" \
                 --header "Content-Type: application/json" \
                 --data-raw '{
                     "tier": "Unlimited",
@@ -277,8 +260,6 @@ if [ "$needAPIAccessToken" = true ]
 
                 echo $add_subscription_response
             fi 
-            # echo $subscription_id
-            # echo $application_id
         echo "::end-group"
 
 
@@ -286,7 +267,7 @@ if [ "$needAPIAccessToken" = true ]
         echo "::group::Generate consumer Keys(client key and secret) for PRODUCTION API for the Testing Automation Application"
 
             view_application_access_keys_response=`curl -s --location -g --request GET "https://gateway.api.cloud.wso2.com/api/am/store/applications/$application_id/keys/PRODUCTION" \
-            --header "Authorization: Bearer $rest_access_token_subscribe"`
+            --header "Authorization: Bearer $REST_API_subscribe_token"`
             # curl -k -H "Authorization: Bearer ae4eae22-3f65-387b-a171-d37eaa366fa8" -H "Content-Type: application/json" -X POST -d @data.json  "https://gateway.api.cloud.wso2.com/api/am/store/applications/generate-keys?applicationId=c30f3a6e-ffa4-4ae7-afce-224d1f820524"
 
             if [ "$view_application_access_keys_response" ]
@@ -296,7 +277,7 @@ if [ "$needAPIAccessToken" = true ]
 
                 else
                 application_access_response_PRODUCTION=`curl -s --location -g --request POST "https://gateway.api.cloud.wso2.com/api/am/store/applications/generate-keys?applicationId=$application_id" \
-                --header "Authorization: Bearer $rest_access_token_subscribe" \
+                --header "Authorization: Bearer $REST_API_subscribe_token" \
                 --header "Content-Type: application/json" \
                 --data-raw '{    
                 "validityTime": "3600",
@@ -304,7 +285,6 @@ if [ "$needAPIAccessToken" = true ]
                 "accessAllowDomains": ["ALL"]
                 }'`
 
-                # echo $application_access_response_PRODUCTION
                 consumer_key_PRODUCTION=`echo "$application_access_response_PRODUCTION" | jq --raw-output '.consumerKey'`
                 consumer_secret_PRODUCTION=`echo "$application_access_response_PRODUCTION" | jq --raw-output '.consumerSecret'`
             fi 
@@ -328,7 +308,6 @@ if [ "$needAPIAccessToken" = true ]
 
             api_access_token_PRODUCTION=`echo "$api_access_response_PRODUCTION" | jq --raw-output '.access_token'`
         
-            # echo $api_access_response_PRODUCTION
             echo PRODUCTION API ACCESS TOKEN - $api_access_token_PRODUCTION
 
         echo "::end-group"
@@ -338,7 +317,7 @@ if [ "$needAPIAccessToken" = true ]
         echo "::group::Generate consumer Keys(client key and secret) for SANDBOX API for the Testing Automation Application"
 
             view_application_access_keys_response_SANDBOX=`curl -s --location -g --request GET "https://gateway.api.cloud.wso2.com/api/am/store/applications/$application_id/keys/SANDBOX" \
-            --header "Authorization: Bearer $rest_access_token_subscribe"`
+            --header "Authorization: Bearer $REST_API_subscribe_token"`
             # curl -k -H "Authorization: Bearer ae4eae22-3f65-387b-a171-d37eaa366fa8" -H "Content-Type: application/json" -X POST -d @data.json  "https://gateway.api.cloud.wso2.com/api/am/store/applications/generate-keys?applicationId=c30f3a6e-ffa4-4ae7-afce-224d1f820524"
 
             if [ "$view_application_access_keys_response_SANDBOX" ]
@@ -348,7 +327,7 @@ if [ "$needAPIAccessToken" = true ]
 
                 else
                 application_access_response_SANDBOX=`curl -s --location -g --request POST "https://gateway.api.cloud.wso2.com/api/am/store/applications/generate-keys?applicationId=$application_id" \
-                --header "Authorization: Bearer $rest_access_token_subscribe" \
+                --header "Authorization: Bearer $REST_API_subscribe_token" \
                 --header "Content-Type: application/json" \
                 --data-raw '{    
                 "validityTime": "3600",
@@ -380,7 +359,6 @@ if [ "$needAPIAccessToken" = true ]
 
             api_access_token_SANDBOX=`echo "$api_access_response_SANDBOX" | jq --raw-output '.access_token'`
         
-            # echo $api_access_response_SANDBOX
             echo SANDBOX API ACCESS TOKEN - $api_access_token_SANDBOX
 
         echo "::end-group"
@@ -388,7 +366,6 @@ if [ "$needAPIAccessToken" = true ]
 
         ## Creating a text file with important records
         echo "::group::Create a file with important API Tokens records"
-            # rm ./$APIName/$APIVersion/Testing/ACCESS_TOKENS.txt
             echo "
                 Here we have generated API access tokens for you to test your API with your own postman collection
                 --------------------------------------------------------------------------------------------------
