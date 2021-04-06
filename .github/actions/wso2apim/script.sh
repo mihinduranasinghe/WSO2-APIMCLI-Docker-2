@@ -141,11 +141,8 @@ if [ "$needAPIAccessToken" = true ]
             rest_clientId=`echo "$rest_client_object" | jq --raw-output '.clientId'`
             rest_clientSecret=`echo "$rest_client_object" | jq --raw-output '.clientSecret'`
 
-            echo "REST client registered successfully"
-            # echo $rest_clientId
-            # echo $rest_clientSecret 
+            echo "REST client registered successfully" 
         echo "::end-group"
-
 
         ## Generate access tokens for the REST Client for different scopes (api_view, subscribe, subscription_view, ...)
         echo "::group::REST Client Access Token Generate"
@@ -181,7 +178,6 @@ if [ "$needAPIAccessToken" = true ]
             echo "REST access token generated successfully"
         echo "::end-group"
 
-
         ## Finding The API Identifier(apiId) of the user's respective API
         echo "::group::Finding The API Identifier(apiId)"
 
@@ -197,7 +193,6 @@ if [ "$needAPIAccessToken" = true ]
 
         echo "::end-group"
 
-
         ## Creating A New Application named "TestingAutomationApp" for testing purpose
         echo "::group::Create A New Application - TestingAutomationApp"
 
@@ -210,7 +205,6 @@ if [ "$needAPIAccessToken" = true ]
 
             view_applications_response=`curl -s --location -g --request GET 'https://gateway.api.cloud.wso2.com/api/am/store/applications' \
             --header "Authorization: Bearer $REST_API_subscribe_token"`
-            # curl -k -H "Authorization: Bearer ae4eae22-3f65-387b-a171-d37eaa366fa8" -H "Content-Type: application/json" -X POST -d @data.json "https://gateway.api.cloud.wso2.com/api/am/store/applications"
 
             applications_list=`echo "$view_applications_response" | jq '.list'`
             testing_automation_application=`echo "$applications_list" | jq '.[] | select(.name=="'$new_app_name'")'`
@@ -235,11 +229,9 @@ if [ "$needAPIAccessToken" = true ]
             fi
         echo "::end-group"
 
-
         ## Add a new subscription from newly created "TestingAutomationApp" to the current API
         echo "::group::Add a new subscription"
 
-            # curl -k -H "Authorization: Bearer ae4eae22-3f65-387b-a171-d37eaa366fa8" -H "Content-Type: application/json" -X POST  -d @data.json "https://gateway.api.cloud.wso2.com/api/am/store/subscriptions"
             view_api_subscriptions_response=`curl -s --location -g --request GET "https://gateway.api.cloud.wso2.com/api/am/publisher/subscriptions?apiId=$api_identifier" \
             --header "Authorization: Bearer $REST_API_subscription_view_token"`
             
@@ -262,13 +254,11 @@ if [ "$needAPIAccessToken" = true ]
             fi 
         echo "::end-group"
 
-
         ## Generate consumer Keys(client key and secret) for PRODUCTION for the Testing Automation Application
         echo "::group::Generate consumer Keys(client key and secret) for PRODUCTION API for the Testing Automation Application"
 
             view_application_access_keys_response=`curl -s --location -g --request GET "https://gateway.api.cloud.wso2.com/api/am/store/applications/$application_id/keys/PRODUCTION" \
             --header "Authorization: Bearer $REST_API_subscribe_token"`
-            # curl -k -H "Authorization: Bearer ae4eae22-3f65-387b-a171-d37eaa366fa8" -H "Content-Type: application/json" -X POST -d @data.json  "https://gateway.api.cloud.wso2.com/api/am/store/applications/generate-keys?applicationId=c30f3a6e-ffa4-4ae7-afce-224d1f820524"
 
             if [ "$view_application_access_keys_response" ]
                 then
@@ -293,9 +283,9 @@ if [ "$needAPIAccessToken" = true ]
                 echo consumer_secret_PRODUCTION - $consumer_secret_PRODUCTION
         echo "::end-group"
 
-
         ## Generate access token for your PRODUCTION API
-        echo "::group::Generate access token for your PRODUCTION API"            
+        echo "::group::Generate access token for your PRODUCTION API" 
+
             # base64 encode<consumer-key:consumer-secret>
             baseKeyConsumerCredentialsPRODUCTION=`echo -n "$consumer_key_PRODUCTION:$consumer_secret_PRODUCTION" | base64`
 
@@ -312,13 +302,11 @@ if [ "$needAPIAccessToken" = true ]
 
         echo "::end-group"
 
-
         ## Generate consumer Keys(client key and secret) for SANDBOX for the Testing Automation Application
         echo "::group::Generate consumer Keys(client key and secret) for SANDBOX API for the Testing Automation Application"
 
             view_application_access_keys_response_SANDBOX=`curl -s --location -g --request GET "https://gateway.api.cloud.wso2.com/api/am/store/applications/$application_id/keys/SANDBOX" \
             --header "Authorization: Bearer $REST_API_subscribe_token"`
-            # curl -k -H "Authorization: Bearer ae4eae22-3f65-387b-a171-d37eaa366fa8" -H "Content-Type: application/json" -X POST -d @data.json  "https://gateway.api.cloud.wso2.com/api/am/store/applications/generate-keys?applicationId=c30f3a6e-ffa4-4ae7-afce-224d1f820524"
 
             if [ "$view_application_access_keys_response_SANDBOX" ]
                 then
@@ -335,7 +323,6 @@ if [ "$needAPIAccessToken" = true ]
                 "accessAllowDomains": ["ALL"]
                 }'`
 
-                # echo $application_access_response_SANDBOX
                 consumer_key_SANDBOX=`echo "$application_access_response_SANDBOX" | jq --raw-output '.consumerKey'`
                 consumer_secret_SANDBOX=`echo "$application_access_response_SANDBOX" | jq --raw-output '.consumerSecret'`
             fi 
@@ -344,9 +331,9 @@ if [ "$needAPIAccessToken" = true ]
                 echo consumer_secret_SANDBOX - $consumer_secret_SANDBOX
         echo "::end-group"
 
-
         ## Generate access token for your SANDBOX API
-        echo "::group::Generate access token for your SANDBOX API"            
+        echo "::group::Generate access token for your SANDBOX API" 
+
             # base64 encode<consumer-key:consumer-secret>
             basekeyConsumerCredentialsSANDBOX=`echo -n "$consumer_key_SANDBOX:$consumer_secret_SANDBOX" | base64`
 
@@ -362,7 +349,6 @@ if [ "$needAPIAccessToken" = true ]
             echo SANDBOX API ACCESS TOKEN - $api_access_token_SANDBOX
 
         echo "::end-group"
-
 
         ## Creating a text file with important records
         echo "::group::Create a file with important API Tokens records"
@@ -398,7 +384,6 @@ set -e
             echo "'needAPIAccessToken' : TRUE"    
         echo "::end-group"
 fi
-
 
 ## Testing API With a user given Postman Collection
 echo "::group::Testing With Postman Collection"
