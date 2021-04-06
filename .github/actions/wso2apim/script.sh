@@ -122,12 +122,12 @@ if [ "$needAPIAccessToken" = true ]
         ## Register a WSO2 Cloud REST API client
         echo "::group::REST Client Registration"
             
-            # basekeyUserCredentials = Authorization: Basic  <username@wso2.com@organizationname:password>base64
-            basekeyUserCredentials=`echo -n "$username:$password" | base64`
+            # baseKeyUserCredentials = Authorization: Basic  <username@wso2.com@organizationname:password>base64
+            baseKeyUserCredentials=`echo -n "$username:$password" | base64`
 
             # curl -X POST -H "Authorization: Basic base64encode(<email_username@Org_key>:<password>)" -H "Content-Type: application/json" -d @payload.json https://gateway.api.cloud.wso2.com/client-registration/register
             rest_client_object=`curl -s --location -g --request POST 'https://gateway.api.cloud.wso2.com/client-registration/register' \
-            --header "Authorization: Basic $basekeyUserCredentials" \
+            --header "Authorization: Basic $baseKeyUserCredentials" \
             --header "Content-Type: application/json" \
             --data-raw '{
                 "callbackUrl": "www.google.lk",
@@ -150,13 +150,13 @@ if [ "$needAPIAccessToken" = true ]
         ## Generate access tokens for the REST Client for different scopes (api_view, subscribe, subscription_view, ...)
         echo "::group::REST Client Access Token Generate"
             
-            # basekeyClientCredentials = Authorization: Basic <rest-client-id:rest-client-secret>base64
-            basekeyClientCredentials=`echo -n "$rest_clientId:$rest_clientSecret" | base64`
+            # baseKeyClientCredentials = Authorization: Basic <rest-client-id:rest-client-secret>base64
+            baseKeyClientCredentials=`echo -n "$rest_clientId:$rest_clientSecret" | base64`
 
             # curl -k -d "grant_type=password&username=email_username@Org_key&password=admin&scope=apim:subscribe" -H "Authorization: Basic SGZFbDFqSlBkZzV0YnRyeGhBd3liTjA1UUdvYTpsNmMwYW9MY1dSM2Z3ZXpIaGM3WG9HT2h0NUFh" https://gateway.api.cloud.wso2.com/token
             rest_access_token_api_view=`curl -s --location -g --request POST 'https://gateway.api.cloud.wso2.com/token' \
             --header "Content-Type: application/x-www-form-urlencoded" \
-            --header "Authorization: Basic $basekeyClientCredentials" \
+            --header "Authorization: Basic $baseKeyClientCredentials" \
             --data-urlencode "grant_type=password" \
             --data-urlencode "username=$username" \
             --data-urlencode "password=$password" \
@@ -165,7 +165,7 @@ if [ "$needAPIAccessToken" = true ]
 
             rest_access_token_subscribe=`curl -s --location -g --request POST 'https://gateway.api.cloud.wso2.com/token' \
             --header "Content-Type: application/x-www-form-urlencoded" \
-            --header "Authorization: Basic $basekeyClientCredentials" \
+            --header "Authorization: Basic $baseKeyClientCredentials" \
             --data-urlencode "grant_type=password" \
             --data-urlencode "username=$username" \
             --data-urlencode "password=$password" \
@@ -173,7 +173,7 @@ if [ "$needAPIAccessToken" = true ]
 
             rest_access_token_subscription_view=`curl -s --location -g --request POST 'https://gateway.api.cloud.wso2.com/token' \
             --header "Content-Type: application/x-www-form-urlencoded" \
-            --header "Authorization: Basic $basekeyClientCredentials" \
+            --header "Authorization: Basic $baseKeyClientCredentials" \
             --data-urlencode "grant_type=password" \
             --data-urlencode "username=$username" \
             --data-urlencode "password=$password" \
@@ -317,12 +317,12 @@ if [ "$needAPIAccessToken" = true ]
         ## Generate access token for your PRODUCTION API
         echo "::group::Generate access token for your PRODUCTION API"            
             # base64 encode<consumer-key:consumer-secret>
-            basekeyConsumerCredentials=`echo -n "$consumer_key_PRODUCTION:$consumer_secret_PRODUCTION" | base64`
+            baseKeyConsumerCredentialsPRODUCTION=`echo -n "$consumer_key_PRODUCTION:$consumer_secret_PRODUCTION" | base64`
 
             # curl -u <client id>:<client secret> -k -d "grant_type=client_credentials&validity_period=3600" -H "Content-Type:application/x-www-form-urlencoded" https://gateway.api.cloud.wso2.com:443/token
             api_access_response_PRODUCTION=`curl -s --location -g --request POST 'https://gateway.api.cloud.wso2.com:443/token' \
             --header "Content-Type: application/x-www-form-urlencoded" \
-            --header "Authorization: Basic $basekeyConsumerCredentials" \
+            --header "Authorization: Basic $baseKeyConsumerCredentialsPRODUCTION" \
             --data-urlencode "grant_type=client_credentials" \
             --data-urlencode "validity_period=3600"`
 
@@ -369,12 +369,12 @@ if [ "$needAPIAccessToken" = true ]
         ## Generate access token for your SANDBOX API
         echo "::group::Generate access token for your SANDBOX API"            
             # base64 encode<consumer-key:consumer-secret>
-            basekeyConsumerCredentials=`echo -n "$consumer_key_SANDBOX:$consumer_secret_SANDBOX" | base64`
+            basekeyConsumerCredentialsSANDBOX=`echo -n "$consumer_key_SANDBOX:$consumer_secret_SANDBOX" | base64`
 
             # curl -u <client id>:<client secret> -k -d "grant_type=client_credentials&validity_period=3600" -H "Content-Type:application/x-www-form-urlencoded" https://gateway.api.cloud.wso2.com:443/token
             api_access_response_SANDBOX=`curl -s --location -g --request POST 'https://gateway.api.cloud.wso2.com:443/token' \
             --header "Content-Type: application/x-www-form-urlencoded" \
-            --header "Authorization: Basic $basekeyConsumerCredentials" \
+            --header "Authorization: Basic $basekeyConsumerCredentialsSANDBOX" \
             --data-urlencode "grant_type=client_credentials" \
             --data-urlencode "validity_period=3600"`
 
