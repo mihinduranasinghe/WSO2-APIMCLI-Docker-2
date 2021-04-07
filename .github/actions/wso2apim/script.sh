@@ -85,7 +85,7 @@ echo "::end-group"
 ## Listing the APIS in targeted Tenant
 echo "::group::List APIS in targeted Tenant"
     echo "Please wait ... "
-    #wait for 40s until the API is deployed because it might take some time to deploy in background
+    # wait for 40s until the API is deployed because it might take some time to deploy in background
     sleep 40s 
     # apimcli list apis -e <environment> -k
     apimcli list apis -e wso2apicloud -k
@@ -189,10 +189,10 @@ if [ "$needAPIAccessToken" = true ]
         echo "::group::Create A New Application - TestingAutomationApp"
 
             if [ "$testingAppName" ]
-            then
-                new_app_name="$testingAppName"
-            else
-                new_app_name="TestingAutomationApp"
+                then
+                    new_app_name="$testingAppName"
+                else
+                    new_app_name="TestingAutomationApp"
             fi 
 
             view_applications_response=`curl -s --location -g --request GET 'https://gateway.api.cloud.wso2.com/api/am/store/applications' \
@@ -204,20 +204,20 @@ if [ "$needAPIAccessToken" = true ]
 
             if [ -z "$application_id" ]
                 then
-                new_testing_automation_application=`curl -s --location -g --request POST 'https://gateway.api.cloud.wso2.com/api/am/store/applications' \
-                --header "Authorization: Bearer $REST_API_subscribe_token" \
-                --header "Content-Type: application/json" \
-                --data-raw '{
-                    "throttlingTier": "Unlimited",
-                    "description": "Automatic generated app for automated testing purpose",
-                    "name": "'$new_app_name'",
-                    "callbackUrl": "http://my.server.com/callback"
-                }'`
+                    new_testing_automation_application=`curl -s --location -g --request POST 'https://gateway.api.cloud.wso2.com/api/am/store/applications' \
+                    --header "Authorization: Bearer $REST_API_subscribe_token" \
+                    --header "Content-Type: application/json" \
+                    --data-raw '{
+                        "throttlingTier": "Unlimited",
+                        "description": "Automatic generated app for automated testing purpose",
+                        "name": "'$new_app_name'",
+                        "callbackUrl": "http://my.server.com/callback"
+                    }'`
 
-                application_id=`echo "$new_testing_automation_application" | jq --raw-output '.applicationId'`
-                echo ApplicationID - $application_id
+                    application_id=`echo "$new_testing_automation_application" | jq --raw-output '.applicationId'`
+                    echo ApplicationID - $application_id
                 else
-                echo ApplicationID - $application_id    
+                    echo ApplicationID - $application_id    
             fi
         echo "::end-group"
 
