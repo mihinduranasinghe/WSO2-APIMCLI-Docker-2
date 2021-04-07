@@ -233,16 +233,15 @@ if [ "$needAPIAccessToken" = true ]
             
             if [ -z "$subscription_id" ]
                 then
-                add_subscription_response=`curl -s --location -g --request POST 'https://gateway.api.cloud.wso2.com/api/am/store/subscriptions' \
-                --header "Authorization: Bearer $REST_API_subscribe_token" \
-                --header "Content-Type: application/json" \
-                --data-raw '{
-                    "tier": "Unlimited",
-                    "apiIdentifier": "'$api_identifier'",
-                    "applicationId": "'$application_id'"
-                }'`
-
-                echo $add_subscription_response
+                    add_subscription_response=`curl -s --location -g --request POST 'https://gateway.api.cloud.wso2.com/api/am/store/subscriptions' \
+                    --header "Authorization: Bearer $REST_API_subscribe_token" \
+                    --header "Content-Type: application/json" \
+                    --data-raw '{
+                        "tier": "Unlimited",
+                        "apiIdentifier": "'$api_identifier'",
+                        "applicationId": "'$application_id'"
+                    }'`
+                    echo $add_subscription_response
             fi 
         echo "::end-group"
 
@@ -254,21 +253,21 @@ if [ "$needAPIAccessToken" = true ]
 
             if [ "$view_application_access_keys_response" ]
                 then
-                consumer_key_PRODUCTION=`echo "$view_application_access_keys_response" | jq --raw-output '.consumerKey'`
-                consumer_secret_PRODUCTION=`echo "$view_application_access_keys_response" | jq --raw-output '.consumerSecret'`
+                    consumer_key_PRODUCTION=`echo "$view_application_access_keys_response" | jq --raw-output '.consumerKey'`
+                    consumer_secret_PRODUCTION=`echo "$view_application_access_keys_response" | jq --raw-output '.consumerSecret'`
 
                 else
-                application_access_response_PRODUCTION=`curl -s --location -g --request POST "https://gateway.api.cloud.wso2.com/api/am/store/applications/generate-keys?applicationId=$application_id" \
-                --header "Authorization: Bearer $REST_API_subscribe_token" \
-                --header "Content-Type: application/json" \
-                --data-raw '{    
-                "validityTime": "3600",
-                "keyType": "PRODUCTION",
-                "accessAllowDomains": ["ALL"]
-                }'`
+                    application_access_response_PRODUCTION=`curl -s --location -g --request POST "https://gateway.api.cloud.wso2.com/api/am/store/applications/generate-keys?applicationId=$application_id" \
+                    --header "Authorization: Bearer $REST_API_subscribe_token" \
+                    --header "Content-Type: application/json" \
+                    --data-raw '{    
+                    "validityTime": "3600",
+                    "keyType": "PRODUCTION",
+                    "accessAllowDomains": ["ALL"]
+                    }'`
 
-                consumer_key_PRODUCTION=`echo "$application_access_response_PRODUCTION" | jq --raw-output '.consumerKey'`
-                consumer_secret_PRODUCTION=`echo "$application_access_response_PRODUCTION" | jq --raw-output '.consumerSecret'`
+                    consumer_key_PRODUCTION=`echo "$application_access_response_PRODUCTION" | jq --raw-output '.consumerKey'`
+                    consumer_secret_PRODUCTION=`echo "$application_access_response_PRODUCTION" | jq --raw-output '.consumerSecret'`
             fi 
 
                 echo consumer_key_PRODUCTION    - $consumer_key_PRODUCTION
@@ -302,21 +301,21 @@ if [ "$needAPIAccessToken" = true ]
 
             if [ "$view_application_access_keys_response_SANDBOX" ]
                 then
-                consumer_key_SANDBOX=`echo "$view_application_access_keys_response_SANDBOX" | jq --raw-output '.consumerKey'`
-                consumer_secret_SANDBOX=`echo "$view_application_access_keys_response_SANDBOX" | jq --raw-output '.consumerSecret'`
+                    consumer_key_SANDBOX=`echo "$view_application_access_keys_response_SANDBOX" | jq --raw-output '.consumerKey'`
+                    consumer_secret_SANDBOX=`echo "$view_application_access_keys_response_SANDBOX" | jq --raw-output '.consumerSecret'`
 
                 else
-                application_access_response_SANDBOX=`curl -s --location -g --request POST "https://gateway.api.cloud.wso2.com/api/am/store/applications/generate-keys?applicationId=$application_id" \
-                --header "Authorization: Bearer $REST_API_subscribe_token" \
-                --header "Content-Type: application/json" \
-                --data-raw '{    
-                "validityTime": "3600",
-                "keyType": "SANDBOX",
-                "accessAllowDomains": ["ALL"]
-                }'`
+                    application_access_response_SANDBOX=`curl -s --location -g --request POST "https://gateway.api.cloud.wso2.com/api/am/store/applications/generate-keys?applicationId=$application_id" \
+                    --header "Authorization: Bearer $REST_API_subscribe_token" \
+                    --header "Content-Type: application/json" \
+                    --data-raw '{    
+                    "validityTime": "3600",
+                    "keyType": "SANDBOX",
+                    "accessAllowDomains": ["ALL"]
+                    }'`
 
-                consumer_key_SANDBOX=`echo "$application_access_response_SANDBOX" | jq --raw-output '.consumerKey'`
-                consumer_secret_SANDBOX=`echo "$application_access_response_SANDBOX" | jq --raw-output '.consumerSecret'`
+                    consumer_key_SANDBOX=`echo "$application_access_response_SANDBOX" | jq --raw-output '.consumerKey'`
+                    consumer_secret_SANDBOX=`echo "$application_access_response_SANDBOX" | jq --raw-output '.consumerSecret'`
             fi 
 
                 echo consumer_key_SANDBOX    - $consumer_key_SANDBOX
