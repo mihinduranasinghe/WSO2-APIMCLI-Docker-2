@@ -47,26 +47,23 @@ set +e
 set -e
 
 set +e
-    ## Init API iproject with given API definition
+    ## Init API project with given API definition
     echo "::group::Init API iproject with given API definition"
         apimcli init ./$APIName/$APIVersion 
         mkdir ./$APIName/$APIVersion/Sequences/fault-sequence/Custom
         mkdir ./$APIName/$APIVersion/Sequences/in-sequence/Custom
         mkdir ./$APIName/$APIVersion/Sequences/out-sequence/Custom
         mkdir ./$APIName/$APIVersion/Testing
-        # touch ./$APIName/$APIVersion/Docs/docs.json
         ls ./$APIName/$APIVersion
 set -e
 
 set +e
-    ## Push newly initialized API project into the GIT repo again from VM
+    ## Push newly initialized API project into the GIT repo back from VM
     echo "::group::Push API project into the GIT repo from VM"
         git config --global user.email "my-bot@bot.com"
         git config --global user.name "my-bot"
-
-        #Search for all empty directories/sub-directories and creates a ".gitkeep" file, 
         find * -type d -empty -exec touch '{}'/.gitkeep \;
-
+        #Search for all empty directories/sub-directories and create a ".gitkeep" file, 
         git add . 
         git commit -m "API project initialized"
         git push
@@ -74,10 +71,9 @@ set +e
 set -e
 
 # echo "::group:: Set HTTP request timeout "
-# apimcli set --http-request-timeout <http-request-timeout>
-apimcli set --http-request-timeout 30000
+    # apimcli set --http-request-timeout <http-request-timeout>
+    apimcli set --http-request-timeout 15000
 # echo "::end-group"
-
 
 ## Import/deploy API project to the targetted Tenant
 echo "::group::Import API project to targetted Tenant"
@@ -85,11 +81,9 @@ echo "::group::Import API project to targetted Tenant"
     apimcli import-api -f ./$APIName/$APIVersion -e wso2apicloud --preserve-provider=false --update --verbose -k
 echo "::end-group"
 
-
 #wait for 40s until the API is deployed because it might take some time to deploy in background.                                                
     echo "Please wait ... "
-    sleep 40s     
-
+    sleep 40s
 
 ## Listing the APIS in targeted Tenant
 echo "::group::List APIS in targeted Tenant"
@@ -98,27 +92,26 @@ echo "::group::List APIS in targeted Tenant"
     apimcli list apis -e wso2apicloud -k
 echo "::end-group"
 
-
 # Invoking an API Access Token
 
-  # If client requested APIAccessToken ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  #
-  #   1.Register a WSO2 Cloud REST API client                                  
-  #   2.Generate access tokens for the REST Client for different scopes 
-  #     (api_view, subscribe, subscription_view, ...) 
-  #   3.Finding The API Identifier(apiId) of the user's respective API      
-  #   4.Create A New Application named "TestingAutomationApp" for testing purpose                 
-  #   5.Add a new subscription from newly created "TestingAutomationApp" to the current API    
-  #   6.Generate consumer Keys(client key and secret) for PRODUCTION API 
-  #   7.Generate consumer Keys(client key and secret) for SANDBOX API
-  #   8.Generate access token for your PRODUCTION API
-  #   9.Generate access token for your SANDBOX API
-  #  10.Creating a text file with important records  
-  #                  
-  #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  # If client requested APIAccessToken ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  #                                                                                             |
+  #   1.Register a WSO2 Cloud REST API client                                                   |
+  #   2.Generate access tokens for the REST Client for different scopes                         |
+  #     (api_view, subscribe, subscription_view, ...)                                           |
+  #   3.Finding The API Identifier(apiId) of the user's respective API                          |
+  #   4.Create A New Application named "TestingAutomationApp" for testing purpose               | 
+  #   5.Add a new subscription from newly created "TestingAutomationApp" to the current API     |
+  #   6.Generate consumer Keys(client key and secret) for PRODUCTION API                        |
+  #   7.Generate consumer Keys(client key and secret) for SANDBOX API                           |
+  #   8.Generate access token for your PRODUCTION API                                           |
+  #   9.Generate access token for your SANDBOX API                                              |
+  #  10.Creating a text file with important records                                             |
+  #                                                                                             |
+  #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 if [ "$needAPIAccessToken" = true ]
-    then   
+    then
         ## Register a WSO2 Cloud REST API client
         echo "::group::REST Client Registration"
             
@@ -141,7 +134,7 @@ if [ "$needAPIAccessToken" = true ]
             rest_clientId=`echo "$rest_client_object" | jq --raw-output '.clientId'`
             rest_clientSecret=`echo "$rest_client_object" | jq --raw-output '.clientSecret'`
 
-            echo "REST client registered successfully" 
+            echo "REST client registered successfully"
         echo "::end-group"
 
         ## Generate access tokens for the REST Client for different scopes (api_view, subscribe, subscription_view, ...)
@@ -367,10 +360,8 @@ set +e
         echo "::group::Push API project into the GIT repo from VM"
             git config --global user.email "my-bot@bot.com"
             git config --global user.name "my-bot"
-
-            #Search for all empty directories/sub-directories and creates a ".gitkeep" file, 
             find * -type d -empty -exec touch '{}'/.gitkeep \;
-
+            #Search for all empty directories/sub-directories and creates a ".gitkeep" file, 
             git add . 
             git commit -m "API project initialized"
             git push

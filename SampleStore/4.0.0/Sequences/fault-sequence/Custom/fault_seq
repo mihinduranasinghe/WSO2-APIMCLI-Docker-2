@@ -1,5 +1,0 @@
-<sequence xmlns="http://ws.apache.org/ns/synapse" name="fault_seq">
-    <log level="custom">
-        <property name="FAULT_MESSAGE" value="FAULT_FLOW"/>
-    </log>
-</sequence>
