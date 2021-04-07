@@ -193,7 +193,7 @@ if [ "$needAPIAccessToken" = true ]
                 else
                     new_app_name="TestingAutomationApp"
             fi 
-            echo Application Name - $testingAppName
+            echo Application Name - $new_app_name
 
             view_applications_response=`curl -s --location -g --request GET 'https://gateway.api.cloud.wso2.com/api/am/store/applications' \
             --header "Authorization: Bearer $REST_API_subscribe_token"`
