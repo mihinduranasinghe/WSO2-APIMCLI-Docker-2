@@ -91,7 +91,7 @@ echo "::group::List APIS in targeted Tenant"
     # apimcli list apis --environment <environment> --insec
     # apimcli list apis -e wso2apicloud -k
     apiListRespone=`echo apimcli list apis -e wso2apicloud -k`
-    echo apiListRespone
+    echo $apiListRespone
 echo "::end-group"
 
 # Invoking an API Access Token
