@@ -89,8 +89,8 @@ echo "::end-group"
 echo "::group::List APIS in targeted Tenant"
     # apimcli list apis -e <environment> -k
     # apimcli list apis --environment <environment> --insec
-    # apimcli list apis -e wso2apicloud -k
-    apiListRespone=`apimcli list apis -e wso2apicloud -k | jq --raw-output '.access_token'`
+    apimcli list apis -e wso2apicloud -k
+    apiListRespone=`apimcli list apis -e wso2apicloud -k | jq --raw-output`
     echo $apiListRespone
 echo "::end-group"
 
