@@ -63,7 +63,6 @@ set +e
         git config --global user.email "my-bot@bot.com"
         git config --global user.name "my-bot"
         find * -type d -empty -exec touch '{}'/.gitkeep \;
-        #Search for all empty directories/sub-directories and create a ".gitkeep" file, 
         git add . 
         git commit -m "API project initialized"
         git push
@@ -186,7 +185,7 @@ if [ "$needAPIAccessToken" = true ]
         echo "::end-group"
 
         ## Creating a new application for testing with a given name or "TestingAutomationApp" for testing purpose
-        echo "::group::Create A New Application - TestingAutomationApp"
+        echo "::group::Create a new application for testing"
 
             if [ "$testingAppName" ]
                 then
@@ -194,6 +193,7 @@ if [ "$needAPIAccessToken" = true ]
                 else
                     new_app_name="TestingAutomationApp"
             fi 
+            echo Application Name - $testingAppName
 
             view_applications_response=`curl -s --location -g --request GET 'https://gateway.api.cloud.wso2.com/api/am/store/applications' \
             --header "Authorization: Bearer $REST_API_subscribe_token"`
@@ -201,7 +201,7 @@ if [ "$needAPIAccessToken" = true ]
             applications_list=`echo "$view_applications_response" | jq '.list'`
             testing_automation_application=`echo "$applications_list" | jq '.[] | select(.name=="'$new_app_name'")'`
             application_id=`echo "$testing_automation_application" | jq --raw-output '.applicationId'`
-
+            
             if [ -z "$application_id" ]
                 then
                     new_testing_automation_application=`curl -s --location -g --request POST 'https://gateway.api.cloud.wso2.com/api/am/store/applications' \
@@ -242,6 +242,8 @@ if [ "$needAPIAccessToken" = true ]
                         "applicationId": "'$application_id'"
                     }'`
                     echo $add_subscription_response
+                else
+                    echo "Subscription already exist"
             fi 
         echo "::end-group"
 
@@ -359,7 +361,6 @@ set +e
             git config --global user.email "my-bot@bot.com"
             git config --global user.name "my-bot"
             find * -type d -empty -exec touch '{}'/.gitkeep \;
-            #Search for all empty directories/sub-directories and creates a ".gitkeep" file, 
             git add . 
             git commit -m "API project initialized"
             git push
