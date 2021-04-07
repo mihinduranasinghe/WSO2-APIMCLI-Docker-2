@@ -143,7 +143,7 @@ if [ "$needAPIAccessToken" = true ]
             # baseKeyClientCredentials = Authorization: Basic <rest-client-id:rest-client-secret>base64
             baseKeyClientCredentials=`echo -n "$rest_clientId:$rest_clientSecret" | base64`
 
-            # curl -k -d "grant_type=password&username=email_username@Org_key&password=admin&scope=apim:subscribe" -H "Authorization: Basic SGZFbDFqSlBkZzV0YnRyeGhBd3liTjA1UUdvYTpsNmMwYW9MY1dSM2Z3ZXpIaGM3WG9HT2h0NUFh" https://gateway.api.cloud.wso2.com/token
+            # curl -k -d "grant_type=password&username=email_username@Org_key&password=admin&scope=apim:subscribe" -H "Authorization: Basic base64keyXX" https://gateway.api.cloud.wso2.com/token
             REST_API_view_access_token=`curl -s --location -g --request POST 'https://gateway.api.cloud.wso2.com/token' \
             --header "Content-Type: application/x-www-form-urlencoded" \
             --header "Authorization: Basic $baseKeyClientCredentials" \
@@ -171,7 +171,7 @@ if [ "$needAPIAccessToken" = true ]
             echo "REST access token generated successfully"
         echo "::end-group"
 
-        ## Finding The API Identifier(apiId) of the user's respective API
+        ## Finding the API Identifier(apiId) of the user's respective API
         echo "::group::Finding The API Identifier(apiId)"
 
             GET_APIs_response=`curl -s --location -g --request GET 'https://gateway.api.cloud.wso2.com/api/am/publisher/apis' \
@@ -186,7 +186,7 @@ if [ "$needAPIAccessToken" = true ]
 
         echo "::end-group"
 
-        ## Creating A New Application named "TestingAutomationApp" for testing purpose
+        ## Creating a new application for testing with a given name or "TestingAutomationApp" for testing purpose
         echo "::group::Create A New Application - TestingAutomationApp"
 
             if [ "$testingAppName" ]
@@ -222,7 +222,7 @@ if [ "$needAPIAccessToken" = true ]
             fi
         echo "::end-group"
 
-        ## Add a new subscription from newly created "TestingAutomationApp" to the current API
+        ## Add a new subscription from newly created testing app to the current API
         echo "::group::Add a new subscription"
 
             view_api_subscriptions_response=`curl -s --location -g --request GET "https://gateway.api.cloud.wso2.com/api/am/publisher/subscriptions?apiId=$api_identifier" \
