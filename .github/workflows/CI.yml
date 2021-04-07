@@ -49,18 +49,18 @@ jobs:
       #     needAPIAccessToken: TRUE
       #     testingAppName: "TestingApp2"
 
-      # - name: SampleStore v4.0.0 deploying to development tenant
-      #   if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-      #   uses: ./.github/actions/wso2apim/
-      #   id: apim4
-      #   with:
-      #     usernameTargetedTenant: "mihindu@wso2.com@development"
-      #     passwordTargetedTenant: ${{secrets.PASSWORD}}
-      #     APIName: "SampleStore"
-      #     needAPIAccessToken: TRUE
-      #     # testingAppName: "TestingApp2"
-      #     APIVersion: "4.0.0"
-      #     PostmanCollectionTestFile: "sample_store.postman_collection.json"
+      - name: SampleStore v4.0.0 deploying to development tenant
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        uses: ./.github/actions/wso2apim/
+        id: apim4
+        with:
+          usernameTargetedTenant: "mihindu@wso2.com@development"
+          passwordTargetedTenant: ${{secrets.PASSWORD}}
+          APIName: "SampleStore"
+          needAPIAccessToken: TRUE
+          # testingAppName: "TestingApp2"
+          APIVersion: "4.0.0"
+          # PostmanCollectionTestFile: "sample_store.postman_collection.json"
 
       # - name: SampleStore v3.0.0 deploying to development tenant
       #   if: github.event_name == 'push' && github.ref == 'refs/heads/main'
